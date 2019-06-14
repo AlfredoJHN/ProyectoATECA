@@ -1,0 +1,74 @@
+﻿@model ProyectoATECA.Models.Sucursale
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sucursale</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.canton)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.canton)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.distrito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.distrito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.provincia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.provincia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.correo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_sucursal }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

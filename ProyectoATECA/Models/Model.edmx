@@ -1,0 +1,987 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ATECA_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BitacoraCliente">
+          <Key>
+            <PropertyRef Name="ID_bitacoraCliente" />
+          </Key>
+          <Property Name="ID_bitacoraCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_usuarioCliente" Type="int" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="45" />
+          <Property Name="contraseña" Type="varbinary" MaxLength="1000" />
+          <Property Name="asegurado" Type="bit" />
+          <Property Name="fechaCambio" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BitacoraFuncionario">
+          <Key>
+            <PropertyRef Name="ID_bitacoraFuncionario" />
+          </Key>
+          <Property Name="ID_bitacoraFuncionario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_usuarioFuncionario" Type="int" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="30" />
+          <Property Name="correo" Type="varchar" MaxLength="45" />
+          <Property Name="contraseña" Type="varbinary" MaxLength="1000" />
+          <Property Name="fechaCambio" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BitacoraServicio">
+          <Key>
+            <PropertyRef Name="ID_bitacoraServicio" />
+          </Key>
+          <Property Name="ID_bitacoraServicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_servicio" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechaCambio" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BitacoraSucursal">
+          <Key>
+            <PropertyRef Name="ID_bitacoraSucursal" />
+          </Key>
+          <Property Name="ID_bitacoraSucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_sucursal" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="15" />
+          <Property Name="direccion" Type="varchar" MaxLength="60" />
+          <Property Name="correo" Type="varchar" MaxLength="45" />
+          <Property Name="provincia" Type="varchar" MaxLength="20" />
+          <Property Name="distrito" Type="varchar" MaxLength="20" />
+          <Property Name="canton" Type="varchar" MaxLength="20" />
+          <Property Name="fechaCambio" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BitacoraTipos">
+          <Key>
+            <PropertyRef Name="ID_bitacoraTipo" />
+          </Key>
+          <Property Name="ID_bitacoraTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_tipo" Type="int" Nullable="false" />
+          <Property Name="nombreTipo" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fichas">
+          <Key>
+            <PropertyRef Name="ID_ficha" />
+          </Key>
+          <Property Name="ID_ficha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_servicio" Type="int" Nullable="false" />
+          <Property Name="codigoFicha" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="numeroFicha" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HistorialAtendidos">
+          <Key>
+            <PropertyRef Name="ID_historialAtendido" />
+          </Key>
+          <Property Name="ID_historialAtendido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_usuarioCliente" Type="int" Nullable="false" />
+          <Property Name="ID_usuarioFuncionario" Type="int" Nullable="false" />
+          <Property Name="ID_servicio" Type="int" Nullable="false" />
+          <Property Name="ID_ficha" Type="int" Nullable="false" />
+          <Property Name="horaInicio" Type="datetime" Nullable="false" />
+          <Property Name="horaFin" Type="datetime" Nullable="false" />
+          <Property Name="duracion" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'ATECA_BD.dbo.Prueba' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="Prueba">
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="Reportes">
+          <Key>
+            <PropertyRef Name="ID_reporte" />
+          </Key>
+          <Property Name="ID_reporte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_sucursal" Type="int" Nullable="false" />
+          <Property Name="ID_tipo" Type="int" Nullable="false" />
+          <Property Name="detalle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="periodo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fechaCreacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servicios">
+          <Key>
+            <PropertyRef Name="ID_servicio" />
+          </Key>
+          <Property Name="ID_servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Servicios_Por_Sucursal">
+          <Key>
+            <PropertyRef Name="ID_sucursal" />
+            <PropertyRef Name="ID_servicio" />
+          </Key>
+          <Property Name="ID_sucursal" Type="int" Nullable="false" />
+          <Property Name="ID_servicio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sucursales">
+          <Key>
+            <PropertyRef Name="ID_sucursal" />
+          </Key>
+          <Property Name="ID_sucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="canton" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="distrito" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="provincia" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposReporte">
+          <Key>
+            <PropertyRef Name="ID_tipo" />
+          </Key>
+          <Property Name="ID_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreTipo" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosCliente">
+          <Key>
+            <PropertyRef Name="ID_usuarioCliente" />
+          </Key>
+          <Property Name="ID_usuarioCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="contraseña" Type="varbinary" MaxLength="1000" Nullable="false" />
+          <Property Name="asegurado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosFuncionario">
+          <Key>
+            <PropertyRef Name="ID_usuarioFuncionario" />
+          </Key>
+          <Property Name="ID_usuarioFuncionario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="contraseña" Type="varbinary" MaxLength="1000" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BitacoraC__ID_us__3C69FB99">
+          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
+          <End Role="BitacoraCliente" Type="Self.BitacoraCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosCliente">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Principal>
+            <Dependent Role="BitacoraCliente">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraF__ID_us__3B75D760">
+          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
+          <End Role="BitacoraFuncionario" Type="Self.BitacoraFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosFuncionario">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Principal>
+            <Dependent Role="BitacoraFuncionario">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraS__ID_se__440B1D61">
+          <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
+          <End Role="BitacoraServicio" Type="Self.BitacoraServicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="ID_servicio" />
+            </Principal>
+            <Dependent Role="BitacoraServicio">
+              <PropertyRef Name="ID_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraS__ID_su__44FF419A">
+          <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
+          <End Role="BitacoraSucursal" Type="Self.BitacoraSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursales">
+              <PropertyRef Name="ID_sucursal" />
+            </Principal>
+            <Dependent Role="BitacoraSucursal">
+              <PropertyRef Name="ID_sucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraT__ID_ti__45F365D3">
+          <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
+          <End Role="BitacoraTipos" Type="Self.BitacoraTipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposReporte">
+              <PropertyRef Name="ID_tipo" />
+            </Principal>
+            <Dependent Role="BitacoraTipos">
+              <PropertyRef Name="ID_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fichas__ID_servi__412EB0B6">
+          <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
+          <End Role="Fichas" Type="Self.Fichas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="ID_servicio" />
+            </Principal>
+            <Dependent Role="Fichas">
+              <PropertyRef Name="ID_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_fi__403A8C7D">
+          <End Role="Fichas" Type="Self.Fichas" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fichas">
+              <PropertyRef Name="ID_ficha" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_ficha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_se__3F466844">
+          <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="ID_servicio" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_us__3D5E1FD2">
+          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosCliente">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_us__3E52440B">
+          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosFuncionario">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reportes__ID_suc__46E78A0C">
+          <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
+          <End Role="Reportes" Type="Self.Reportes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursales">
+              <PropertyRef Name="ID_sucursal" />
+            </Principal>
+            <Dependent Role="Reportes">
+              <PropertyRef Name="ID_sucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reportes__ID_tip__47DBAE45">
+          <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
+          <End Role="Reportes" Type="Self.Reportes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposReporte">
+              <PropertyRef Name="ID_tipo" />
+            </Principal>
+            <Dependent Role="Reportes">
+              <PropertyRef Name="ID_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Servicios__ID_se__4316F928">
+          <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
+          <End Role="Servicios_Por_Sucursal" Type="Self.Servicios_Por_Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="ID_servicio" />
+            </Principal>
+            <Dependent Role="Servicios_Por_Sucursal">
+              <PropertyRef Name="ID_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Servicios__ID_su__4222D4EF">
+          <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
+          <End Role="Servicios_Por_Sucursal" Type="Self.Servicios_Por_Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursales">
+              <PropertyRef Name="ID_sucursal" />
+            </Principal>
+            <Dependent Role="Servicios_Por_Sucursal">
+              <PropertyRef Name="ID_sucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ATECA_BDModelStoreContainer">
+          <EntitySet Name="BitacoraCliente" EntityType="Self.BitacoraCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraFuncionario" EntityType="Self.BitacoraFuncionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraServicio" EntityType="Self.BitacoraServicio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraSucursal" EntityType="Self.BitacoraSucursal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraTipos" EntityType="Self.BitacoraTipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fichas" EntityType="Self.Fichas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialAtendidos" EntityType="Self.HistorialAtendidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reportes" EntityType="Self.Reportes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicios" EntityType="Self.Servicios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sucursales" EntityType="Self.Sucursales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposReporte" EntityType="Self.TiposReporte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosCliente" EntityType="Self.UsuariosCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosFuncionario" EntityType="Self.UsuariosFuncionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicios_Por_Sucursal" EntityType="Self.Servicios_Por_Sucursal" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Servicios_Por_Sucursal].[ID_sucursal] AS [ID_sucursal], 
+    [Servicios_Por_Sucursal].[ID_servicio] AS [ID_servicio]
+    FROM [dbo].[Servicios_Por_Sucursal] AS [Servicios_Por_Sucursal]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__BitacoraC__ID_us__3C69FB99" Association="Self.FK__BitacoraC__ID_us__3C69FB99">
+            <End Role="UsuariosCliente" EntitySet="UsuariosCliente" />
+            <End Role="BitacoraCliente" EntitySet="BitacoraCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraF__ID_us__3B75D760" Association="Self.FK__BitacoraF__ID_us__3B75D760">
+            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionario" />
+            <End Role="BitacoraFuncionario" EntitySet="BitacoraFuncionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraS__ID_se__440B1D61" Association="Self.FK__BitacoraS__ID_se__440B1D61">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="BitacoraServicio" EntitySet="BitacoraServicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraS__ID_su__44FF419A" Association="Self.FK__BitacoraS__ID_su__44FF419A">
+            <End Role="Sucursales" EntitySet="Sucursales" />
+            <End Role="BitacoraSucursal" EntitySet="BitacoraSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraT__ID_ti__45F365D3" Association="Self.FK__BitacoraT__ID_ti__45F365D3">
+            <End Role="TiposReporte" EntitySet="TiposReporte" />
+            <End Role="BitacoraTipos" EntitySet="BitacoraTipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fichas__ID_servi__412EB0B6" Association="Self.FK__Fichas__ID_servi__412EB0B6">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="Fichas" EntitySet="Fichas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_fi__403A8C7D" Association="Self.FK__Historial__ID_fi__403A8C7D">
+            <End Role="Fichas" EntitySet="Fichas" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_se__3F466844" Association="Self.FK__Historial__ID_se__3F466844">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_us__3D5E1FD2" Association="Self.FK__Historial__ID_us__3D5E1FD2">
+            <End Role="UsuariosCliente" EntitySet="UsuariosCliente" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_us__3E52440B" Association="Self.FK__Historial__ID_us__3E52440B">
+            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionario" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reportes__ID_suc__46E78A0C" Association="Self.FK__Reportes__ID_suc__46E78A0C">
+            <End Role="Sucursales" EntitySet="Sucursales" />
+            <End Role="Reportes" EntitySet="Reportes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reportes__ID_tip__47DBAE45" Association="Self.FK__Reportes__ID_tip__47DBAE45">
+            <End Role="TiposReporte" EntitySet="TiposReporte" />
+            <End Role="Reportes" EntitySet="Reportes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Servicios__ID_se__4316F928" Association="Self.FK__Servicios__ID_se__4316F928">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="Servicios_Por_Sucursal" EntitySet="Servicios_Por_Sucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Servicios__ID_su__4222D4EF" Association="Self.FK__Servicios__ID_su__4222D4EF">
+            <End Role="Sucursales" EntitySet="Sucursales" />
+            <End Role="Servicios_Por_Sucursal" EntitySet="Servicios_Por_Sucursal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ATECA_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BitacoraCliente">
+          <Key>
+            <PropertyRef Name="ID_bitacoraCliente" />
+          </Key>
+          <Property Name="ID_bitacoraCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_usuarioCliente" Type="Int32" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" />
+          <Property Name="asegurado" Type="Boolean" />
+          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UsuariosCliente" Relationship="Self.FK__BitacoraC__ID_us__3C69FB99" FromRole="BitacoraCliente" ToRole="UsuariosCliente" />
+        </EntityType>
+        <EntityType Name="BitacoraFuncionario">
+          <Key>
+            <PropertyRef Name="ID_bitacoraFuncionario" />
+          </Key>
+          <Property Name="ID_bitacoraFuncionario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_usuarioFuncionario" Type="Int32" Nullable="false" />
+          <Property Name="cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" />
+          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UsuariosFuncionario" Relationship="Self.FK__BitacoraF__ID_us__3B75D760" FromRole="BitacoraFuncionario" ToRole="UsuariosFuncionario" />
+        </EntityType>
+        <EntityType Name="BitacoraServicio">
+          <Key>
+            <PropertyRef Name="ID_bitacoraServicio" />
+          </Key>
+          <Property Name="ID_bitacoraServicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_servicio" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Servicio" Relationship="Self.FK__BitacoraS__ID_se__440B1D61" FromRole="BitacoraServicio" ToRole="Servicios" />
+        </EntityType>
+        <EntityType Name="BitacoraSucursal">
+          <Key>
+            <PropertyRef Name="ID_bitacoraSucursal" />
+          </Key>
+          <Property Name="ID_bitacoraSucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_sucursal" Type="Int32" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="distrito" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Sucursale" Relationship="Self.FK__BitacoraS__ID_su__44FF419A" FromRole="BitacoraSucursal" ToRole="Sucursales" />
+        </EntityType>
+        <EntityType Name="BitacoraTipos">
+          <Key>
+            <PropertyRef Name="ID_bitacoraTipo" />
+          </Key>
+          <Property Name="ID_bitacoraTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_tipo" Type="Int32" Nullable="false" />
+          <Property Name="nombreTipo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TiposReporte" Relationship="Self.FK__BitacoraT__ID_ti__45F365D3" FromRole="BitacoraTipos" ToRole="TiposReporte" />
+        </EntityType>
+        <EntityType Name="Ficha">
+          <Key>
+            <PropertyRef Name="ID_ficha" />
+          </Key>
+          <Property Name="ID_ficha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_servicio" Type="Int32" Nullable="false" />
+          <Property Name="codigoFicha" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="numeroFicha" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Servicio" Relationship="Self.FK__Fichas__ID_servi__412EB0B6" FromRole="Fichas" ToRole="Servicios" />
+          <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_fi__403A8C7D" FromRole="Fichas" ToRole="HistorialAtendidos" />
+        </EntityType>
+        <EntityType Name="HistorialAtendido">
+          <Key>
+            <PropertyRef Name="ID_historialAtendido" />
+          </Key>
+          <Property Name="ID_historialAtendido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_usuarioCliente" Type="Int32" Nullable="false" />
+          <Property Name="ID_usuarioFuncionario" Type="Int32" Nullable="false" />
+          <Property Name="ID_servicio" Type="Int32" Nullable="false" />
+          <Property Name="ID_ficha" Type="Int32" Nullable="false" />
+          <Property Name="horaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="horaFin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="duracion" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Ficha" Relationship="Self.FK__Historial__ID_fi__403A8C7D" FromRole="HistorialAtendidos" ToRole="Fichas" />
+          <NavigationProperty Name="Servicio" Relationship="Self.FK__Historial__ID_se__3F466844" FromRole="HistorialAtendidos" ToRole="Servicios" />
+          <NavigationProperty Name="UsuariosCliente" Relationship="Self.FK__Historial__ID_us__3D5E1FD2" FromRole="HistorialAtendidos" ToRole="UsuariosCliente" />
+          <NavigationProperty Name="UsuariosFuncionario" Relationship="Self.FK__Historial__ID_us__3E52440B" FromRole="HistorialAtendidos" ToRole="UsuariosFuncionario" />
+        </EntityType>
+        <EntityType Name="Reporte">
+          <Key>
+            <PropertyRef Name="ID_reporte" />
+          </Key>
+          <Property Name="ID_reporte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_sucursal" Type="Int32" Nullable="false" />
+          <Property Name="ID_tipo" Type="Int32" Nullable="false" />
+          <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="periodo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Sucursale" Relationship="Self.FK__Reportes__ID_suc__46E78A0C" FromRole="Reportes" ToRole="Sucursales" />
+          <NavigationProperty Name="TiposReporte" Relationship="Self.FK__Reportes__ID_tip__47DBAE45" FromRole="Reportes" ToRole="TiposReporte" />
+        </EntityType>
+        <EntityType Name="Servicio">
+          <Key>
+            <PropertyRef Name="ID_servicio" />
+          </Key>
+          <Property Name="ID_servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BitacoraServicios" Relationship="Self.FK__BitacoraS__ID_se__440B1D61" FromRole="Servicios" ToRole="BitacoraServicio" />
+          <NavigationProperty Name="Fichas" Relationship="Self.FK__Fichas__ID_servi__412EB0B6" FromRole="Servicios" ToRole="Fichas" />
+          <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_se__3F466844" FromRole="Servicios" ToRole="HistorialAtendidos" />
+          <NavigationProperty Name="Sucursales" Relationship="Self.Servicios_Por_Sucursal" FromRole="Servicios" ToRole="Sucursales" />
+        </EntityType>
+        <EntityType Name="Sucursale">
+          <Key>
+            <PropertyRef Name="ID_sucursal" />
+          </Key>
+          <Property Name="ID_sucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="distrito" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="provincia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BitacoraSucursals" Relationship="Self.FK__BitacoraS__ID_su__44FF419A" FromRole="Sucursales" ToRole="BitacoraSucursal" />
+          <NavigationProperty Name="Reportes" Relationship="Self.FK__Reportes__ID_suc__46E78A0C" FromRole="Sucursales" ToRole="Reportes" />
+          <NavigationProperty Name="Servicios" Relationship="Self.Servicios_Por_Sucursal" FromRole="Sucursales" ToRole="Servicios" />
+        </EntityType>
+        <EntityType Name="TiposReporte">
+          <Key>
+            <PropertyRef Name="ID_tipo" />
+          </Key>
+          <Property Name="ID_tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreTipo" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BitacoraTipos" Relationship="Self.FK__BitacoraT__ID_ti__45F365D3" FromRole="TiposReporte" ToRole="BitacoraTipos" />
+          <NavigationProperty Name="Reportes" Relationship="Self.FK__Reportes__ID_tip__47DBAE45" FromRole="TiposReporte" ToRole="Reportes" />
+        </EntityType>
+        <EntityType Name="UsuariosCliente">
+          <Key>
+            <PropertyRef Name="ID_usuarioCliente" />
+          </Key>
+          <Property Name="ID_usuarioCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" Nullable="false" />
+          <Property Name="asegurado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BitacoraClientes" Relationship="Self.FK__BitacoraC__ID_us__3C69FB99" FromRole="UsuariosCliente" ToRole="BitacoraCliente" />
+          <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_us__3D5E1FD2" FromRole="UsuariosCliente" ToRole="HistorialAtendidos" />
+        </EntityType>
+        <EntityType Name="UsuariosFuncionario">
+          <Key>
+            <PropertyRef Name="ID_usuarioFuncionario" />
+          </Key>
+          <Property Name="ID_usuarioFuncionario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" Nullable="false" />
+          <Property Name="cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BitacoraFuncionarios" Relationship="Self.FK__BitacoraF__ID_us__3B75D760" FromRole="UsuariosFuncionario" ToRole="BitacoraFuncionario" />
+          <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_us__3E52440B" FromRole="UsuariosFuncionario" ToRole="HistorialAtendidos" />
+        </EntityType>
+        <Association Name="FK__BitacoraC__ID_us__3C69FB99">
+          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
+          <End Role="BitacoraCliente" Type="Self.BitacoraCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosCliente">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Principal>
+            <Dependent Role="BitacoraCliente">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraF__ID_us__3B75D760">
+          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
+          <End Role="BitacoraFuncionario" Type="Self.BitacoraFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosFuncionario">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Principal>
+            <Dependent Role="BitacoraFuncionario">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraS__ID_se__440B1D61">
+          <End Role="Servicios" Type="Self.Servicio" Multiplicity="1" />
+          <End Role="BitacoraServicio" Type="Self.BitacoraServicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="ID_servicio" />
+            </Principal>
+            <Dependent Role="BitacoraServicio">
+              <PropertyRef Name="ID_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraS__ID_su__44FF419A">
+          <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="1" />
+          <End Role="BitacoraSucursal" Type="Self.BitacoraSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursales">
+              <PropertyRef Name="ID_sucursal" />
+            </Principal>
+            <Dependent Role="BitacoraSucursal">
+              <PropertyRef Name="ID_sucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraT__ID_ti__45F365D3">
+          <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
+          <End Role="BitacoraTipos" Type="Self.BitacoraTipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposReporte">
+              <PropertyRef Name="ID_tipo" />
+            </Principal>
+            <Dependent Role="BitacoraTipos">
+              <PropertyRef Name="ID_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fichas__ID_servi__412EB0B6">
+          <End Role="Servicios" Type="Self.Servicio" Multiplicity="1" />
+          <End Role="Fichas" Type="Self.Ficha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="ID_servicio" />
+            </Principal>
+            <Dependent Role="Fichas">
+              <PropertyRef Name="ID_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_fi__403A8C7D">
+          <End Role="Fichas" Type="Self.Ficha" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fichas">
+              <PropertyRef Name="ID_ficha" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_ficha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_se__3F466844">
+          <End Role="Servicios" Type="Self.Servicio" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="ID_servicio" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_us__3D5E1FD2">
+          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosCliente">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_usuarioCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_us__3E52440B">
+          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
+          <End Role="HistorialAtendidos" Type="Self.HistorialAtendido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosFuncionario">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Principal>
+            <Dependent Role="HistorialAtendidos">
+              <PropertyRef Name="ID_usuarioFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reportes__ID_suc__46E78A0C">
+          <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="1" />
+          <End Role="Reportes" Type="Self.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursales">
+              <PropertyRef Name="ID_sucursal" />
+            </Principal>
+            <Dependent Role="Reportes">
+              <PropertyRef Name="ID_sucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reportes__ID_tip__47DBAE45">
+          <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
+          <End Role="Reportes" Type="Self.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposReporte">
+              <PropertyRef Name="ID_tipo" />
+            </Principal>
+            <Dependent Role="Reportes">
+              <PropertyRef Name="ID_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Servicios_Por_Sucursal">
+          <End Role="Servicios" Type="Self.Servicio" Multiplicity="*" />
+          <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ATECA_BDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BitacoraClientes" EntityType="Self.BitacoraCliente" />
+          <EntitySet Name="BitacoraFuncionarios" EntityType="Self.BitacoraFuncionario" />
+          <EntitySet Name="BitacoraServicios" EntityType="Self.BitacoraServicio" />
+          <EntitySet Name="BitacoraSucursals" EntityType="Self.BitacoraSucursal" />
+          <EntitySet Name="BitacoraTipos" EntityType="Self.BitacoraTipos" />
+          <EntitySet Name="Fichas" EntityType="Self.Ficha" />
+          <EntitySet Name="HistorialAtendidos" EntityType="Self.HistorialAtendido" />
+          <EntitySet Name="Reportes" EntityType="Self.Reporte" />
+          <EntitySet Name="Servicios" EntityType="Self.Servicio" />
+          <EntitySet Name="Sucursales" EntityType="Self.Sucursale" />
+          <EntitySet Name="TiposReportes" EntityType="Self.TiposReporte" />
+          <EntitySet Name="UsuariosClientes" EntityType="Self.UsuariosCliente" />
+          <EntitySet Name="UsuariosFuncionarios" EntityType="Self.UsuariosFuncionario" />
+          <AssociationSet Name="FK__BitacoraC__ID_us__3C69FB99" Association="Self.FK__BitacoraC__ID_us__3C69FB99">
+            <End Role="UsuariosCliente" EntitySet="UsuariosClientes" />
+            <End Role="BitacoraCliente" EntitySet="BitacoraClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraF__ID_us__3B75D760" Association="Self.FK__BitacoraF__ID_us__3B75D760">
+            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionarios" />
+            <End Role="BitacoraFuncionario" EntitySet="BitacoraFuncionarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraS__ID_se__440B1D61" Association="Self.FK__BitacoraS__ID_se__440B1D61">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="BitacoraServicio" EntitySet="BitacoraServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraS__ID_su__44FF419A" Association="Self.FK__BitacoraS__ID_su__44FF419A">
+            <End Role="Sucursales" EntitySet="Sucursales" />
+            <End Role="BitacoraSucursal" EntitySet="BitacoraSucursals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraT__ID_ti__45F365D3" Association="Self.FK__BitacoraT__ID_ti__45F365D3">
+            <End Role="TiposReporte" EntitySet="TiposReportes" />
+            <End Role="BitacoraTipos" EntitySet="BitacoraTipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fichas__ID_servi__412EB0B6" Association="Self.FK__Fichas__ID_servi__412EB0B6">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="Fichas" EntitySet="Fichas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_fi__403A8C7D" Association="Self.FK__Historial__ID_fi__403A8C7D">
+            <End Role="Fichas" EntitySet="Fichas" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_se__3F466844" Association="Self.FK__Historial__ID_se__3F466844">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_us__3D5E1FD2" Association="Self.FK__Historial__ID_us__3D5E1FD2">
+            <End Role="UsuariosCliente" EntitySet="UsuariosClientes" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_us__3E52440B" Association="Self.FK__Historial__ID_us__3E52440B">
+            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionarios" />
+            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reportes__ID_suc__46E78A0C" Association="Self.FK__Reportes__ID_suc__46E78A0C">
+            <End Role="Sucursales" EntitySet="Sucursales" />
+            <End Role="Reportes" EntitySet="Reportes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reportes__ID_tip__47DBAE45" Association="Self.FK__Reportes__ID_tip__47DBAE45">
+            <End Role="TiposReporte" EntitySet="TiposReportes" />
+            <End Role="Reportes" EntitySet="Reportes" />
+          </AssociationSet>
+          <AssociationSet Name="Servicios_Por_Sucursal" Association="Self.Servicios_Por_Sucursal">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="Sucursales" EntitySet="Sucursales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ATECA_BDModelStoreContainer" CdmEntityContainer="ATECA_BDEntities">
+          <EntitySetMapping Name="BitacoraClientes">
+            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraCliente">
+              <MappingFragment StoreEntitySet="BitacoraCliente">
+                <ScalarProperty Name="ID_bitacoraCliente" ColumnName="ID_bitacoraCliente" />
+                <ScalarProperty Name="ID_usuarioCliente" ColumnName="ID_usuarioCliente" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="asegurado" ColumnName="asegurado" />
+                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraFuncionarios">
+            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraFuncionario">
+              <MappingFragment StoreEntitySet="BitacoraFuncionario">
+                <ScalarProperty Name="ID_bitacoraFuncionario" ColumnName="ID_bitacoraFuncionario" />
+                <ScalarProperty Name="ID_usuarioFuncionario" ColumnName="ID_usuarioFuncionario" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraServicios">
+            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraServicio">
+              <MappingFragment StoreEntitySet="BitacoraServicio">
+                <ScalarProperty Name="ID_bitacoraServicio" ColumnName="ID_bitacoraServicio" />
+                <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraSucursals">
+            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraSucursal">
+              <MappingFragment StoreEntitySet="BitacoraSucursal">
+                <ScalarProperty Name="ID_bitacoraSucursal" ColumnName="ID_bitacoraSucursal" />
+                <ScalarProperty Name="ID_sucursal" ColumnName="ID_sucursal" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="canton" ColumnName="canton" />
+                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraTipos">
+            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraTipos">
+              <MappingFragment StoreEntitySet="BitacoraTipos">
+                <ScalarProperty Name="ID_bitacoraTipo" ColumnName="ID_bitacoraTipo" />
+                <ScalarProperty Name="ID_tipo" ColumnName="ID_tipo" />
+                <ScalarProperty Name="nombreTipo" ColumnName="nombreTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fichas">
+            <EntityTypeMapping TypeName="ATECA_BDModel.Ficha">
+              <MappingFragment StoreEntitySet="Fichas">
+                <ScalarProperty Name="ID_ficha" ColumnName="ID_ficha" />
+                <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
+                <ScalarProperty Name="codigoFicha" ColumnName="codigoFicha" />
+                <ScalarProperty Name="numeroFicha" ColumnName="numeroFicha" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialAtendidos">
+            <EntityTypeMapping TypeName="ATECA_BDModel.HistorialAtendido">
+              <MappingFragment StoreEntitySet="HistorialAtendidos">
+                <ScalarProperty Name="ID_historialAtendido" ColumnName="ID_historialAtendido" />
+                <ScalarProperty Name="ID_usuarioCliente" ColumnName="ID_usuarioCliente" />
+                <ScalarProperty Name="ID_usuarioFuncionario" ColumnName="ID_usuarioFuncionario" />
+                <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
+                <ScalarProperty Name="ID_ficha" ColumnName="ID_ficha" />
+                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
+                <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+                <ScalarProperty Name="duracion" ColumnName="duracion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reportes">
+            <EntityTypeMapping TypeName="ATECA_BDModel.Reporte">
+              <MappingFragment StoreEntitySet="Reportes">
+                <ScalarProperty Name="ID_reporte" ColumnName="ID_reporte" />
+                <ScalarProperty Name="ID_sucursal" ColumnName="ID_sucursal" />
+                <ScalarProperty Name="ID_tipo" ColumnName="ID_tipo" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servicios">
+            <EntityTypeMapping TypeName="ATECA_BDModel.Servicio">
+              <MappingFragment StoreEntitySet="Servicios">
+                <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sucursales">
+            <EntityTypeMapping TypeName="ATECA_BDModel.Sucursale">
+              <MappingFragment StoreEntitySet="Sucursales">
+                <ScalarProperty Name="ID_sucursal" ColumnName="ID_sucursal" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="canton" ColumnName="canton" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposReportes">
+            <EntityTypeMapping TypeName="ATECA_BDModel.TiposReporte">
+              <MappingFragment StoreEntitySet="TiposReporte">
+                <ScalarProperty Name="ID_tipo" ColumnName="ID_tipo" />
+                <ScalarProperty Name="nombreTipo" ColumnName="nombreTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosClientes">
+            <EntityTypeMapping TypeName="ATECA_BDModel.UsuariosCliente">
+              <MappingFragment StoreEntitySet="UsuariosCliente">
+                <ScalarProperty Name="ID_usuarioCliente" ColumnName="ID_usuarioCliente" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="asegurado" ColumnName="asegurado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosFuncionarios">
+            <EntityTypeMapping TypeName="ATECA_BDModel.UsuariosFuncionario">
+              <MappingFragment StoreEntitySet="UsuariosFuncionario">
+                <ScalarProperty Name="ID_usuarioFuncionario" ColumnName="ID_usuarioFuncionario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Servicios_Por_Sucursal" TypeName="ATECA_BDModel.Servicios_Por_Sucursal" StoreEntitySet="Servicios_Por_Sucursal">
+            <EndProperty Name="Servicios">
+              <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
+            </EndProperty>
+            <EndProperty Name="Sucursales">
+              <ScalarProperty Name="ID_sucursal" ColumnName="ID_sucursal" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
