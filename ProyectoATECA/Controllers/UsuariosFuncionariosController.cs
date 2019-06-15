@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoATECA.Models;
-
+//aaa
 namespace ProyectoATECA.Controllers
 {
     public class UsuariosFuncionariosController : Controller
