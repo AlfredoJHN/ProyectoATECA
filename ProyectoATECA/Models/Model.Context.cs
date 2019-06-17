@@ -25,8 +25,6 @@ namespace ProyectoATECA.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BitacoraCliente> BitacoraClientes { get; set; }
-        public virtual DbSet<BitacoraFuncionario> BitacoraFuncionarios { get; set; }
         public virtual DbSet<BitacoraServicio> BitacoraServicios { get; set; }
         public virtual DbSet<BitacoraSucursal> BitacoraSucursals { get; set; }
         public virtual DbSet<BitacoraTipos> BitacoraTipos { get; set; }
@@ -36,7 +34,9 @@ namespace ProyectoATECA.Models
         public virtual DbSet<Servicio> Servicios { get; set; }
         public virtual DbSet<Sucursale> Sucursales { get; set; }
         public virtual DbSet<TiposReporte> TiposReportes { get; set; }
-        public virtual DbSet<UsuariosCliente> UsuariosClientes { get; set; }
-        public virtual DbSet<UsuariosFuncionario> UsuariosFuncionarios { get; set; }
+        public virtual DbSet<BitacoraRol> BitacoraRols { get; set; }
+        public virtual DbSet<BitacoraUsuario> BitacoraUsuarios { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
     }
 }

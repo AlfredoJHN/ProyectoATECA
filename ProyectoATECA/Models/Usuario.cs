@@ -11,28 +11,36 @@ namespace ProyectoATECA.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class UsuariosFuncionario
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UsuariosFuncionario()
+        public Usuario()
         {
-            this.BitacoraFuncionarios = new HashSet<BitacoraFuncionario>();
+            this.BitacoraUsuarios = new HashSet<BitacoraUsuario>();
             this.HistorialAtendidos = new HashSet<HistorialAtendido>();
         }
-    
-        public int ID_usuarioFuncionario { get; set; }
+
+        public int ID_usuario { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(15, MinimumLength = 3,
+        ErrorMessage = "El nombre debe estar entre 2 y 15 caractéres")]
+        [DataType(DataType.Text)]
+        [RegularExpression("^[a-zA-ZáéíóúÁÉÍÓÚ]+$", ErrorMessage="Solo se admiten letras")]
         public string nombre { get; set; }
         public string cedula { get; set; }
-        public System.DateTime fechaNacimiento { get; set; }
         public string apellidos { get; set; }
+        public System.DateTime fechaNacimiento { get; set; }
         public string correo { get; set; }
-        public byte[] contraseña { get; set; }
-        public string cargo { get; set; }
+        public string contraseña { get; set; }
+        public Nullable<int> ID_rol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BitacoraFuncionario> BitacoraFuncionarios { get; set; }
+        public virtual ICollection<BitacoraUsuario> BitacoraUsuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistorialAtendido> HistorialAtendidos { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

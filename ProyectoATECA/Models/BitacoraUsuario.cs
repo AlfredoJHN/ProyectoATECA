@@ -12,15 +12,15 @@ namespace ProyectoATECA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BitacoraCliente
+    public partial class BitacoraUsuario
     {
-        public int ID_bitacoraCliente { get; set; }
-        public int ID_usuarioCliente { get; set; }
+        public int ID_bitacora { get; set; }
+        public int ID_usuario { get; set; }
         public string correo { get; set; }
-        public byte[] contraseña { get; set; }
-        public Nullable<bool> asegurado { get; set; }
+        public string contraseña { get; set; }
         public System.DateTime fechaCambio { get; set; }
+        public Nullable<int> ID_rol { get; set; }
     
-        public virtual UsuariosCliente UsuariosCliente { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

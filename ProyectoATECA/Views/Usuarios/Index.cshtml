@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoATECA.Models.UsuariosCliente>
+﻿@model IEnumerable<ProyectoATECA.Models.Usuario>
 
 @{
     ViewBag.Title = "Index";
@@ -30,7 +30,7 @@
             @Html.DisplayNameFor(model => model.contraseña)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.asegurado)
+            @Html.DisplayNameFor(model => model.Role.nombre)
         </th>
         <th></th>
     </tr>
@@ -56,12 +56,12 @@
             @Html.DisplayFor(modelItem => item.contraseña)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.asegurado)
+            @Html.DisplayFor(modelItem => item.Role.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_usuarioCliente }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_usuarioCliente }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_usuarioCliente })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_usuario }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_usuario }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_usuario })
         </td>
     </tr>
 }

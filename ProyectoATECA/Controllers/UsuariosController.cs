@@ -7,110 +7,115 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoATECA.Models;
-//aaa
+
 namespace ProyectoATECA.Controllers
 {
-    public class UsuariosFuncionariosController : Controller
+    public class UsuariosController : Controller
     {
         private ATECA_BDEntities db = new ATECA_BDEntities();
 
-        // GET: UsuariosFuncionarios
+        // GET: Usuarios
         public ActionResult Index()
         {
-            return View(db.UsuariosFuncionarios.ToList());
+            var usuarios = db.Usuarios.Include(u => u.Role);
+            return View(usuarios.ToList());
         }
 
-        // GET: UsuariosFuncionarios/Details/5
+        // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UsuariosFuncionario usuariosFuncionario = db.UsuariosFuncionarios.Find(id);
-            if (usuariosFuncionario == null)
+            Usuario usuario = db.Usuarios.Find(id);
+            if (usuario == null)
             {
                 return HttpNotFound();
             }
-            return View(usuariosFuncionario);
+            return View(usuario);
         }
 
-        // GET: UsuariosFuncionarios/Create
+        // GET: Usuarios/Create
         public ActionResult Create()
         {
+            ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre");
             return View();
         }
 
-        // POST: UsuariosFuncionarios/Create
+        // POST: Usuarios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_usuarioFuncionario,nombre,cedula,fechaNacimiento,apellidos,correo,contraseña,cargo")] UsuariosFuncionario usuariosFuncionario)
+        public ActionResult Create([Bind(Include = "ID_usuario,nombre,cedula,apellidos,fechaNacimiento,correo,contraseña,ID_rol")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                db.UsuariosFuncionarios.Add(usuariosFuncionario);
+                db.Usuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(usuariosFuncionario);
+            ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre", usuario.ID_rol);
+            return View(usuario);
         }
 
-        // GET: UsuariosFuncionarios/Edit/5
+        // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UsuariosFuncionario usuariosFuncionario = db.UsuariosFuncionarios.Find(id);
-            if (usuariosFuncionario == null)
+            Usuario usuario = db.Usuarios.Find(id);
+            if (usuario == null)
             {
                 return HttpNotFound();
             }
-            return View(usuariosFuncionario);
+            ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre", usuario.ID_rol);
+            return View(usuario);
         }
 
-        // POST: UsuariosFuncionarios/Edit/5
+        // POST: Usuarios/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_usuarioFuncionario,nombre,cedula,fechaNacimiento,apellidos,correo,contraseña,cargo")] UsuariosFuncionario usuariosFuncionario)
+        public ActionResult Edit([Bind(Include = "ID_usuario,nombre,cedula,apellidos,fechaNacimiento,correo,contraseña,ID_rol")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuariosFuncionario).State = EntityState.Modified;
+                db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuariosFuncionario);
+            ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre", usuario.ID_rol);
+            return View(usuario);
         }
 
-        // GET: UsuariosFuncionarios/Delete/5
+        // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UsuariosFuncionario usuariosFuncionario = db.UsuariosFuncionarios.Find(id);
-            if (usuariosFuncionario == null)
+            Usuario usuario = db.Usuarios.Find(id);
+            if (usuario == null)
             {
                 return HttpNotFound();
             }
-            return View(usuariosFuncionario);
+            return View(usuario);
         }
 
-        // POST: UsuariosFuncionarios/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            UsuariosFuncionario usuariosFuncionario = db.UsuariosFuncionarios.Find(id);
-            db.UsuariosFuncionarios.Remove(usuariosFuncionario);
+            Usuario usuario = db.Usuarios.Find(id);
+            db.Usuarios.Remove(usuario);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

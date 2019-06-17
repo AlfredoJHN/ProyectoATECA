@@ -15,18 +15,16 @@ namespace ProyectoATECA.Models
     public partial class HistorialAtendido
     {
         public int ID_historialAtendido { get; set; }
-        public int ID_usuarioCliente { get; set; }
-        public int ID_usuarioFuncionario { get; set; }
         public int ID_servicio { get; set; }
         public int ID_ficha { get; set; }
         public System.DateTime horaInicio { get; set; }
         public System.DateTime horaFin { get; set; }
         public int duracion { get; set; }
         public System.DateTime fecha { get; set; }
+        public int ID_usuario { get; set; }
     
         public virtual Ficha Ficha { get; set; }
         public virtual Servicio Servicio { get; set; }
-        public virtual UsuariosCliente UsuariosCliente { get; set; }
-        public virtual UsuariosFuncionario UsuariosFuncionario { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

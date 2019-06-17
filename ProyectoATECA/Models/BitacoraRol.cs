@@ -12,15 +12,12 @@ namespace ProyectoATECA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BitacoraFuncionario
+    public partial class BitacoraRol
     {
-        public int ID_bitacoraFuncionario { get; set; }
-        public int ID_usuarioFuncionario { get; set; }
-        public string cargo { get; set; }
-        public string correo { get; set; }
-        public byte[] contraseña { get; set; }
-        public System.DateTime fechaCambio { get; set; }
+        public int ID_bitacora { get; set; }
+        public int ID_rol { get; set; }
+        public string nombre { get; set; }
     
-        public virtual UsuariosFuncionario UsuariosFuncionario { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

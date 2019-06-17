@@ -4,28 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ATECA_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="BitacoraCliente">
+    <Schema Namespace="ATECA_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BitacoraRol">
           <Key>
-            <PropertyRef Name="ID_bitacoraCliente" />
+            <PropertyRef Name="ID_bitacora" />
           </Key>
-          <Property Name="ID_bitacoraCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_usuarioCliente" Type="int" Nullable="false" />
-          <Property Name="correo" Type="varchar" MaxLength="45" />
-          <Property Name="contraseña" Type="varbinary" MaxLength="1000" />
-          <Property Name="asegurado" Type="bit" />
-          <Property Name="fechaCambio" Type="date" Nullable="false" />
-        </EntityType>
-        <EntityType Name="BitacoraFuncionario">
-          <Key>
-            <PropertyRef Name="ID_bitacoraFuncionario" />
-          </Key>
-          <Property Name="ID_bitacoraFuncionario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_usuarioFuncionario" Type="int" Nullable="false" />
-          <Property Name="cargo" Type="varchar" MaxLength="30" />
-          <Property Name="correo" Type="varchar" MaxLength="45" />
-          <Property Name="contraseña" Type="varbinary" MaxLength="1000" />
-          <Property Name="fechaCambio" Type="date" Nullable="false" />
+          <Property Name="ID_bitacora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_rol" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="BitacoraServicio">
           <Key>
@@ -58,6 +44,17 @@
           <Property Name="ID_tipo" Type="int" Nullable="false" />
           <Property Name="nombreTipo" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
+        <EntityType Name="BitacoraUsuario">
+          <Key>
+            <PropertyRef Name="ID_bitacora" />
+          </Key>
+          <Property Name="ID_bitacora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_usuario" Type="int" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="45" />
+          <Property Name="contraseña" Type="varchar" MaxLength="50" />
+          <Property Name="fechaCambio" Type="date" Nullable="false" />
+          <Property Name="ID_rol" Type="int" />
+        </EntityType>
         <EntityType Name="Fichas">
           <Key>
             <PropertyRef Name="ID_ficha" />
@@ -73,8 +70,7 @@
             <PropertyRef Name="ID_historialAtendido" />
           </Key>
           <Property Name="ID_historialAtendido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_usuarioCliente" Type="int" Nullable="false" />
-          <Property Name="ID_usuarioFuncionario" Type="int" Nullable="false" />
+          <Property Name="ID_usuario" Type="int" Nullable="false" />
           <Property Name="ID_servicio" Type="int" Nullable="false" />
           <Property Name="ID_ficha" Type="int" Nullable="false" />
           <Property Name="horaInicio" Type="datetime" Nullable="false" />
@@ -82,11 +78,6 @@
           <Property Name="duracion" Type="int" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'ATECA_BD.dbo.Prueba' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="Prueba">
-          <Property Name="nombre" Type="varchar" MaxLength="50" />
-        </EntityType>-->
         <EntityType Name="Reportes">
           <Key>
             <PropertyRef Name="ID_reporte" />
@@ -98,15 +89,20 @@ advertencia 6013: La tabla o vista 'ATECA_BD.dbo.Prueba' no tiene definida una c
           <Property Name="periodo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="fechaCreacion" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID_rol" />
+          </Key>
+          <Property Name="ID_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="Servicios">
           <Key>
             <PropertyRef Name="ID_servicio" />
           </Key>
           <Property Name="ID_servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Servicios_Por_Sucursal">
           <Key>
             <PropertyRef Name="ID_sucursal" />
@@ -120,7 +116,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <PropertyRef Name="ID_sucursal" />
           </Key>
           <Property Name="ID_sucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="direccion" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="canton" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="distrito" Type="varchar" MaxLength="20" Nullable="false" />
@@ -135,57 +131,32 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
           <Property Name="ID_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombreTipo" Type="varchar" MaxLength="35" Nullable="false" />
         </EntityType>
-        <EntityType Name="UsuariosCliente">
+        <EntityType Name="Usuarios">
           <Key>
-            <PropertyRef Name="ID_usuarioCliente" />
+            <PropertyRef Name="ID_usuario" />
           </Key>
-          <Property Name="ID_usuarioCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="cedula" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="apellidos" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fechaNacimiento" Type="date" Nullable="false" />
           <Property Name="correo" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="contraseña" Type="varbinary" MaxLength="1000" Nullable="false" />
-          <Property Name="asegurado" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UsuariosFuncionario">
-          <Key>
-            <PropertyRef Name="ID_usuarioFuncionario" />
-          </Key>
-          <Property Name="ID_usuarioFuncionario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="cedula" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
-          <Property Name="apellidos" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="correo" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="contraseña" Type="varbinary" MaxLength="1000" Nullable="false" />
-          <Property Name="cargo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_rol" Type="int" />
         </EntityType>
         <Association Name="FK__BitacoraC__ID_us__3C69FB99">
-          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
-          <End Role="BitacoraCliente" Type="Self.BitacoraCliente" Multiplicity="*" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="BitacoraUsuario" Type="Self.BitacoraUsuario" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UsuariosCliente">
-              <PropertyRef Name="ID_usuarioCliente" />
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_usuario" />
             </Principal>
-            <Dependent Role="BitacoraCliente">
-              <PropertyRef Name="ID_usuarioCliente" />
+            <Dependent Role="BitacoraUsuario">
+              <PropertyRef Name="ID_usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BitacoraF__ID_us__3B75D760">
-          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
-          <End Role="BitacoraFuncionario" Type="Self.BitacoraFuncionario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosFuncionario">
-              <PropertyRef Name="ID_usuarioFuncionario" />
-            </Principal>
-            <Dependent Role="BitacoraFuncionario">
-              <PropertyRef Name="ID_usuarioFuncionario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__BitacoraS__ID_se__440B1D61">
+        <Association Name="FK__BitacoraS__ID_se__3D5E1FD2">
           <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
           <End Role="BitacoraServicio" Type="Self.BitacoraServicio" Multiplicity="*" />
           <ReferentialConstraint>
@@ -197,7 +168,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BitacoraS__ID_su__44FF419A">
+        <Association Name="FK__BitacoraS__ID_su__3E52440B">
           <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
           <End Role="BitacoraSucursal" Type="Self.BitacoraSucursal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -209,7 +180,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BitacoraT__ID_ti__45F365D3">
+        <Association Name="FK__BitacoraT__ID_ti__3F466844">
           <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
           <End Role="BitacoraTipos" Type="Self.BitacoraTipos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -233,7 +204,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Historial__ID_fi__403A8C7D">
+        <Association Name="FK__Historial__ID_fi__4222D4EF">
           <End Role="Fichas" Type="Self.Fichas" Multiplicity="1" />
           <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,7 +216,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Historial__ID_se__3F466844">
+        <Association Name="FK__Historial__ID_se__4316F928">
           <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
           <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -258,26 +229,14 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Historial__ID_us__3D5E1FD2">
-          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UsuariosCliente">
-              <PropertyRef Name="ID_usuarioCliente" />
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_usuario" />
             </Principal>
             <Dependent Role="HistorialAtendidos">
-              <PropertyRef Name="ID_usuarioCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Historial__ID_us__3E52440B">
-          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
-          <End Role="HistorialAtendidos" Type="Self.HistorialAtendidos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosFuncionario">
-              <PropertyRef Name="ID_usuarioFuncionario" />
-            </Principal>
-            <Dependent Role="HistorialAtendidos">
-              <PropertyRef Name="ID_usuarioFuncionario" />
+              <PropertyRef Name="ID_usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -305,7 +264,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Servicios__ID_se__4316F928">
+        <Association Name="FK__Servicios__ID_se__46E78A0C">
           <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
           <End Role="Servicios_Por_Sucursal" Type="Self.Servicios_Por_Sucursal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -317,7 +276,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Servicios__ID_su__4222D4EF">
+        <Association Name="FK__Servicios__ID_su__47DBAE45">
           <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
           <End Role="Servicios_Por_Sucursal" Type="Self.Servicios_Por_Sucursal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -329,43 +288,58 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Roles_BitacoraRol">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="BitacoraRol" Type="Self.BitacoraRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID_rol" />
+            </Principal>
+            <Dependent Role="BitacoraRol">
+              <PropertyRef Name="ID_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID_rol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="ID_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ATECA_BDModelStoreContainer">
-          <EntitySet Name="BitacoraCliente" EntityType="Self.BitacoraCliente" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BitacoraFuncionario" EntityType="Self.BitacoraFuncionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraRol" EntityType="Self.BitacoraRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BitacoraServicio" EntityType="Self.BitacoraServicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BitacoraSucursal" EntityType="Self.BitacoraSucursal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BitacoraTipos" EntityType="Self.BitacoraTipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraUsuario" EntityType="Self.BitacoraUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fichas" EntityType="Self.Fichas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistorialAtendidos" EntityType="Self.HistorialAtendidos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reportes" EntityType="Self.Reportes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servicios" EntityType="Self.Servicios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicios_Por_Sucursal" EntityType="Self.Servicios_Por_Sucursal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursales" EntityType="Self.Sucursales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposReporte" EntityType="Self.TiposReporte" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsuariosCliente" EntityType="Self.UsuariosCliente" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsuariosFuncionario" EntityType="Self.UsuariosFuncionario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Servicios_Por_Sucursal" EntityType="Self.Servicios_Por_Sucursal" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Servicios_Por_Sucursal].[ID_sucursal] AS [ID_sucursal], 
-    [Servicios_Por_Sucursal].[ID_servicio] AS [ID_servicio]
-    FROM [dbo].[Servicios_Por_Sucursal] AS [Servicios_Por_Sucursal]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__BitacoraC__ID_us__3C69FB99" Association="Self.FK__BitacoraC__ID_us__3C69FB99">
-            <End Role="UsuariosCliente" EntitySet="UsuariosCliente" />
-            <End Role="BitacoraCliente" EntitySet="BitacoraCliente" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="BitacoraUsuario" EntitySet="BitacoraUsuario" />
           </AssociationSet>
-          <AssociationSet Name="FK__BitacoraF__ID_us__3B75D760" Association="Self.FK__BitacoraF__ID_us__3B75D760">
-            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionario" />
-            <End Role="BitacoraFuncionario" EntitySet="BitacoraFuncionario" />
-          </AssociationSet>
-          <AssociationSet Name="FK__BitacoraS__ID_se__440B1D61" Association="Self.FK__BitacoraS__ID_se__440B1D61">
+          <AssociationSet Name="FK__BitacoraS__ID_se__3D5E1FD2" Association="Self.FK__BitacoraS__ID_se__3D5E1FD2">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="BitacoraServicio" EntitySet="BitacoraServicio" />
           </AssociationSet>
-          <AssociationSet Name="FK__BitacoraS__ID_su__44FF419A" Association="Self.FK__BitacoraS__ID_su__44FF419A">
+          <AssociationSet Name="FK__BitacoraS__ID_su__3E52440B" Association="Self.FK__BitacoraS__ID_su__3E52440B">
             <End Role="Sucursales" EntitySet="Sucursales" />
             <End Role="BitacoraSucursal" EntitySet="BitacoraSucursal" />
           </AssociationSet>
-          <AssociationSet Name="FK__BitacoraT__ID_ti__45F365D3" Association="Self.FK__BitacoraT__ID_ti__45F365D3">
+          <AssociationSet Name="FK__BitacoraT__ID_ti__3F466844" Association="Self.FK__BitacoraT__ID_ti__3F466844">
             <End Role="TiposReporte" EntitySet="TiposReporte" />
             <End Role="BitacoraTipos" EntitySet="BitacoraTipos" />
           </AssociationSet>
@@ -373,20 +347,16 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="Fichas" EntitySet="Fichas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Historial__ID_fi__403A8C7D" Association="Self.FK__Historial__ID_fi__403A8C7D">
+          <AssociationSet Name="FK__Historial__ID_fi__4222D4EF" Association="Self.FK__Historial__ID_fi__4222D4EF">
             <End Role="Fichas" EntitySet="Fichas" />
             <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Historial__ID_se__3F466844" Association="Self.FK__Historial__ID_se__3F466844">
+          <AssociationSet Name="FK__Historial__ID_se__4316F928" Association="Self.FK__Historial__ID_se__4316F928">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
           </AssociationSet>
           <AssociationSet Name="FK__Historial__ID_us__3D5E1FD2" Association="Self.FK__Historial__ID_us__3D5E1FD2">
-            <End Role="UsuariosCliente" EntitySet="UsuariosCliente" />
-            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Historial__ID_us__3E52440B" Association="Self.FK__Historial__ID_us__3E52440B">
-            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionario" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
           </AssociationSet>
           <AssociationSet Name="FK__Reportes__ID_suc__46E78A0C" Association="Self.FK__Reportes__ID_suc__46E78A0C">
@@ -397,44 +367,27 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <End Role="TiposReporte" EntitySet="TiposReporte" />
             <End Role="Reportes" EntitySet="Reportes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Servicios__ID_se__4316F928" Association="Self.FK__Servicios__ID_se__4316F928">
+          <AssociationSet Name="FK__Servicios__ID_se__46E78A0C" Association="Self.FK__Servicios__ID_se__46E78A0C">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="Servicios_Por_Sucursal" EntitySet="Servicios_Por_Sucursal" />
           </AssociationSet>
-          <AssociationSet Name="FK__Servicios__ID_su__4222D4EF" Association="Self.FK__Servicios__ID_su__4222D4EF">
+          <AssociationSet Name="FK__Servicios__ID_su__47DBAE45" Association="Self.FK__Servicios__ID_su__47DBAE45">
             <End Role="Sucursales" EntitySet="Sucursales" />
             <End Role="Servicios_Por_Sucursal" EntitySet="Servicios_Por_Sucursal" />
           </AssociationSet>
+          <AssociationSet Name="FK_Roles_BitacoraRol" Association="Self.FK_Roles_BitacoraRol">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="BitacoraRol" EntitySet="BitacoraRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ATECA_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="BitacoraCliente">
-          <Key>
-            <PropertyRef Name="ID_bitacoraCliente" />
-          </Key>
-          <Property Name="ID_bitacoraCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_usuarioCliente" Type="Int32" Nullable="false" />
-          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" />
-          <Property Name="asegurado" Type="Boolean" />
-          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="UsuariosCliente" Relationship="Self.FK__BitacoraC__ID_us__3C69FB99" FromRole="BitacoraCliente" ToRole="UsuariosCliente" />
-        </EntityType>
-        <EntityType Name="BitacoraFuncionario">
-          <Key>
-            <PropertyRef Name="ID_bitacoraFuncionario" />
-          </Key>
-          <Property Name="ID_bitacoraFuncionario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_usuarioFuncionario" Type="Int32" Nullable="false" />
-          <Property Name="cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" />
-          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="UsuariosFuncionario" Relationship="Self.FK__BitacoraF__ID_us__3B75D760" FromRole="BitacoraFuncionario" ToRole="UsuariosFuncionario" />
-        </EntityType>
         <EntityType Name="BitacoraServicio">
           <Key>
             <PropertyRef Name="ID_bitacoraServicio" />
@@ -486,8 +439,6 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <PropertyRef Name="ID_historialAtendido" />
           </Key>
           <Property Name="ID_historialAtendido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_usuarioCliente" Type="Int32" Nullable="false" />
-          <Property Name="ID_usuarioFuncionario" Type="Int32" Nullable="false" />
           <Property Name="ID_servicio" Type="Int32" Nullable="false" />
           <Property Name="ID_ficha" Type="Int32" Nullable="false" />
           <Property Name="horaInicio" Type="DateTime" Nullable="false" Precision="3" />
@@ -496,8 +447,8 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Ficha" Relationship="Self.FK__Historial__ID_fi__403A8C7D" FromRole="HistorialAtendidos" ToRole="Fichas" />
           <NavigationProperty Name="Servicio" Relationship="Self.FK__Historial__ID_se__3F466844" FromRole="HistorialAtendidos" ToRole="Servicios" />
-          <NavigationProperty Name="UsuariosCliente" Relationship="Self.FK__Historial__ID_us__3D5E1FD2" FromRole="HistorialAtendidos" ToRole="UsuariosCliente" />
-          <NavigationProperty Name="UsuariosFuncionario" Relationship="Self.FK__Historial__ID_us__3E52440B" FromRole="HistorialAtendidos" ToRole="UsuariosFuncionario" />
+          <Property Name="ID_usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21" FromRole="HistorialAtendido" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Reporte">
           <Key>
@@ -517,7 +468,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <PropertyRef Name="ID_servicio" />
           </Key>
           <Property Name="ID_servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="BitacoraServicios" Relationship="Self.FK__BitacoraS__ID_se__440B1D61" FromRole="Servicios" ToRole="BitacoraServicio" />
           <NavigationProperty Name="Fichas" Relationship="Self.FK__Fichas__ID_servi__412EB0B6" FromRole="Servicios" ToRole="Fichas" />
           <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_se__3F466844" FromRole="Servicios" ToRole="HistorialAtendidos" />
@@ -528,7 +479,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <PropertyRef Name="ID_sucursal" />
           </Key>
           <Property Name="ID_sucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="direccion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="distrito" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -548,60 +499,6 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
           <NavigationProperty Name="BitacoraTipos" Relationship="Self.FK__BitacoraT__ID_ti__45F365D3" FromRole="TiposReporte" ToRole="BitacoraTipos" />
           <NavigationProperty Name="Reportes" Relationship="Self.FK__Reportes__ID_tip__47DBAE45" FromRole="TiposReporte" ToRole="Reportes" />
         </EntityType>
-        <EntityType Name="UsuariosCliente">
-          <Key>
-            <PropertyRef Name="ID_usuarioCliente" />
-          </Key>
-          <Property Name="ID_usuarioCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" Nullable="false" />
-          <Property Name="asegurado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="BitacoraClientes" Relationship="Self.FK__BitacoraC__ID_us__3C69FB99" FromRole="UsuariosCliente" ToRole="BitacoraCliente" />
-          <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_us__3D5E1FD2" FromRole="UsuariosCliente" ToRole="HistorialAtendidos" />
-        </EntityType>
-        <EntityType Name="UsuariosFuncionario">
-          <Key>
-            <PropertyRef Name="ID_usuarioFuncionario" />
-          </Key>
-          <Property Name="ID_usuarioFuncionario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contraseña" Type="Binary" MaxLength="1000" FixedLength="false" Nullable="false" />
-          <Property Name="cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BitacoraFuncionarios" Relationship="Self.FK__BitacoraF__ID_us__3B75D760" FromRole="UsuariosFuncionario" ToRole="BitacoraFuncionario" />
-          <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_us__3E52440B" FromRole="UsuariosFuncionario" ToRole="HistorialAtendidos" />
-        </EntityType>
-        <Association Name="FK__BitacoraC__ID_us__3C69FB99">
-          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
-          <End Role="BitacoraCliente" Type="Self.BitacoraCliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosCliente">
-              <PropertyRef Name="ID_usuarioCliente" />
-            </Principal>
-            <Dependent Role="BitacoraCliente">
-              <PropertyRef Name="ID_usuarioCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__BitacoraF__ID_us__3B75D760">
-          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
-          <End Role="BitacoraFuncionario" Type="Self.BitacoraFuncionario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosFuncionario">
-              <PropertyRef Name="ID_usuarioFuncionario" />
-            </Principal>
-            <Dependent Role="BitacoraFuncionario">
-              <PropertyRef Name="ID_usuarioFuncionario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__BitacoraS__ID_se__440B1D61">
           <End Role="Servicios" Type="Self.Servicio" Multiplicity="1" />
           <End Role="BitacoraServicio" Type="Self.BitacoraServicio" Multiplicity="*" />
@@ -674,30 +571,6 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Historial__ID_us__3D5E1FD2">
-          <End Role="UsuariosCliente" Type="Self.UsuariosCliente" Multiplicity="1" />
-          <End Role="HistorialAtendidos" Type="Self.HistorialAtendido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosCliente">
-              <PropertyRef Name="ID_usuarioCliente" />
-            </Principal>
-            <Dependent Role="HistorialAtendidos">
-              <PropertyRef Name="ID_usuarioCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Historial__ID_us__3E52440B">
-          <End Role="UsuariosFuncionario" Type="Self.UsuariosFuncionario" Multiplicity="1" />
-          <End Role="HistorialAtendidos" Type="Self.HistorialAtendido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosFuncionario">
-              <PropertyRef Name="ID_usuarioFuncionario" />
-            </Principal>
-            <Dependent Role="HistorialAtendidos">
-              <PropertyRef Name="ID_usuarioFuncionario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Reportes__ID_suc__46E78A0C">
           <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="1" />
           <End Role="Reportes" Type="Self.Reporte" Multiplicity="*" />
@@ -727,8 +600,6 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
           <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ATECA_BDEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BitacoraClientes" EntityType="Self.BitacoraCliente" />
-          <EntitySet Name="BitacoraFuncionarios" EntityType="Self.BitacoraFuncionario" />
           <EntitySet Name="BitacoraServicios" EntityType="Self.BitacoraServicio" />
           <EntitySet Name="BitacoraSucursals" EntityType="Self.BitacoraSucursal" />
           <EntitySet Name="BitacoraTipos" EntityType="Self.BitacoraTipos" />
@@ -738,16 +609,6 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
           <EntitySet Name="Servicios" EntityType="Self.Servicio" />
           <EntitySet Name="Sucursales" EntityType="Self.Sucursale" />
           <EntitySet Name="TiposReportes" EntityType="Self.TiposReporte" />
-          <EntitySet Name="UsuariosClientes" EntityType="Self.UsuariosCliente" />
-          <EntitySet Name="UsuariosFuncionarios" EntityType="Self.UsuariosFuncionario" />
-          <AssociationSet Name="FK__BitacoraC__ID_us__3C69FB99" Association="Self.FK__BitacoraC__ID_us__3C69FB99">
-            <End Role="UsuariosCliente" EntitySet="UsuariosClientes" />
-            <End Role="BitacoraCliente" EntitySet="BitacoraClientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__BitacoraF__ID_us__3B75D760" Association="Self.FK__BitacoraF__ID_us__3B75D760">
-            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionarios" />
-            <End Role="BitacoraFuncionario" EntitySet="BitacoraFuncionarios" />
-          </AssociationSet>
           <AssociationSet Name="FK__BitacoraS__ID_se__440B1D61" Association="Self.FK__BitacoraS__ID_se__440B1D61">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="BitacoraServicio" EntitySet="BitacoraServicios" />
@@ -772,14 +633,6 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Historial__ID_us__3D5E1FD2" Association="Self.FK__Historial__ID_us__3D5E1FD2">
-            <End Role="UsuariosCliente" EntitySet="UsuariosClientes" />
-            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Historial__ID_us__3E52440B" Association="Self.FK__Historial__ID_us__3E52440B">
-            <End Role="UsuariosFuncionario" EntitySet="UsuariosFuncionarios" />
-            <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
-          </AssociationSet>
           <AssociationSet Name="FK__Reportes__ID_suc__46E78A0C" Association="Self.FK__Reportes__ID_suc__46E78A0C">
             <End Role="Sucursales" EntitySet="Sucursales" />
             <End Role="Reportes" EntitySet="Reportes" />
@@ -792,37 +645,127 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="Sucursales" EntitySet="Sucursales" />
           </AssociationSet>
+          <EntitySet Name="BitacoraRols" EntityType="ATECA_BDModel.BitacoraRol" />
+          <EntitySet Name="BitacoraUsuarios" EntityType="ATECA_BDModel.BitacoraUsuario" />
+          <EntitySet Name="Roles" EntityType="ATECA_BDModel.Role" />
+          <EntitySet Name="Usuarios" EntityType="ATECA_BDModel.Usuario" />
+          <AssociationSet Name="FK_Roles_BitacoraRol" Association="ATECA_BDModel.FK_Roles_BitacoraRol">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="BitacoraRol" EntitySet="BitacoraRols" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BitacoraC__ID_us__3C69FB991" Association="ATECA_BDModel.FK__BitacoraC__ID_us__3C69FB991">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="BitacoraUsuario" EntitySet="BitacoraUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_us__3D5E1FD21" Association="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="HistorialAtendido" EntitySet="HistorialAtendidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="ATECA_BDModel.FK_Usuarios_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="BitacoraRol">
+          <Key>
+            <PropertyRef Name="ID_bitacora" />
+          </Key>
+          <Property Name="ID_bitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_rol" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Role" Relationship="ATECA_BDModel.FK_Roles_BitacoraRol" FromRole="BitacoraRol" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="BitacoraUsuario">
+          <Key>
+            <PropertyRef Name="ID_bitacora" />
+          </Key>
+          <Property Name="ID_bitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_usuario" Type="Int32" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID_rol" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="ATECA_BDModel.FK__BitacoraC__ID_us__3C69FB991" FromRole="BitacoraUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID_rol" />
+          </Key>
+          <Property Name="ID_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BitacoraRols" Relationship="ATECA_BDModel.FK_Roles_BitacoraRol" FromRole="Role" ToRole="BitacoraRol" />
+          <NavigationProperty Name="Usuarios" Relationship="ATECA_BDModel.FK_Usuarios_Roles" FromRole="Role" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID_usuario" />
+          </Key>
+          <Property Name="ID_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cedula" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_rol" Type="Int32" />
+          <NavigationProperty Name="BitacoraUsuarios" Relationship="ATECA_BDModel.FK__BitacoraC__ID_us__3C69FB991" FromRole="Usuario" ToRole="BitacoraUsuario" />
+          <NavigationProperty Name="HistorialAtendidos" Relationship="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21" FromRole="Usuario" ToRole="HistorialAtendido" />
+          <NavigationProperty Name="Role" Relationship="ATECA_BDModel.FK_Usuarios_Roles" FromRole="Usuario" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Roles_BitacoraRol">
+          <End Type="ATECA_BDModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="ATECA_BDModel.BitacoraRol" Role="BitacoraRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_rol" />
+            </Principal>
+            <Dependent Role="BitacoraRol">
+              <PropertyRef Name="ID_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BitacoraC__ID_us__3C69FB991">
+          <End Type="ATECA_BDModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ATECA_BDModel.BitacoraUsuario" Role="BitacoraUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID_usuario" />
+            </Principal>
+            <Dependent Role="BitacoraUsuario">
+              <PropertyRef Name="ID_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_us__3D5E1FD21">
+          <End Type="ATECA_BDModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ATECA_BDModel.HistorialAtendido" Role="HistorialAtendido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID_usuario" />
+            </Principal>
+            <Dependent Role="HistorialAtendido">
+              <PropertyRef Name="ID_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Type="ATECA_BDModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="ATECA_BDModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="ID_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ATECA_BDModelStoreContainer" CdmEntityContainer="ATECA_BDEntities">
-          <EntitySetMapping Name="BitacoraClientes">
-            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraCliente">
-              <MappingFragment StoreEntitySet="BitacoraCliente">
-                <ScalarProperty Name="ID_bitacoraCliente" ColumnName="ID_bitacoraCliente" />
-                <ScalarProperty Name="ID_usuarioCliente" ColumnName="ID_usuarioCliente" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
-                <ScalarProperty Name="asegurado" ColumnName="asegurado" />
-                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BitacoraFuncionarios">
-            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraFuncionario">
-              <MappingFragment StoreEntitySet="BitacoraFuncionario">
-                <ScalarProperty Name="ID_bitacoraFuncionario" ColumnName="ID_bitacoraFuncionario" />
-                <ScalarProperty Name="ID_usuarioFuncionario" ColumnName="ID_usuarioFuncionario" />
-                <ScalarProperty Name="cargo" ColumnName="cargo" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
-                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BitacoraServicios">
             <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraServicio">
               <MappingFragment StoreEntitySet="BitacoraServicio">
@@ -871,9 +814,8 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
           <EntitySetMapping Name="HistorialAtendidos">
             <EntityTypeMapping TypeName="ATECA_BDModel.HistorialAtendido">
               <MappingFragment StoreEntitySet="HistorialAtendidos">
+                <ScalarProperty Name="ID_usuario" ColumnName="ID_usuario" />
                 <ScalarProperty Name="ID_historialAtendido" ColumnName="ID_historialAtendido" />
-                <ScalarProperty Name="ID_usuarioCliente" ColumnName="ID_usuarioCliente" />
-                <ScalarProperty Name="ID_usuarioFuncionario" ColumnName="ID_usuarioFuncionario" />
                 <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
                 <ScalarProperty Name="ID_ficha" ColumnName="ID_ficha" />
                 <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
@@ -925,34 +867,6 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UsuariosClientes">
-            <EntityTypeMapping TypeName="ATECA_BDModel.UsuariosCliente">
-              <MappingFragment StoreEntitySet="UsuariosCliente">
-                <ScalarProperty Name="ID_usuarioCliente" ColumnName="ID_usuarioCliente" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
-                <ScalarProperty Name="asegurado" ColumnName="asegurado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsuariosFuncionarios">
-            <EntityTypeMapping TypeName="ATECA_BDModel.UsuariosFuncionario">
-              <MappingFragment StoreEntitySet="UsuariosFuncionario">
-                <ScalarProperty Name="ID_usuarioFuncionario" ColumnName="ID_usuarioFuncionario" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
-                <ScalarProperty Name="cargo" ColumnName="cargo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="Servicios_Por_Sucursal" TypeName="ATECA_BDModel.Servicios_Por_Sucursal" StoreEntitySet="Servicios_Por_Sucursal">
             <EndProperty Name="Servicios">
               <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
@@ -961,6 +875,49 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
               <ScalarProperty Name="ID_sucursal" ColumnName="ID_sucursal" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="BitacoraRols">
+            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraRol">
+              <MappingFragment StoreEntitySet="BitacoraRol">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ID_rol" ColumnName="ID_rol" />
+                <ScalarProperty Name="ID_bitacora" ColumnName="ID_bitacora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraUsuarios">
+            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraUsuario">
+              <MappingFragment StoreEntitySet="BitacoraUsuario">
+                <ScalarProperty Name="ID_rol" ColumnName="ID_rol" />
+                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="ID_usuario" ColumnName="ID_usuario" />
+                <ScalarProperty Name="ID_bitacora" ColumnName="ID_bitacora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ATECA_BDModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ID_rol" ColumnName="ID_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="ATECA_BDModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="ID_rol" ColumnName="ID_rol" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ID_usuario" ColumnName="ID_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -975,7 +932,7 @@ advertencia 6002: La tabla o vista 'ATECA_BD.dbo.Servicios_Por_Sucursal' no tien
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />

@@ -10,107 +10,107 @@ using ProyectoATECA.Models;
 
 namespace ProyectoATECA.Controllers
 {
-    public class UsuariosClientesController : Controller
+    public class RolesController : Controller
     {
         private ATECA_BDEntities db = new ATECA_BDEntities();
 
-        // GET: UsuariosClientes
+        // GET: Roles
         public ActionResult Index()
         {
-            return View(db.UsuariosClientes.ToList());
+            return View(db.Roles.ToList());
         }
 
-        // GET: UsuariosClientes/Details/5
+        // GET: Roles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UsuariosCliente usuariosCliente = db.UsuariosClientes.Find(id);
-            if (usuariosCliente == null)
+            Role role = db.Roles.Find(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
-            return View(usuariosCliente);
+            return View(role);
         }
 
-        // GET: UsuariosClientes/Create
+        // GET: Roles/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UsuariosClientes/Create
+        // POST: Roles/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_usuarioCliente,nombre,cedula,apellidos,fechaNacimiento,correo,contraseña,asegurado")] UsuariosCliente usuariosCliente)
+        public ActionResult Create([Bind(Include = "ID_rol,nombre")] Role role)
         {
             if (ModelState.IsValid)
             {
-                db.UsuariosClientes.Add(usuariosCliente);
+                db.Roles.Add(role);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(usuariosCliente);
+            return View(role);
         }
 
-        // GET: UsuariosClientes/Edit/5
+        // GET: Roles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UsuariosCliente usuariosCliente = db.UsuariosClientes.Find(id);
-            if (usuariosCliente == null)
+            Role role = db.Roles.Find(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
-            return View(usuariosCliente);
+            return View(role);
         }
 
-        // POST: UsuariosClientes/Edit/5
+        // POST: Roles/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_usuarioCliente,nombre,cedula,apellidos,fechaNacimiento,correo,contraseña,asegurado")] UsuariosCliente usuariosCliente)
+        public ActionResult Edit([Bind(Include = "ID_rol,nombre")] Role role)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuariosCliente).State = EntityState.Modified;
+                db.Entry(role).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuariosCliente);
+            return View(role);
         }
 
-        // GET: UsuariosClientes/Delete/5
+        // GET: Roles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UsuariosCliente usuariosCliente = db.UsuariosClientes.Find(id);
-            if (usuariosCliente == null)
+            Role role = db.Roles.Find(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
-            return View(usuariosCliente);
+            return View(role);
         }
 
-        // POST: UsuariosClientes/Delete/5
+        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            UsuariosCliente usuariosCliente = db.UsuariosClientes.Find(id);
-            db.UsuariosClientes.Remove(usuariosCliente);
+            Role role = db.Roles.Find(id);
+            db.Roles.Remove(role);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

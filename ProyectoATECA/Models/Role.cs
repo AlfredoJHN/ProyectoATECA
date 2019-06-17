@@ -12,27 +12,21 @@ namespace ProyectoATECA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UsuariosCliente
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UsuariosCliente()
+        public Role()
         {
-            this.BitacoraClientes = new HashSet<BitacoraCliente>();
-            this.HistorialAtendidos = new HashSet<HistorialAtendido>();
+            this.BitacoraRols = new HashSet<BitacoraRol>();
+            this.Usuarios = new HashSet<Usuario>();
         }
     
-        public int ID_usuarioCliente { get; set; }
+        public int ID_rol { get; set; }
         public string nombre { get; set; }
-        public string cedula { get; set; }
-        public string apellidos { get; set; }
-        public System.DateTime fechaNacimiento { get; set; }
-        public string correo { get; set; }
-        public byte[] contraseña { get; set; }
-        public bool asegurado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BitacoraCliente> BitacoraClientes { get; set; }
+        public virtual ICollection<BitacoraRol> BitacoraRols { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HistorialAtendido> HistorialAtendidos { get; set; }
+        public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }
