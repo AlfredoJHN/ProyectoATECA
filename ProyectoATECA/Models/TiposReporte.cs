@@ -11,7 +11,8 @@ namespace ProyectoATECA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TiposReporte
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,8 +21,16 @@ namespace ProyectoATECA.Models
             this.BitacoraTipos = new HashSet<BitacoraTipos>();
             this.Reportes = new HashSet<Reporte>();
         }
-    
+        private const string Letras =
+       "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
+
         public int ID_tipo { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(35, MinimumLength = 10,
+        ErrorMessage = "El nombre del tipo de reporte debe contener entre 10 y 35 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string nombreTipo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

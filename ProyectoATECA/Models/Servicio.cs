@@ -11,7 +11,8 @@ namespace ProyectoATECA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Servicio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +23,16 @@ namespace ProyectoATECA.Models
             this.HistorialAtendidos = new HashSet<HistorialAtendido>();
             this.Sucursales = new HashSet<Sucursale>();
         }
-    
+        private const string Letras =
+        "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
+
         public int ID_servicio { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(45, MinimumLength = 5,
+        ErrorMessage = "El nombre del servicio debe contener entre 5 y 45 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

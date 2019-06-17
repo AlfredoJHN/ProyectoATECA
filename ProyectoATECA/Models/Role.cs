@@ -11,7 +11,8 @@ namespace ProyectoATECA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,8 +21,16 @@ namespace ProyectoATECA.Models
             this.BitacoraRols = new HashSet<BitacoraRol>();
             this.Usuarios = new HashSet<Usuario>();
         }
-    
+        private const string Letras =
+        "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
+
         public int ID_rol { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(30, MinimumLength = 5,
+        ErrorMessage = "El nombre del rol debe contener entre 5 y 30 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

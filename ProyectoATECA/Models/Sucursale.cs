@@ -11,7 +11,8 @@ namespace ProyectoATECA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Sucursale
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,14 +22,61 @@ namespace ProyectoATECA.Models
             this.Reportes = new HashSet<Reporte>();
             this.Servicios = new HashSet<Servicio>();
         }
-    
+        private const string Letras =
+        "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
+        private const string Dir =
+        "^[a-zA-Z ÁÉÍÓÚáéíóú0-9,.]+$";
+        private const string Numeros =
+        "^[0-9]*$";
+
         public int ID_sucursal { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(50, MinimumLength = 10,
+        ErrorMessage = "El nombre de la sucursal debe contener entre 10 y 50 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string nombre { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(50, MinimumLength = 5,
+        ErrorMessage = "La dirección debe contener entre 5 y 60 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Dir, ErrorMessage = "Solo se admiten números, letras y signos de puntuación(.,)")]
         public string direccion { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(20, MinimumLength = 5,
+        ErrorMessage = "El cantón debe contener entre 5 y 20 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string canton { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(20, MinimumLength = 5,
+        ErrorMessage = "El distrito debe contener entre 5 y 20 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string distrito { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(20, MinimumLength = 5,
+        ErrorMessage = "La provincia debe contener entre 5 y 20 caractéres de longitud")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string provincia { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(8, MinimumLength = 8,
+        ErrorMessage = "El número telefónico ser de 8 dígitos")]
+        [DataType(DataType.Text)]
+        [RegularExpression(Numeros, ErrorMessage = "Solo se admiten números")]
         public string telefono { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Debe ser una dirección de correo válida")]
+        [StringLength(45, MinimumLength = 7,
+        ErrorMessage = "El debe estar entre 7 y 45 caractéres de longitud")]
         public string correo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
