@@ -330,7 +330,6 @@
           <Property Name="ID_servicio" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Servicio" Relationship="Self.FK__BitacoraS__ID_se__440B1D61" FromRole="BitacoraServicio" ToRole="Servicios" />
           <Property Name="detalle" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="BitacoraSucursal">
@@ -346,7 +345,6 @@
           <Property Name="distrito" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Sucursale" Relationship="Self.FK__BitacoraS__ID_su__44FF419A" FromRole="BitacoraSucursal" ToRole="Sucursales" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="detalle" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -356,10 +354,9 @@
           </Key>
           <Property Name="ID_bitacoraTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_tipo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TiposReporte" Relationship="Self.FK__BitacoraT__ID_ti__45F365D3" FromRole="BitacoraTipos" ToRole="TiposReporte" />
-          <Property Name="detalle" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="nombreTipo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="detalle" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Ficha">
           <Key>
@@ -408,7 +405,6 @@
           </Key>
           <Property Name="ID_servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BitacoraServicios" Relationship="Self.FK__BitacoraS__ID_se__440B1D61" FromRole="Servicios" ToRole="BitacoraServicio" />
           <NavigationProperty Name="Fichas" Relationship="Self.FK__Fichas__ID_servi__412EB0B6" FromRole="Servicios" ToRole="Fichas" />
           <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_se__3F466844" FromRole="Servicios" ToRole="HistorialAtendidos" />
           <NavigationProperty Name="Sucursales" Relationship="Self.Servicios_Por_Sucursal" FromRole="Servicios" ToRole="Sucursales" />
@@ -425,7 +421,6 @@
           <Property Name="provincia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BitacoraSucursals" Relationship="Self.FK__BitacoraS__ID_su__44FF419A" FromRole="Sucursales" ToRole="BitacoraSucursal" />
           <NavigationProperty Name="Reportes" Relationship="Self.FK__Reportes__ID_suc__46E78A0C" FromRole="Sucursales" ToRole="Reportes" />
           <NavigationProperty Name="Servicios" Relationship="Self.Servicios_Por_Sucursal" FromRole="Sucursales" ToRole="Servicios" />
         </EntityType>
@@ -435,45 +430,8 @@
           </Key>
           <Property Name="ID_tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombreTipo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BitacoraTipos" Relationship="Self.FK__BitacoraT__ID_ti__45F365D3" FromRole="TiposReporte" ToRole="BitacoraTipos" />
           <NavigationProperty Name="Reportes" Relationship="Self.FK__Reportes__ID_tip__47DBAE45" FromRole="TiposReporte" ToRole="Reportes" />
         </EntityType>
-        <Association Name="FK__BitacoraS__ID_se__440B1D61">
-          <End Role="Servicios" Type="Self.Servicio" Multiplicity="1" />
-          <End Role="BitacoraServicio" Type="Self.BitacoraServicio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Servicios">
-              <PropertyRef Name="ID_servicio" />
-            </Principal>
-            <Dependent Role="BitacoraServicio">
-              <PropertyRef Name="ID_servicio" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__BitacoraS__ID_su__44FF419A">
-          <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="1" />
-          <End Role="BitacoraSucursal" Type="Self.BitacoraSucursal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sucursales">
-              <PropertyRef Name="ID_sucursal" />
-            </Principal>
-            <Dependent Role="BitacoraSucursal">
-              <PropertyRef Name="ID_sucursal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__BitacoraT__ID_ti__45F365D3">
-          <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
-          <End Role="BitacoraTipos" Type="Self.BitacoraTipos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TiposReporte">
-              <PropertyRef Name="ID_tipo" />
-            </Principal>
-            <Dependent Role="BitacoraTipos">
-              <PropertyRef Name="ID_tipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Fichas__ID_servi__412EB0B6">
           <End Role="Servicios" Type="Self.Servicio" Multiplicity="1" />
           <End Role="Fichas" Type="Self.Ficha" Multiplicity="*" />
@@ -548,18 +506,6 @@
           <EntitySet Name="Servicios" EntityType="Self.Servicio" />
           <EntitySet Name="Sucursales" EntityType="Self.Sucursale" />
           <EntitySet Name="TiposReportes" EntityType="Self.TiposReporte" />
-          <AssociationSet Name="FK__BitacoraS__ID_se__440B1D61" Association="Self.FK__BitacoraS__ID_se__440B1D61">
-            <End Role="Servicios" EntitySet="Servicios" />
-            <End Role="BitacoraServicio" EntitySet="BitacoraServicios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__BitacoraS__ID_su__44FF419A" Association="Self.FK__BitacoraS__ID_su__44FF419A">
-            <End Role="Sucursales" EntitySet="Sucursales" />
-            <End Role="BitacoraSucursal" EntitySet="BitacoraSucursals" />
-          </AssociationSet>
-          <AssociationSet Name="FK__BitacoraT__ID_ti__45F365D3" Association="Self.FK__BitacoraT__ID_ti__45F365D3">
-            <End Role="TiposReporte" EntitySet="TiposReportes" />
-            <End Role="BitacoraTipos" EntitySet="BitacoraTipos" />
-          </AssociationSet>
           <AssociationSet Name="FK__Fichas__ID_servi__412EB0B6" Association="Self.FK__Fichas__ID_servi__412EB0B6">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="Fichas" EntitySet="Fichas" />
@@ -588,14 +534,6 @@
           <EntitySet Name="BitacoraUsuarios" EntityType="ATECA_BDModel.BitacoraUsuario" />
           <EntitySet Name="Roles" EntityType="ATECA_BDModel.Role" />
           <EntitySet Name="Usuarios" EntityType="ATECA_BDModel.Usuario" />
-          <AssociationSet Name="FK_Roles_BitacoraRol" Association="ATECA_BDModel.FK_Roles_BitacoraRol">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="BitacoraRol" EntitySet="BitacoraRols" />
-          </AssociationSet>
-          <AssociationSet Name="FK__BitacoraC__ID_us__3C69FB991" Association="ATECA_BDModel.FK__BitacoraC__ID_us__3C69FB991">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="BitacoraUsuario" EntitySet="BitacoraUsuarios" />
-          </AssociationSet>
           <AssociationSet Name="FK__Historial__ID_us__3D5E1FD21" Association="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21">
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="HistorialAtendido" EntitySet="HistorialAtendidos" />
@@ -612,7 +550,6 @@
           <Property Name="ID_bitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_rol" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Role" Relationship="ATECA_BDModel.FK_Roles_BitacoraRol" FromRole="BitacoraRol" ToRole="Role" />
           <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="detalle" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -626,7 +563,6 @@
           <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ID_rol" Type="Int32" />
-          <NavigationProperty Name="Usuario" Relationship="ATECA_BDModel.FK__BitacoraC__ID_us__3C69FB991" FromRole="BitacoraUsuario" ToRole="Usuario" />
           <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -640,7 +576,6 @@
           </Key>
           <Property Name="ID_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BitacoraRols" Relationship="ATECA_BDModel.FK_Roles_BitacoraRol" FromRole="Role" ToRole="BitacoraRol" />
           <NavigationProperty Name="Usuarios" Relationship="ATECA_BDModel.FK_Usuarios_Roles" FromRole="Role" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -655,35 +590,10 @@
           <Property Name="correo" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="contraseña" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_rol" Type="Int32" />
-          <NavigationProperty Name="BitacoraUsuarios" Relationship="ATECA_BDModel.FK__BitacoraC__ID_us__3C69FB991" FromRole="Usuario" ToRole="BitacoraUsuario" />
           <NavigationProperty Name="HistorialAtendidos" Relationship="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21" FromRole="Usuario" ToRole="HistorialAtendido" />
           <NavigationProperty Name="Role" Relationship="ATECA_BDModel.FK_Usuarios_Roles" FromRole="Usuario" ToRole="Role" />
           <Property Name="estado" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK_Roles_BitacoraRol">
-          <End Type="ATECA_BDModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="ATECA_BDModel.BitacoraRol" Role="BitacoraRol" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="ID_rol" />
-            </Principal>
-            <Dependent Role="BitacoraRol">
-              <PropertyRef Name="ID_rol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__BitacoraC__ID_us__3C69FB991">
-          <End Type="ATECA_BDModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="ATECA_BDModel.BitacoraUsuario" Role="BitacoraUsuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="ID_usuario" />
-            </Principal>
-            <Dependent Role="BitacoraUsuario">
-              <PropertyRef Name="ID_usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Historial__ID_us__3D5E1FD21">
           <End Type="ATECA_BDModel.Usuario" Role="Usuario" Multiplicity="1" />
           <End Type="ATECA_BDModel.HistorialAtendido" Role="HistorialAtendido" Multiplicity="*" />

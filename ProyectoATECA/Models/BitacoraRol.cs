@@ -19,7 +19,5 @@ namespace ProyectoATECA.Models
         public string nombre { get; set; }
         public System.DateTime fechaCambio { get; set; }
         public string detalle { get; set; }
-    
-        public virtual Role Role { get; set; }
     }
 }

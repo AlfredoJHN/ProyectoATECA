@@ -26,7 +26,5 @@ namespace ProyectoATECA.Models
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
         public string detalle { get; set; }
         public string estado { get; set; }
-    
-        public virtual Usuario Usuario { get; set; }
     }
 }

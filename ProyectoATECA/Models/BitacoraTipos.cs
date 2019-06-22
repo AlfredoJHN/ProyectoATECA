@@ -16,10 +16,8 @@ namespace ProyectoATECA.Models
     {
         public int ID_bitacoraTipo { get; set; }
         public int ID_tipo { get; set; }
-        public string detalle { get; set; }
-        public System.DateTime fechaCambio { get; set; }
         public string nombreTipo { get; set; }
-    
-        public virtual TiposReporte TiposReporte { get; set; }
+        public System.DateTime fechaCambio { get; set; }
+        public string detalle { get; set; }
     }
 }

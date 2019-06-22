@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3c7a095390a045d6b4851816768c205d" Name="Diagram1">
+      <Diagram DiagramId="3c7a095390a045d6b4851816768c205d" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraServicio" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraSucursal" Width="1.5" PointX="5.625" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraTipos" Width="1.5" PointX="8.25" PointY="15.375" IsExpanded="true" />
@@ -14,9 +14,6 @@
         <EntityTypeShape EntityType="ATECA_BDModel.Servicio" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.Sucursale" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.TiposReporte" Width="1.5" PointX="6" PointY="15.375" IsExpanded="true" />
-        <AssociationConnector Association="ATECA_BDModel.FK__BitacoraS__ID_se__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="ATECA_BDModel.FK__BitacoraS__ID_su__44FF419A" ManuallyRouted="false" />
-        <AssociationConnector Association="ATECA_BDModel.FK__BitacoraT__ID_ti__45F365D3" ManuallyRouted="false" />
         <AssociationConnector Association="ATECA_BDModel.FK__Fichas__ID_servi__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="ATECA_BDModel.FK__Historial__ID_fi__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="ATECA_BDModel.FK__Historial__ID_se__3F466844" ManuallyRouted="false" />
@@ -27,8 +24,6 @@
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraUsuario" Width="1.5" PointX="11.875" PointY="1.5" />
         <EntityTypeShape EntityType="ATECA_BDModel.Role" Width="1.5" PointX="7.375" PointY="3" />
         <EntityTypeShape EntityType="ATECA_BDModel.Usuario" Width="1.5" PointX="9.625" PointY="1.125" />
-        <AssociationConnector Association="ATECA_BDModel.FK_Roles_BitacoraRol" />
-        <AssociationConnector Association="ATECA_BDModel.FK__BitacoraC__ID_us__3C69FB991" />
         <AssociationConnector Association="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21" />
         <AssociationConnector Association="ATECA_BDModel.FK_Usuarios_Roles" />
       </Diagram>

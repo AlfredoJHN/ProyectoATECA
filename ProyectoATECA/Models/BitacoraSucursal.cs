@@ -25,7 +25,5 @@ namespace ProyectoATECA.Models
         public System.DateTime fechaCambio { get; set; }
         public string nombre { get; set; }
         public string detalle { get; set; }
-    
-        public virtual Sucursale Sucursale { get; set; }
     }
 }
