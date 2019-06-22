@@ -48,7 +48,7 @@ namespace ProyectoATECA.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_usuario,nombre,cedula,apellidos,fechaNacimiento,correo,contraseña,ID_rol")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "ID_usuario,nombre,cedula,apellidos,fechaNacimiento,correo,contraseña,ID_rol,estado")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {

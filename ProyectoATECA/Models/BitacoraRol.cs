@@ -17,6 +17,8 @@ namespace ProyectoATECA.Models
         public int ID_bitacora { get; set; }
         public int ID_rol { get; set; }
         public string nombre { get; set; }
+        public System.DateTime fechaCambio { get; set; }
+        public string detalle { get; set; }
     
         public virtual Role Role { get; set; }
     }

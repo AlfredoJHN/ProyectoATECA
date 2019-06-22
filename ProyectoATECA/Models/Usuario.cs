@@ -66,7 +66,9 @@ namespace ProyectoATECA.Models
         [DataType(DataType.Text)]
         public string contraseña { get; set; }
         public Nullable<int> ID_rol { get; set; }
-    
+
+        public string estado { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BitacoraUsuario> BitacoraUsuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -20,6 +20,12 @@ namespace ProyectoATECA.Models
         public string contraseña { get; set; }
         public System.DateTime fechaCambio { get; set; }
         public Nullable<int> ID_rol { get; set; }
+        public string nombre { get; set; }
+        public string cedula { get; set; }
+        public string apellidos { get; set; }
+        public Nullable<System.DateTime> fechaNacimiento { get; set; }
+        public string detalle { get; set; }
+        public string estado { get; set; }
     
         public virtual Usuario Usuario { get; set; }
     }

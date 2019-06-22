@@ -23,6 +23,8 @@ namespace ProyectoATECA.Models
         public string distrito { get; set; }
         public string canton { get; set; }
         public System.DateTime fechaCambio { get; set; }
+        public string nombre { get; set; }
+        public string detalle { get; set; }
     
         public virtual Sucursale Sucursale { get; set; }
     }

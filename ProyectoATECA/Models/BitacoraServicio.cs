@@ -18,6 +18,7 @@ namespace ProyectoATECA.Models
         public int ID_servicio { get; set; }
         public string nombre { get; set; }
         public System.DateTime fechaCambio { get; set; }
+        public string detalle { get; set; }
     
         public virtual Servicio Servicio { get; set; }
     }
