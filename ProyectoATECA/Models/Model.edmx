@@ -48,8 +48,8 @@
           <Property Name="ID_bitacoraTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_tipo" Type="int" Nullable="false" />
           <Property Name="nombreTipo" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="detalle" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="fechaCambio" Type="date" Nullable="false" />
+          <Property Name="detalle" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="BitacoraUsuario">
           <Key>
@@ -77,6 +77,7 @@
           <Property Name="codigoFicha" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="numeroFicha" Type="int" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="atendido" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HistorialAtendidos">
           <Key>
@@ -369,6 +370,7 @@
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Servicio" Relationship="Self.FK__Fichas__ID_servi__412EB0B6" FromRole="Fichas" ToRole="Servicios" />
           <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_fi__403A8C7D" FromRole="Fichas" ToRole="HistorialAtendidos" />
+          <Property Name="atendido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HistorialAtendido">
           <Key>
@@ -666,6 +668,7 @@
           <EntitySetMapping Name="Fichas">
             <EntityTypeMapping TypeName="ATECA_BDModel.Ficha">
               <MappingFragment StoreEntitySet="Fichas">
+                <ScalarProperty Name="atendido" ColumnName="atendido" />
                 <ScalarProperty Name="ID_ficha" ColumnName="ID_ficha" />
                 <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
                 <ScalarProperty Name="codigoFicha" ColumnName="codigoFicha" />

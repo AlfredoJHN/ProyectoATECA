@@ -25,6 +25,7 @@ namespace ProyectoATECA.Models
         public string codigoFicha { get; set; }
         public int numeroFicha { get; set; }
         public System.DateTime fecha { get; set; }
+        public string atendido { get; set; }
     
         public virtual Servicio Servicio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

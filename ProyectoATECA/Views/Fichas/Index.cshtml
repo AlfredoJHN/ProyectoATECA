@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.codigoFicha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numeroFicha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.atendido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Servicio.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.codigoFicha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroFicha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.atendido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Servicio.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_ficha }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_ficha }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_ficha })
+        </td>
+    </tr>
+}
+
+</table>
