@@ -74,9 +74,8 @@
           </Key>
           <Property Name="ID_ficha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_servicio" Type="int" Nullable="false" />
-          <Property Name="codigoFicha" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="numeroFicha" Type="int" Nullable="false" />
-          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="codigoFicha" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="atendido" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HistorialAtendidos">
@@ -365,9 +364,8 @@
           </Key>
           <Property Name="ID_ficha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_servicio" Type="Int32" Nullable="false" />
-          <Property Name="codigoFicha" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="numeroFicha" Type="Int32" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="codigoFicha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Servicio" Relationship="Self.FK__Fichas__ID_servi__412EB0B6" FromRole="Fichas" ToRole="Servicios" />
           <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_fi__403A8C7D" FromRole="Fichas" ToRole="HistorialAtendidos" />
           <Property Name="atendido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -672,7 +670,6 @@
                 <ScalarProperty Name="ID_ficha" ColumnName="ID_ficha" />
                 <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
                 <ScalarProperty Name="codigoFicha" ColumnName="codigoFicha" />
-                <ScalarProperty Name="numeroFicha" ColumnName="numeroFicha" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
               </MappingFragment>
             </EntityTypeMapping>

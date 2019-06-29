@@ -23,7 +23,6 @@ namespace ProyectoATECA.Models
         public int ID_ficha { get; set; }
         public int ID_servicio { get; set; }
         public string codigoFicha { get; set; }
-        public int numeroFicha { get; set; }
         public System.DateTime fecha { get; set; }
         public string atendido { get; set; }
     

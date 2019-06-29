@@ -15,9 +15,6 @@
             @Html.DisplayNameFor(model => model.codigoFicha)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.numeroFicha)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.fecha)
         </th>
         <th>
@@ -35,9 +32,6 @@
             @Html.DisplayFor(modelItem => item.codigoFicha)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.numeroFicha)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.fecha)
         </td>
         <td>
@@ -47,9 +41,7 @@
             @Html.DisplayFor(modelItem => item.Servicio.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_ficha }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_ficha }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_ficha })
+
         </td>
     </tr>
 }
