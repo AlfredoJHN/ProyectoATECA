@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
+﻿@model IEnumerable<ProyectoATECA.Models.Ficha> 
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+
 </p>
 <table class="table">
     <tr>
@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.Servicio.nombre)
         </td>
         <td>
-
+            @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = item.ID_ficha, @ID_servicio = item.Servicio.ID_servicio}, new { @class = "btn btn-default" })
         </td>
     </tr>
 }

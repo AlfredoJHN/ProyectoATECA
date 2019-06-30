@@ -57,7 +57,7 @@ namespace ProyectoATECA.Controllers
             {
                 db.Fichas.Add(ficha);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);

@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FichasController.cs" />
+    <Compile Include="Controllers\HistorialAtendidosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
@@ -280,6 +281,11 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Fichas\Create.cshtml" />
     <Content Include="Views\Fichas\Index.cshtml" />
+    <Content Include="Views\HistorialAtendidos\Create.cshtml" />
+    <Content Include="Views\HistorialAtendidos\Delete.cshtml" />
+    <Content Include="Views\HistorialAtendidos\Details.cshtml" />
+    <Content Include="Views\HistorialAtendidos\Edit.cshtml" />
+    <Content Include="Views\HistorialAtendidos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

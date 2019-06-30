@@ -1,0 +1,74 @@
+﻿@model ProyectoATECA.Models.HistorialAtendido
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HistorialAtendido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.horaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.duracion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.duracion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ficha.codigoFicha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ficha.codigoFicha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Servicio.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Servicio.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_historialAtendido }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
