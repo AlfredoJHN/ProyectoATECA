@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.Servicio.nombre)
         </td>
         <td>
-            @Html.ActionLink("Atendera", "Create", "HistorialAtendidos", new { @ID_ficha = item.ID_ficha, @ID_servicio = item.Servicio.ID_servicio}, new { @class = "btn btn-default" })
+            @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = item.ID_ficha, @ID_servicio = item.Servicio.ID_servicio}, new { @class = "btn btn-default" })
         </td>
     </tr>
 }

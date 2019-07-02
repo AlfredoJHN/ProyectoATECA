@@ -18,8 +18,25 @@ namespace ProyectoATECA.Controllers
         public ActionResult Index()
         {
             var fichas = db.Fichas.Include(f => f.Servicio);
-            return View(fichas.ToList());
+            return View(
+                db.Fichas.Where(f => f.atendido == "No"));
         }
+
+        //public ViewResult Index()
+        //{
+        //    var countries = new SelectList(
+        //        db.Racers.Select(r => r.Country).Distinct().ToList());
+
+        //    ViewBag.Countries = countries;
+        //    return View();
+        //}
+
+        //public PartialViewResult RacersByCountryPartial(string id)
+        //{
+        //    return PartialView(
+        //        db.Racers.Where(r => r.Country == id).OrderByDescending(r => r.Wins)
+        //            .ThenBy(r => r.Lastname).ToList());
+        //}
 
         // GET: Fichas/Details/5
         public ActionResult Details(int? id)

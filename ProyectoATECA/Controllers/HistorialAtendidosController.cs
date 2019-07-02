@@ -21,6 +21,7 @@ namespace ProyectoATECA.Controllers
             return View(historialAtendidos.ToList());
         }
 
+
         // GET: HistorialAtendidos/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,9 +40,13 @@ namespace ProyectoATECA.Controllers
         // GET: HistorialAtendidos/Create
         public ActionResult Create()
         {
+            ViewData["horaInicio"] = DateTime.Now;
+            ViewData["horaFin"] = DateTime.Now;
+            ViewData["fecha"] = DateTime.Now;
+            ViewData["duracion"] = 0;
             ViewBag.ID_ficha = new SelectList(db.Fichas, "ID_ficha", "codigoFicha");
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre");
-            ViewBag.ID_usuario = new SelectList(db.Usuarios, "ID_usuario", "nombre");
+            ViewBag.ID_usuario = new SelectList(db.Usuarios, "ID_usuario", "cedula");
             return View();
         }
 
@@ -61,7 +66,7 @@ namespace ProyectoATECA.Controllers
 
             ViewBag.ID_ficha = new SelectList(db.Fichas, "ID_ficha", "codigoFicha", historialAtendido.ID_ficha);
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", historialAtendido.ID_servicio);
-            ViewBag.ID_usuario = new SelectList(db.Usuarios, "ID_usuario", "nombre", historialAtendido.ID_usuario);
+            ViewBag.ID_usuario = new SelectList(db.Usuarios, "ID_usuario", "cedula", historialAtendido.ID_usuario);
             return View(historialAtendido);
         }
 
