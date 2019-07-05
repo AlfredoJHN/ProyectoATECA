@@ -1,12 +1,20 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@{
+    ViewBag.Title = "Home Page";
+
+}
+@foreach (var item in Model)
+{
+    <div class="jumbotron">
+        <h1>
+            Ficha: @Html.DisplayFor(modelItem => item.codigoFicha)
+        </h1>
+        <p class="lead">
+            Caja: @Html.DisplayFor(modelItem => item.Servicio.nombre)
+        </p>
+    </div>
+}
 
 <div class="row">
     <div class="col-md-4">

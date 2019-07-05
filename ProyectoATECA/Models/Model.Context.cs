@@ -12,6 +12,8 @@ namespace ProyectoATECA.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ATECA_BDEntities : DbContext
     {
@@ -38,5 +40,14 @@ namespace ProyectoATECA.Models
         public virtual DbSet<BitacoraUsuario> BitacoraUsuarios { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+    
+        public virtual int LlamarCliente(Nullable<int> iD_ficha)
+        {
+            var iD_fichaParameter = iD_ficha.HasValue ?
+                new ObjectParameter("ID_ficha", iD_ficha) :
+                new ObjectParameter("ID_ficha", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LlamarCliente", iD_fichaParameter);
+        }
     }
 }

@@ -59,6 +59,7 @@ namespace ProyectoATECA.Controllers
             ViewData["codigoFicha"] = DateTime.Now.Hour+"-"+DateTime.Now.Minute+"-"+DateTime.Now.Second;
             ViewData["fecha"] = DateTime.Now;
             ViewData["atendido"] = "No";
+            ViewData["llamado"] = "No";
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre");
             return View();
         }
@@ -68,7 +69,7 @@ namespace ProyectoATECA.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido")] Ficha ficha)
+        public ActionResult Create([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado")] Ficha ficha)
         {
             if (ModelState.IsValid)
             {
@@ -80,6 +81,36 @@ namespace ProyectoATECA.Controllers
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
             return View(ficha);
         }
+
+        public ActionResult Llamar(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ficha ficha = db.Fichas.Find(id);
+            if (ficha == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
+            return View(ficha);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Llamar([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado")] Ficha ficha)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(ficha).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            };
+            ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
+            return View(ficha);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

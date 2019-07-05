@@ -286,6 +286,7 @@
     <Content Include="Views\HistorialAtendidos\Details.cshtml" />
     <Content Include="Views\HistorialAtendidos\Edit.cshtml" />
     <Content Include="Views\HistorialAtendidos\Index.cshtml" />
+    <Content Include="Views\Fichas\Llamar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
