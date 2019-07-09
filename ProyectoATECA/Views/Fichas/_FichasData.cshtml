@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.codigoFicha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.atendido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.llamado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Servicio.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoFicha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.atendido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.llamado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Servicio.nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Llamar", "Llamar", "Fichas", new { id = item.ID_ficha }, new { @class = "btn btn-default" })
+            </td>
+            <td>
+                @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = item.ID_ficha, @ID_servicio = item.Servicio.ID_servicio }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+
+</table>
+

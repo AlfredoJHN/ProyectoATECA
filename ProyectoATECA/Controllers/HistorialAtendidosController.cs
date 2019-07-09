@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoATECA.Hubs;
 using ProyectoATECA.Models;
 
 namespace ProyectoATECA.Controllers
@@ -47,6 +48,7 @@ namespace ProyectoATECA.Controllers
             ViewBag.ID_ficha = new SelectList(db.Fichas, "ID_ficha", "codigoFicha");
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre");
             ViewBag.ID_usuario = new SelectList(db.Usuarios, "ID_usuario", "cedula");
+
             return View();
         }
 
@@ -57,16 +59,19 @@ namespace ProyectoATECA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_historialAtendido,ID_servicio,ID_ficha,horaInicio,horaFin,duracion,fecha,ID_usuario")] HistorialAtendido historialAtendido)
         {
+
             if (ModelState.IsValid)
             {
                 db.HistorialAtendidos.Add(historialAtendido);
                 db.SaveChanges();
+                FichasHub.BroadcastDataFILA();
                 return RedirectToAction("Index");
             }
 
             ViewBag.ID_ficha = new SelectList(db.Fichas, "ID_ficha", "codigoFicha", historialAtendido.ID_ficha);
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", historialAtendido.ID_servicio);
             ViewBag.ID_usuario = new SelectList(db.Usuarios, "ID_usuario", "cedula", historialAtendido.ID_usuario);
+
             return View(historialAtendido);
         }
 

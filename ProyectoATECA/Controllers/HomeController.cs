@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoATECA.Hubs;
 using ProyectoATECA.Models;
 
 namespace ProyectoATECA.Controllers
@@ -17,9 +18,14 @@ namespace ProyectoATECA.Controllers
         public ActionResult Index()
         {
             var fichas = db.Fichas.Include(f => f.Servicio);
+            FichasHub.BroadcastDataFILA();
             return View(
                 db.Fichas.Where(f => f.llamado == "Si" && f.atendido == "No"));
+        }
 
+        public ActionResult GetFichasData()
+        {
+            return PartialView("_FichasData", db.Fichas.Where(f => f.llamado == "Si" && f.atendido == "No").ToList());
         }
 
         public ActionResult About()

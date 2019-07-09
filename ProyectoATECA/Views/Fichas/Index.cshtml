@@ -1,58 +1,37 @@
-﻿@model IEnumerable<ProyectoATECA.Models.Ficha> 
+﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div id="dataModel"></div>
+@section JavaScript{
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
+        $(function () {
+            var hubNotify = $.connection.fichasHub;
 
-<p>
+            $.connection.hub.start().done(function () {
+                getAll();
+            });
 
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.codigoFicha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.atendido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.llamado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Servicio.nombre)
-        </th>
-        <th></th>
-    </tr>
+            hubNotify.client.refreshFichasData = function () {
+                getAll();
+            };
+        });
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.codigoFicha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.atendido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.llamado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Servicio.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Llamar", "Llamar", "Fichas", new { id = item.ID_ficha }, new { @class = "btn btn-default" })
-        </td>
-        <td>
-            @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = item.ID_ficha, @ID_servicio = item.Servicio.ID_servicio }, new { @class = "btn btn-default" })
-        </td>
-    </tr>
+        function getAll() {
+            var model = $('#dataModel');
+            $.ajax({
+                url: '/Fichas/GetFichasData',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) { model.empty().append(result); }
+            });
+        }
+    </script>
 }
 
-</table>
+

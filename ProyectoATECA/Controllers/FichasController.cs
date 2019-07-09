@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoATECA.Hubs;
 using ProyectoATECA.Models;
+
 
 namespace ProyectoATECA.Controllers
 {
@@ -18,8 +20,14 @@ namespace ProyectoATECA.Controllers
         public ActionResult Index()
         {
             var fichas = db.Fichas.Include(f => f.Servicio);
+            FichasHub.BroadcastData();
             return View(
                 db.Fichas.Where(f => f.atendido == "No"));
+        }
+
+        public ActionResult GetFichasData()
+        {
+            return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No").ToList());
         }
 
         //public ViewResult Index()
@@ -50,6 +58,7 @@ namespace ProyectoATECA.Controllers
             {
                 return HttpNotFound();
             }
+            FichasHub.BroadcastData();
             return View(ficha);
         }
 
@@ -61,6 +70,7 @@ namespace ProyectoATECA.Controllers
             ViewData["atendido"] = "No";
             ViewData["llamado"] = "No";
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre");
+            FichasHub.BroadcastData();
             return View();
         }
 
@@ -79,6 +89,7 @@ namespace ProyectoATECA.Controllers
             }
 
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
+            FichasHub.BroadcastData();
             return View(ficha);
         }
 
@@ -94,6 +105,7 @@ namespace ProyectoATECA.Controllers
                 return HttpNotFound();
             }
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
+            FichasHub.BroadcastData();
             return View(ficha);
         }
 
@@ -105,9 +117,12 @@ namespace ProyectoATECA.Controllers
             {
                 db.Entry(ficha).State = EntityState.Modified;
                 db.SaveChanges();
+                FichasHub.BroadcastData();
+                FichasHub.BroadcastDataFILA();
                 return RedirectToAction("Index");
             };
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
+
             return View(ficha);
         }
 
