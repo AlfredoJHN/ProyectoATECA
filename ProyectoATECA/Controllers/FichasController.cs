@@ -85,6 +85,7 @@ namespace ProyectoATECA.Controllers
             {
                 db.Fichas.Add(ficha);
                 db.SaveChanges();
+                FichasHub.BroadcastData();
                 return RedirectToAction("Create");
             }
 

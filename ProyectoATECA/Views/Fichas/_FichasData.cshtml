@@ -50,11 +50,12 @@
             <td>
                 @Html.ActionLink("Llamar", "Llamar", "Fichas", new { id = item.ID_ficha }, new { @class = "btn btn-default" })
             </td>
-            <td>
-                @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = item.ID_ficha, @ID_servicio = item.Servicio.ID_servicio }, new { @class = "btn btn-default" })
-            </td>
+
         </tr>
     }
-
 </table>
+
+@Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = @Model.First().ID_ficha, @ID_servicio = @Model.First().ID_servicio, @codigo = @Model.First().codigoFicha }, new { @class = "btn btn-default" })
+
+
 

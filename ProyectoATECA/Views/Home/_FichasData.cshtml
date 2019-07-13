@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Atendiendo";
 
 }
 
@@ -11,8 +11,8 @@
         <div class="item active">
             <img src="~/Img/Blue-Block.jpg" alt="ATECA">
             <div class="carousel-caption">
-                <h3>ATECA</h3>
-                <p>TESTESTESTEST</p>
+                <h5 style="color:black; font:20px;">Bienvenido al Sistema de Gestion de filas</h5>
+                <p style="color:black; font:20px;">Caja Costarricense del Seguro Social</p>
             </div>
         </div>
 
@@ -21,10 +21,13 @@
             <div class="item">
                 <img src="~/Img/Blue-Block.jpg" alt="Fichas">
                 <div class="carousel-caption">
-                    <h5>
+                    <h5 style="color:black; font:20px;">
+                        Atendiendo a:
+                    </h5>
+                    <h5 style="color:black; font:20px;">
                         Ficha: @Html.DisplayFor(modelItem => item.codigoFicha)
                     </h5>
-                    <p>
+                    <p style="color:black; font:20px;">
                         Caja: @Html.DisplayFor(modelItem => item.Servicio.nombre)
                     </p>
                 </div>

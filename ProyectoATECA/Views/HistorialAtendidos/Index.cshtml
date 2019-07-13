@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<ProyectoATECA.Models.HistorialAtendido>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Historial de atendidos";
 }
 
-<h2>Index</h2>
+<h2>Historial de atendidos</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -59,9 +57,7 @@
             @Html.DisplayFor(modelItem => item.Usuario.cedula)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_historialAtendido }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_historialAtendido }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_historialAtendido })
+            @Html.ActionLink("Details", "Details", new { id=item.ID_historialAtendido }) 
         </td>
     </tr>
 }

@@ -305,9 +305,6 @@
     <Content Include="Views\Fichas\Create.cshtml" />
     <Content Include="Views\Fichas\Index.cshtml" />
     <Content Include="Views\HistorialAtendidos\Create.cshtml" />
-    <Content Include="Views\HistorialAtendidos\Delete.cshtml" />
-    <Content Include="Views\HistorialAtendidos\Details.cshtml" />
-    <Content Include="Views\HistorialAtendidos\Edit.cshtml" />
     <Content Include="Views\HistorialAtendidos\Index.cshtml" />
     <Content Include="Views\Fichas\Llamar.cshtml" />
     <Content Include="Views\Fichas\_FichasData.cshtml" />
