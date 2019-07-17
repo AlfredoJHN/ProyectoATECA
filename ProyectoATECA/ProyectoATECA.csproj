@@ -232,6 +232,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Img\Blue-Block.jpg" />
     <Content Include="Img\download.svg" />
+    <Content Include="LICENSE.txt" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
@@ -252,6 +253,10 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\charts\exporting.js" />
+    <Content Include="Scripts\charts\highcharts.js" />
+    <Content Include="Scripts\d3.js" />
+    <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
@@ -309,6 +314,7 @@
     <Content Include="Views\Fichas\Llamar.cshtml" />
     <Content Include="Views\Fichas\_FichasData.cshtml" />
     <Content Include="Views\Home\_FichasData.cshtml" />
+    <Content Include="Views\HistorialAtendidos\Reportes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
