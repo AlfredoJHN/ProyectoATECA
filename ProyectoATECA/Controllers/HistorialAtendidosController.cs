@@ -106,7 +106,7 @@ namespace ProyectoATECA.Controllers
 
             var query = db.HistorialAtendidos.Include("Servicios")
                     .GroupBy(s=>s.Servicio.ID_servicio)
-                   .Select(g => new { name = g.Key, count = db.HistorialAtendidos.Where(x=> x.ID_servicio==g.Key)}).ToList();
+                   .Select(g => new { name = g.Key, count = db.HistorialAtendidos.Where(x=> x.ID_servicio==g.Key).Count()}).ToList();
             return Json(query, JsonRequestBehavior.AllowGet);
 
         }
