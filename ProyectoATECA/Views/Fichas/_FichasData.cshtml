@@ -55,10 +55,10 @@
 </table>
 <div class="row">
     <div class="col-md-4">
-        @Html.ActionLink("Llamar", "Llamar", "Fichas", new { id = @Model.First().ID_ficha }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Llamar", "Llamar", "Fichas", new { id = @Model.FirstOrDefault()?.ID_ficha }, new { @class = "btn btn-default" })
     </div>
     <div class="col-md-4">
-        @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = @Model.First().ID_ficha, @ID_servicio = @Model.First().ID_servicio, @codigo = @Model.First().codigoFicha }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = @Model.FirstOrDefault()?.ID_ficha, @ID_servicio = @Model.FirstOrDefault()?.ID_servicio, @codigo = @Model.FirstOrDefault()?.codigoFicha }, new { @class = "btn btn-default" })
     </div>
 </div>
 

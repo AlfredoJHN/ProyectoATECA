@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Cantidad de atendidos por servicio";
+}
+<script src="~/Scripts/charts/exporting.js"></script>
+<script src="~/Scripts/charts/highcharts.js"></script>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Cantidad de atendidos por servicio", "CantidadAtendidos", "Reportes")</h2>
+        <img class="img-responsive" src="~/Img/personas.png" style="height:35%;width:25%;">
+    </div>
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Promedio de duracion por atencion", "DuracionPromedio", "Reportes")</h2>
+    </div>
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Cantidad de atendidos por mes", "CantidadAtendidosMes", "Reportes")</h2>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Cantidad de atendidos por servicio";
+}
+<script src="~/Scripts/charts/exporting.js"></script>
+<script src="~/Scripts/charts/highcharts.js"></script>
+
+
+<div class="jumbotron">
+    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $.getJSON("/Reportes/GetAtendidosMes", function (data) {
+                var Names = []
+                var Qts = []
+                for (var i = 0; i < data.length; i++) {
+                Names.push(data[i].name);
+                Qts.push(data[i].count);
+            }
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Cantidad de atendidos por mes'
+                },
+                subtitle: {
+                    text: 'CCSS'
+                },
+                xAxis: {
+                    categories: Names
+                },
+                yAxis: {
+                    title: {
+                        text: 'Cantidad'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Atendidos',
+                    data: Qts
+                }]
+            });
+        });
+    });
+
+</script>

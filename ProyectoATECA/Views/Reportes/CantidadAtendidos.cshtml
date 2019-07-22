@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Reportes";
+    ViewBag.Title = "Cantidad de atendidos por servicio";
 }
 <script src="~/Scripts/charts/exporting.js"></script>
 <script src="~/Scripts/charts/highcharts.js"></script>
@@ -12,7 +12,7 @@
 <script>
 
     $(document).ready(function () {
-        $.getJSON("/HistorialAtendidos/GetData", function (data) {
+        $.getJSON("/Reportes/GetCantidadAtendidos", function (data) {
                 var Names = []
                 var Qts = []
                 for (var i = 0; i < data.length; i++) {
@@ -21,7 +21,7 @@
             }
             Highcharts.chart('container', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
                     text: 'Cantidad de atendidos por servicio'
@@ -46,7 +46,7 @@
                     }
                 },
                 series: [{
-                    name: 'Trend',
+                    name: 'Atendidos',
                     data: Qts
                 }]
             });

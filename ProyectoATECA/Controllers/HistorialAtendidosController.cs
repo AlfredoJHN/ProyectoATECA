@@ -77,47 +77,7 @@ namespace ProyectoATECA.Controllers
             FichasHub.BroadcastData();
             return View(historialAtendido);
         }
-        public ActionResult Reportes()
-        {
-            return View();
-        }
 
-        public ActionResult GetData() {
-
-            ////int cantidadAtendidos = db.HistorialAtendidos.Count();
-            ////int servicio = db.Servicios.Count();
-            ////for (int i = 0; i < servicio; i=i+1)
-            ////{
-            ////    int cantidadAtendidos1 = db.HistorialAtendidos.Where(x => x.ID_servicio == i).Count();
-            ////    Ratio obj = new Ratio();
-            ////    obj.A1 = cantidadAtendidos1;
-            ////    return Json(obj, JsonRequestBehavior.AllowGet);
-            ////}
-            ////int cantidadAtendidos2 = db.HistorialAtendidos.Where(x => x.ID_servicio == 2).Count();
-            ////int cantidadAtendidos3 = db.HistorialAtendidos.Where(x => x.ID_servicio == 3).Count();
-            ////int cantidadAtendidos4 = db.HistorialAtendidos.Where(x => x.ID_servicio == 4).Count();
-            ////Ratio obj = new Ratio();
-            ////obj.A1 = cantidadAtendidos;
-            ////obj.A2 = cantidadAtendidos2;
-            ////obj.A3 = cantidadAtendidos3;
-            ////obj.A4 = cantidadAtendidos4;
-
-            //return null;
-
-            var query = db.HistorialAtendidos.Include("Servicios")
-                    .GroupBy(s=>s.Servicio.ID_servicio)
-                   .Select(g => new { name = g.Key, count = db.HistorialAtendidos.Where(x=> x.ID_servicio==g.Key).Count()}).ToList();
-            return Json(query, JsonRequestBehavior.AllowGet);
-
-        }
-
-        public class Ratio
-        {
-            public int A1 { get; set; }
-            public int A2 { get; set; }
-            public int A3 { get; set; }
-            public int A4 { get; set; }
-        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
