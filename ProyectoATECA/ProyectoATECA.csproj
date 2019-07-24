@@ -161,6 +161,7 @@
     <Compile Include="Controllers\SucursalesController.cs" />
     <Compile Include="Controllers\TiposReportesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,6 +186,7 @@
     <Compile Include="Models\HistorialAtendido.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginUsuario.cs" />
     <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,7 +234,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Img\Blue-Block.jpg" />
+    <Content Include="Img\calendario.png" />
     <Content Include="Img\personas.png" />
+    <Content Include="Img\tiempo.png" />
     <Content Include="LICENSE.txt" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -319,6 +323,9 @@
     <Content Include="Views\Reportes\CantidadAtendidos.cshtml" />
     <Content Include="Views\Reportes\DuracionPromedio.cshtml" />
     <Content Include="Views\Reportes\CantidadAtendidosMes.cshtml" />
+    <Content Include="Views\Usuarios\Registration.cshtml" />
+    <Content Include="Views\Usuarios\Login.cshtml" />
+    <Content Include="Views\Usuarios\VerifyAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

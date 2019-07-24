@@ -24,7 +24,7 @@ namespace ProyectoATECA.Models
             this.Sucursales = new HashSet<Sucursale>();
         }
         private const string Letras =
-        "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
+        "^[a-zA-Z ÁÉÍÓÚáéíóú'0-9]+$";
 
         public int ID_servicio { get; set; }
 
@@ -32,7 +32,7 @@ namespace ProyectoATECA.Models
         [StringLength(45, MinimumLength = 5,
         ErrorMessage = "El nombre del servicio debe contener entre 5 y 45 caractéres de longitud")]
         [DataType(DataType.Text)]
-        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras y números")]
         public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

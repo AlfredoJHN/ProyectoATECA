@@ -158,6 +158,8 @@
           <Property Name="contraseña" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_rol" Type="int" />
           <Property Name="estado" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="correoVerificado" Type="bit" />
+          <Property Name="codigoActivacion" Type="uniqueidentifier" />
         </EntityType>
         <Association Name="FK__Fichas__ID_servi__412EB0B6">
           <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
@@ -548,7 +550,7 @@
             <End Role="Usuario" EntitySet="Usuarios" />
           </AssociationSet>
           <FunctionImport Name="LlamarCliente">
-            <Parameter Name="ID_ficha" Mode="In" Type="Int32" />
+          <Parameter Name="ID_ficha" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="BitacoraRol">
@@ -601,6 +603,8 @@
           <NavigationProperty Name="HistorialAtendidos" Relationship="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21" FromRole="Usuario" ToRole="HistorialAtendido" />
           <NavigationProperty Name="Role" Relationship="ATECA_BDModel.FK_Usuarios_Roles" FromRole="Usuario" ToRole="Role" />
           <Property Name="estado" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="correoVerificado" Type="Boolean" />
+          <Property Name="codigoActivacion" Type="Guid" />
         </EntityType>
         <Association Name="FK__Historial__ID_us__3D5E1FD21">
           <End Type="ATECA_BDModel.Usuario" Role="Usuario" Multiplicity="1" />
@@ -787,6 +791,8 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="ATECA_BDModel.Usuario">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="codigoActivacion" ColumnName="codigoActivacion" />
+                <ScalarProperty Name="correoVerificado" ColumnName="correoVerificado" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="ID_rol" ColumnName="ID_rol" />
                 <ScalarProperty Name="contraseña" ColumnName="contraseña" />
