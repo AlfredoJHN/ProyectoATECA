@@ -53,14 +53,14 @@ namespace ProyectoATECA.Controllers
 
         }
 
-        public ActionResult GetAtendidosMes()
+
+        public ActionResult GetAtendidosMes(int? mes, int? year)
         {
-
             var query = db.HistorialAtendidos
-                .GroupBy(s=>new { s.fecha.Month})
-                   .Select(g => new { name = g.Key.Month, count = db.HistorialAtendidos.Where(x=> x.fecha.Month == g.Key.Month).Count() }).ToList();
+                .GroupBy(s=>new { mes})
+                   .Select(g => new { name = mes, count = db.HistorialAtendidos.Where(x=> x.fecha.Month == mes 
+                   && x.fecha.Year == year).Count()}).ToList();
             return Json(query, JsonRequestBehavior.AllowGet);
-
         }
 
         protected override void Dispose(bool disposing)
