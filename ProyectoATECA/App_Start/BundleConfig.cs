@@ -23,8 +23,8 @@ namespace ProyectoATECA
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-Yeti.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css",
+                      "~/Content/business-frontpage.css"));
         }
     }
 }
