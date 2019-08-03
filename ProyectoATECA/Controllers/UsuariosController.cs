@@ -145,11 +145,18 @@ namespace ProyectoATECA.Controllers
             if (ModelState.IsValid)
             {
 
-                #region //Email is already Exist 
-                var isExist = IsEmailExist(usuario.correo);
-                if (isExist)
+                #region //Email already Exist 
+                var correoExist = IsEmailExist(usuario.correo);
+                var cedulaExist = CedulaExist(usuario.cedula);
+                if (correoExist )
                 {
                     ModelState.AddModelError("EmailExist", "El correo ya esta registrado");
+                    return View(usuario);
+                }
+
+                if (cedulaExist)
+                {
+                    ModelState.AddModelError("CedulaExist", "Esta cédula ya se encuentra registrada");
                     return View(usuario);
                 }
                 #endregion
@@ -172,7 +179,7 @@ namespace ProyectoATECA.Controllers
 
                     //Send Email to User
                     SendVerificationLinkEmail(usuario.correo, usuario.codigoActivacion.ToString());
-                    message = "Se ha registrado exitosamente. Se le ha enviado un mensaje de correo para verificar la activación de cuenta " +
+                    message = " Se ha registrado exitosamente. Se le ha enviado un mensaje de correo para verificar la activación de cuenta " +
                         " a: " + usuario.correo;
                     Status = true;
                 }
@@ -287,6 +294,17 @@ namespace ProyectoATECA.Controllers
             using (ATECA_BDEntities db = new ATECA_BDEntities())
             {
                 var v = db.Usuarios.Where(a => a.correo == correo).FirstOrDefault();
+                return v != null;
+            }
+        }
+
+
+        [NonAction]
+        public bool CedulaExist(string cedula)
+        {
+            using (ATECA_BDEntities db = new ATECA_BDEntities())
+            {
+                var v = db.Usuarios.Where(a => a.cedula == cedula).FirstOrDefault();
                 return v != null;
             }
         }

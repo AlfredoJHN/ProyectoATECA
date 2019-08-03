@@ -22,12 +22,16 @@ namespace ProyectoATECA.Controllers
             var fichas = db.Fichas.Include(f => f.Servicio);
             FichasHub.BroadcastData();
             return View(
-                db.Fichas.Where(f => f.atendido == "No"));
+                db.Fichas.Where(f => f.atendido == "No" && f.fecha.DayOfYear == DateTime.Now.DayOfYear).OrderBy(f=>f.fecha));
         }
 
         public ActionResult GetFichasData()
         {
-            return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No").ToList());
+            return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && 
+            f.fecha.Day == DateTime.Now.Day &&
+            f.fecha.Month == DateTime.Now.Month &&
+            f.fecha.Year == DateTime.Now.Year
+            ).ToList().OrderBy(f => f.fecha));
         }
 
         //public ViewResult Index()

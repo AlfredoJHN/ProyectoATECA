@@ -30,6 +30,7 @@ namespace ProyectoATECA.Models
         private const string Numeros =
         "^[0-9]*$";
 
+        [Display(Name = "Identificador")]
         public int ID_usuario { get; set; }
 
         [Required(ErrorMessage = "Campo requerido")]
@@ -42,7 +43,7 @@ namespace ProyectoATECA.Models
 
         [Required(ErrorMessage = "Campo requerido")]
         [Display(Name = "Cédula de identidad")]
-        [StringLength(9, MinimumLength = 9,
+        [StringLength(25, MinimumLength = 9,
         ErrorMessage = "La cédula debe ser de 9 dígitos mínimo y 25 máximo")]
         [DataType(DataType.Text)]
         [RegularExpression(Cedulas, ErrorMessage = "Solo se admiten números")]

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ProyectoATECA.Models.Sucursale>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sucursales";
 }
 
-<h2>Index</h2>
+<h2>Sucursales</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear nuevo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,9 @@
             @Html.DisplayFor(modelItem => item.correo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_sucursal }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_sucursal }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_sucursal })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID_sucursal }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID_sucursal }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.ID_sucursal })
         </td>
     </tr>
 }

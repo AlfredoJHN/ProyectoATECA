@@ -24,8 +24,10 @@ namespace ProyectoATECA.Models
         private const string Letras =
         "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
 
+        [Display(Name = "Identificador")]
         public int ID_rol { get; set; }
 
+        [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(30, MinimumLength = 5,
         ErrorMessage = "El nombre del rol debe contener entre 5 y 30 caractéres de longitud")]

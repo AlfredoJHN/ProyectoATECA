@@ -26,8 +26,10 @@ namespace ProyectoATECA.Models
         private const string Letras =
         "^[a-zA-Z ÁÉÍÓÚáéíóú'0-9]+$";
 
+        [Display(Name = "Identificador")]
         public int ID_servicio { get; set; }
 
+        [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(45, MinimumLength = 5,
         ErrorMessage = "El nombre del servicio debe contener entre 5 y 45 caractéres de longitud")]

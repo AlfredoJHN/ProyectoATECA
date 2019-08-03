@@ -50,12 +50,28 @@ namespace ProyectoATECA.Controllers
         {
             if (ModelState.IsValid)
             {
+                var rolExist = RolExist(role.nombre);
+                if (rolExist)
+                {
+                    ModelState.AddModelError("RolExist", "Este rol ya existe");
+                    return View(role);
+                }
                 db.Roles.Add(role);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(role);
+        }
+
+        [NonAction]
+        public bool RolExist(string nombre)
+        {
+            using (ATECA_BDEntities db = new ATECA_BDEntities())
+            {
+                var v = db.Roles.Where(a => a.nombre == nombre).FirstOrDefault();
+                return v != null;
+            }
         }
 
         // GET: Roles/Edit/5

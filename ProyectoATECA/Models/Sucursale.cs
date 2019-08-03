@@ -29,8 +29,10 @@ namespace ProyectoATECA.Models
         private const string Numeros =
         "^[0-9]*$";
 
+        [Display(Name = "Identificador")]
         public int ID_sucursal { get; set; }
 
+        [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(50, MinimumLength = 10,
         ErrorMessage = "El nombre de la sucursal debe contener entre 10 y 50 caractéres de longitud")]
@@ -38,6 +40,7 @@ namespace ProyectoATECA.Models
         [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string nombre { get; set; }
 
+        [Display(Name = "Dirección")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(50, MinimumLength = 5,
         ErrorMessage = "La dirección debe contener entre 5 y 60 caractéres de longitud")]
@@ -45,6 +48,7 @@ namespace ProyectoATECA.Models
         [RegularExpression(Dir, ErrorMessage = "Solo se admiten números, letras y signos de puntuación(.,)")]
         public string direccion { get; set; }
 
+        [Display(Name = "Cantón")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(20, MinimumLength = 5,
         ErrorMessage = "El cantón debe contener entre 5 y 20 caractéres de longitud")]
@@ -52,6 +56,7 @@ namespace ProyectoATECA.Models
         [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string canton { get; set; }
 
+        [Display(Name = "Distrito")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(20, MinimumLength = 5,
         ErrorMessage = "El distrito debe contener entre 5 y 20 caractéres de longitud")]
@@ -59,6 +64,7 @@ namespace ProyectoATECA.Models
         [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string distrito { get; set; }
 
+        [Display(Name = "Provincia")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(20, MinimumLength = 5,
         ErrorMessage = "La provincia debe contener entre 5 y 20 caractéres de longitud")]
@@ -66,6 +72,7 @@ namespace ProyectoATECA.Models
         [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string provincia { get; set; }
 
+        [Display(Name = "Teléfono")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(8, MinimumLength = 8,
         ErrorMessage = "El número telefónico ser de 8 dígitos")]
@@ -73,6 +80,7 @@ namespace ProyectoATECA.Models
         [RegularExpression(Numeros, ErrorMessage = "Solo se admiten números")]
         public string telefono { get; set; }
 
+        [Display(Name = "Correo electrónico")]
         [Required(ErrorMessage = "Campo requerido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Debe ser una dirección de correo válida")]
         [StringLength(45, MinimumLength = 7,

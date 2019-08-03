@@ -50,12 +50,28 @@ namespace ProyectoATECA.Controllers
         {
             if (ModelState.IsValid)
             {
+                var ifExist = ServicioExist(servicio.nombre);
+                if (ifExist)
+                {
+                    ModelState.AddModelError("ServicioExist", "El servicio ya está registrado");
+                    return View(servicio);
+                }
                 db.Servicios.Add(servicio);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(servicio);
+        }
+
+        [NonAction]
+        public bool ServicioExist(string nombre)
+        {
+            using (ATECA_BDEntities db = new ATECA_BDEntities())
+            {
+                var v = db.Servicios.Where(a => a.nombre == nombre).FirstOrDefault();
+                return v != null;
+            }
         }
 
         // GET: Servicios/Edit/5

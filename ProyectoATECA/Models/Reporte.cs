@@ -11,10 +11,14 @@ namespace ProyectoATECA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Reporte
     {
+        [Display(Name = "Identificador")]
         public int ID_reporte { get; set; }
+
+        [Display(Name = "Identificador de sucursal")]
         public int ID_sucursal { get; set; }
         public int ID_tipo { get; set; }
         public string detalle { get; set; }

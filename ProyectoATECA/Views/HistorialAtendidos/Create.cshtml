@@ -1,7 +1,7 @@
 ﻿@model ProyectoATECA.Models.HistorialAtendido
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Registro de atención";
 
     ViewBag.DefaultFicha = Request["ID_ficha"];
     ViewBag.CodigoFicha = Request["codigo"];
@@ -89,5 +89,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List","Index", "Fichas")
+    @Html.ActionLink("Regresar","Index", "Fichas")
 </div>

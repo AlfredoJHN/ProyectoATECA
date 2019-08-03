@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ProyectoATECA.Models.Servicio>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Servicios";
 }
 
-<h2>Index</h2>
+<h2>Servicios</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear nuevo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_servicio }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_servicio }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_servicio })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID_servicio }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID_servicio }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.ID_servicio })
         </td>
     </tr>
 }

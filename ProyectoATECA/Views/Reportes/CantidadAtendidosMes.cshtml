@@ -9,72 +9,86 @@
     <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 </div>
 
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <label class="control-label col-md-2">Mes</label>
+            <select class="form-control" id="mes" name="mes">
+                <option value="1" name="Enero">Enero</option>
+                <option value="2" name="Febrero">Febrero</option>
+                <option value="3" name="Marzo">Marzo</option>
+                <option value="4" name="Abril">Abril</option>
+                <option value="5" name="Mayo">Mayo</option>
+                <option value="6" name="Junio">Junio</option>
+                <option value="7" name="Julio">Julio</option>
+                <option value="8" name="Agosto">Agosto</option>
+                <option value="9" name="Septiembre">Septiembre</option>
+                <option value="10" name="Octubre">Octubre</option>
+                <option value="11" name="Noviembre">Noviembre</option>
+                <option value="12" name="Diciembre">Diciembre</option>
+            </select>
+        </div>
+    </div>
 
-<label>Mes</label>
-<select class="form-control" id="mes" name="mes">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    <option>11</option>
-    <option>12</option>
-</select>
-<label>Año</label>
-<input type="number" id="year" name="year">
-<button>Refrescar</button>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <label class="control-label col-md-2">Año</label>
+            <input class="form-control" type="number" id="year" name="year">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-default">Refrescar</button>
+        </div>
+    </div>
+</div>
+
+    <script>
 
 
-<script>
-
-
-    $("button").click(function () {
-        var mes = document.getElementById("mes").value;
-        var year = document.getElementById("year").value;
-        $.getJSON("/Reportes/GetAtendidosMes?mes="+mes+"&year="+year+"", function (data) {
-            var Names = []
-            var Qts = []
-            for (var i = 0; i < data.length; i++) {
-                Names.push(data[i].name);
-                Qts.push(data[i].count);
-            }
-            Highcharts.chart('container', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Cantidad de atendidos en el mes '+mes+' del '+year+'.'
-                },
-                subtitle: {
-                    text: 'CCSS'
-                },
-                xAxis: {
-                    categories: Names
-                },
-                yAxis: {
+        $("button").click(function () {
+            var mes = document.getElementById("mes").value;
+            var year = document.getElementById("year").value;
+            $.getJSON("/Reportes/GetAtendidosMes?mes=" + mes + "&year=" + year + "", function (data) {
+                var Names = []
+                var Qts = []
+                for (var i = 0; i < data.length; i++) {
+                    Names.push(data[i].name);
+                    Qts.push(data[i].count);
+                }
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'column'
+                    },
                     title: {
-                        text: 'Cantidad'
-                    }
-                },
-                plotOptions: {
-                    line: {
-                        dataLabels: {
-                            enabled: true
-                        },
-                        enableMouseTracking: false
-                    }
-                },
-                series: [{
-                    name: 'Atendidos',
-                    data: Qts
-                }]
+                        text: 'Cantidad de atendidos en el mes ' + mes + ' del ' + year + '.'
+                    },
+                    subtitle: {
+                        text: 'CCSS'
+                    },
+                    xAxis: {
+                        categories: Names
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Cantidad'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: 'Atendidos',
+                        data: Qts
+                    }]
+                });
             });
         });
-    });
 
-</script>
+    </script>
