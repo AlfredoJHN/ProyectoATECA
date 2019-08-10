@@ -15,6 +15,7 @@ namespace ProyectoATECA.Controllers
     {
         private ATECA_BDEntities db = new ATECA_BDEntities();
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();

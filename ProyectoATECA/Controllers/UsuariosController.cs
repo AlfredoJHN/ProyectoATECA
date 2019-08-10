@@ -244,7 +244,10 @@ namespace ProyectoATECA.Controllers
                 var v = db.Usuarios.Where(a => a.correo == login.correo).FirstOrDefault();
                 if (v != null)
                 {
-                    if (!v.correoVerificado)
+                    if (login.correo.IndexOf("@ccss.sa.cr") >= 1)
+                    {
+
+                        if (!v.correoVerificado)
                     {
                         ViewBag.Message = "Verifique su email";
                         return View();
@@ -268,10 +271,12 @@ namespace ProyectoATECA.Controllers
                         else
                         {
                             var vnombreUsuario = (from s in db.Usuarios
-                                                 where s.correo == login.correo
-                                                 select s.correo).FirstOrDefault();
+                                                    where s.correo == login.correo
+                                                    select s.correo).FirstOrDefault();
                             Session["UserName"] = vnombreUsuario;
                             return RedirectToAction("Index", "Home");
+
+
                         }
                     }
                     else
@@ -279,6 +284,11 @@ namespace ProyectoATECA.Controllers
                         message = "Acceso denegado";
                     }
                 }
+                else
+                {
+                    message = "Acceso denegado, su correo no pertenece a la CCSS";
+                }
+            }
                 else
                 {
                     message = "Acceso denegado";
