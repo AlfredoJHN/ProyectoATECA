@@ -2,13 +2,16 @@
 
 @{
     ViewBag.Title = "Crear";
+    ViewBag.TipoFicha = Request["tipoFicha"];
+
 }
 
 <h2>Solicite su ficha según el servicio que desee</h2>
+@ViewBag.TipoFicha
 
 @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+{
+    @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>Ficha</h4>
@@ -19,6 +22,13 @@
             <div class="col-md-10">
                 @Html.DropDownList("ID_servicio", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ID_servicio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.tipoFicha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.tipoFicha, new { @Value = @ViewBag.TipoFicha, htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -65,5 +75,5 @@
 
     </div>
 
-    }
+}
 

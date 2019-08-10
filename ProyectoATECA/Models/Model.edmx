@@ -69,6 +69,7 @@
           <Property Name="atendido" Type="varchar" MaxLength="50" />
           <Property Name="llamado" Type="varchar" MaxLength="50" />
           <Property Name="agendado" Type="varchar" MaxLength="15" />
+          <Property Name="tipoFicha" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="HistorialAtendidos">
           <Key>
@@ -309,6 +310,7 @@
           <Property Name="atendido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="llamado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="agendado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="tipoFicha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HistorialAtendido">
           <Key>
@@ -547,6 +549,7 @@
           <EntitySetMapping Name="Fichas">
             <EntityTypeMapping TypeName="ATECA_BDModel.Ficha">
               <MappingFragment StoreEntitySet="Fichas">
+                <ScalarProperty Name="tipoFicha" ColumnName="tipoFicha" />
                 <ScalarProperty Name="agendado" ColumnName="agendado" />
                 <ScalarProperty Name="llamado" ColumnName="llamado" />
                 <ScalarProperty Name="atendido" ColumnName="atendido" />

@@ -70,7 +70,11 @@ namespace ProyectoATECA.Controllers
             FichasHub.BroadcastData();
             return View(ficha);
         }
+        public ActionResult Escoger()
+        {
 
+            return View();
+        }
         // GET: Fichas/Create
         public ActionResult Create()
         {
@@ -88,7 +92,7 @@ namespace ProyectoATECA.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado")] Ficha ficha)
+        public ActionResult Create([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado,tipoFicha")] Ficha ficha)
         {
             if (ModelState.IsValid)
             {

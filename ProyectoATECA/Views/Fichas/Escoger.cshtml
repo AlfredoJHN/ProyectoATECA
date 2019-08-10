@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
+
+@{
+    /**/
+
+    ViewBag.Title = "Escoger tipo de servicio";
+}
+
+<h2>Tipo de servicio</h2>
+
+<p>
+
+</p>
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("Servicio regular", "Create", "Fichas", new { @tipoFicha = "Servicio regular" }, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Ley 7600", "Create", "Fichas", new { @tipoFicha = "Ley 7600" }, new { @class = "btn btn-default" })
+
+    </div>
+</div>
+
+
+
+

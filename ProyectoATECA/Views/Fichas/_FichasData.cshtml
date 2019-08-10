@@ -28,29 +28,35 @@
         <th>
             Servicio
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipoFicha)
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.codigoFicha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.atendido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.llamado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Servicio.nombre)
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.codigoFicha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.atendido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.llamado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Servicio.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipoFicha)
+        </td>
 
-        </tr>
+    </tr>
     }
 </table>
 <div class="row">

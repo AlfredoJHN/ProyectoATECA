@@ -36,7 +36,10 @@ namespace ProyectoATECA.Models
         [Display(Name = "Llamado")]
         public string llamado { get; set; }
         public string agendado { get; set; }
-    
+
+        [Display(Name = "Tipo de ficha")]
+        public string tipoFicha { get; set; }
+
         public virtual Servicio Servicio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistorialAtendido> HistorialAtendidos { get; set; }
