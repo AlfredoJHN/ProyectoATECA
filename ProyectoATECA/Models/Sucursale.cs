@@ -19,9 +19,9 @@ namespace ProyectoATECA.Models
         public Sucursale()
         {
             this.BitacoraSucursals = new HashSet<BitacoraSucursal>();
-            this.Reportes = new HashSet<Reporte>();
             this.Servicios = new HashSet<Servicio>();
         }
+
         private const string Letras =
         "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
         private const string Dir =
@@ -86,11 +86,11 @@ namespace ProyectoATECA.Models
         [StringLength(45, MinimumLength = 7,
         ErrorMessage = "El debe estar entre 7 y 45 caractéres de longitud")]
         public string correo { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BitacoraSucursal> BitacoraSucursals { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reporte> Reportes { get; set; }
+        public string estado { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servicio> Servicios { get; set; }
     }

@@ -7,18 +7,13 @@
       <Diagram DiagramId="3c7a095390a045d6b4851816768c205d" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraServicio" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraSucursal" Width="1.5" PointX="5.625" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATECA_BDModel.BitacoraTipos" Width="1.5" PointX="8.25" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.Ficha" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.HistorialAtendido" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATECA_BDModel.Reporte" Width="1.5" PointX="8.25" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.Servicio" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ATECA_BDModel.Sucursale" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATECA_BDModel.TiposReporte" Width="1.5" PointX="6" PointY="15.375" IsExpanded="true" />
         <AssociationConnector Association="ATECA_BDModel.FK__Fichas__ID_servi__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="ATECA_BDModel.FK__Historial__ID_fi__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="ATECA_BDModel.FK__Historial__ID_se__3F466844" ManuallyRouted="false" />
-        <AssociationConnector Association="ATECA_BDModel.FK__Reportes__ID_suc__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="ATECA_BDModel.FK__Reportes__ID_tip__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="ATECA_BDModel.Servicios_Por_Sucursal" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraRol" Width="1.5" PointX="9.625" PointY="5" />
         <EntityTypeShape EntityType="ATECA_BDModel.BitacoraUsuario" Width="1.5" PointX="11.875" PointY="1.5" />

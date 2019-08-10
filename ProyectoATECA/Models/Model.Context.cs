@@ -29,13 +29,10 @@ namespace ProyectoATECA.Models
     
         public virtual DbSet<BitacoraServicio> BitacoraServicios { get; set; }
         public virtual DbSet<BitacoraSucursal> BitacoraSucursals { get; set; }
-        public virtual DbSet<BitacoraTipos> BitacoraTipos { get; set; }
         public virtual DbSet<Ficha> Fichas { get; set; }
         public virtual DbSet<HistorialAtendido> HistorialAtendidos { get; set; }
-        public virtual DbSet<Reporte> Reportes { get; set; }
         public virtual DbSet<Servicio> Servicios { get; set; }
         public virtual DbSet<Sucursale> Sucursales { get; set; }
-        public virtual DbSet<TiposReporte> TiposReportes { get; set; }
         public virtual DbSet<BitacoraRol> BitacoraRols { get; set; }
         public virtual DbSet<BitacoraUsuario> BitacoraUsuarios { get; set; }
         public virtual DbSet<Role> Roles { get; set; }

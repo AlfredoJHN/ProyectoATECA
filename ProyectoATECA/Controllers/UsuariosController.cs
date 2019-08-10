@@ -14,11 +14,7 @@ namespace ProyectoATECA.Controllers
 {
     public class UsuariosController : Controller
     {
-        private ATECA_BDEntities db = new ATECA_BDEntities();
-
-
-
-
+        //private ATECA_BDEntities db = new ATECA_BDEntities();
 
         // GET: Usuarios
         //public ActionResult Index()
@@ -125,10 +121,12 @@ namespace ProyectoATECA.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
-        [HttpGet]
 
+       [HttpGet]
        public ActionResult Registration()
         {
+            ATECA_BDEntities db = new ATECA_BDEntities();
+
             ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre");
             return View();
         }
@@ -137,6 +135,8 @@ namespace ProyectoATECA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Registration([Bind(Exclude = "correoVerificado,codigoActivacion")] Usuario usuario)
         {
+            ATECA_BDEntities db = new ATECA_BDEntities();
+
             ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre");
             bool Status = false;
             string message = "";
@@ -172,7 +172,7 @@ namespace ProyectoATECA.Controllers
                 usuario.correoVerificado = false;
 
                 #region Save to Database
-                using (ATECA_BDEntities db = new ATECA_BDEntities())
+                using (db)
                 {
                     db.Usuarios.Add(usuario);
                     db.SaveChanges();
@@ -227,6 +227,12 @@ namespace ProyectoATECA.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult indes()
+        {
+            return View();
+        }
+
         //Login POST
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -261,6 +267,10 @@ namespace ProyectoATECA.Controllers
                         }
                         else
                         {
+                            var vnombreUsuario = (from s in db.Usuarios
+                                                 where s.correo == login.correo
+                                                 select s.correo).FirstOrDefault();
+                            Session["UserName"] = vnombreUsuario;
                             return RedirectToAction("Index", "Home");
                         }
                     }
@@ -284,7 +294,8 @@ namespace ProyectoATECA.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "User");
+            Session["UserName"] = null;
+            return RedirectToAction("Login", "Usuarios");
         }
 
 
@@ -343,13 +354,13 @@ namespace ProyectoATECA.Controllers
             })
                 smtp.Send(message);
         }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

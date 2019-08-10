@@ -21,8 +21,9 @@ namespace ProyectoATECA.Models
             this.BitacoraUsuarios = new HashSet<BitacoraUsuario>();
             this.HistorialAtendidos = new HashSet<HistorialAtendido>();
         }
+
         private const string Nombre =
-        "^[a-zA-ZÁÉÍÓÚáéíóú']+$";
+              "^[a-zA-ZÁÉÍÓÚáéíóú']+$";
         private const string Apellidos =
         "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
         private const string Cedulas =
@@ -78,7 +79,7 @@ namespace ProyectoATECA.Models
         public Nullable<int> ID_rol { get; set; }
 
         public string estado { get; set; }
-        
+
         [Display(Name = "Confirmar contraseña")]
         [DataType(DataType.Password)]
         [Compare("contraseña", ErrorMessage = "Las contraseñas no coinciden")]

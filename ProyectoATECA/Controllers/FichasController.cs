@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -33,6 +36,8 @@ namespace ProyectoATECA.Controllers
             f.fecha.Year == DateTime.Now.Year
             ).ToList().OrderBy(f => f.fecha));
         }
+
+      
 
         //public ViewResult Index()
         //{

@@ -41,16 +41,6 @@
           <Property Name="fechaCambio" Type="date" Nullable="false" />
           <Property Name="detalle" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
-        <EntityType Name="BitacoraTipos">
-          <Key>
-            <PropertyRef Name="ID_bitacoraTipo" />
-          </Key>
-          <Property Name="ID_bitacoraTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_tipo" Type="int" Nullable="false" />
-          <Property Name="nombreTipo" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="fechaCambio" Type="date" Nullable="false" />
-          <Property Name="detalle" Type="varchar" MaxLength="15" Nullable="false" />
-        </EntityType>
         <EntityType Name="BitacoraUsuario">
           <Key>
             <PropertyRef Name="ID_bitacora" />
@@ -78,6 +68,7 @@
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="atendido" Type="varchar" MaxLength="50" />
           <Property Name="llamado" Type="varchar" MaxLength="50" />
+          <Property Name="agendado" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="HistorialAtendidos">
           <Key>
@@ -92,23 +83,13 @@
           <Property Name="duracion" Type="int" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="Reportes">
-          <Key>
-            <PropertyRef Name="ID_reporte" />
-          </Key>
-          <Property Name="ID_reporte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_sucursal" Type="int" Nullable="false" />
-          <Property Name="ID_tipo" Type="int" Nullable="false" />
-          <Property Name="detalle" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="periodo" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="fechaCreacion" Type="date" Nullable="false" />
-        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="ID_rol" />
           </Key>
           <Property Name="ID_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Servicios">
           <Key>
@@ -116,6 +97,8 @@
           </Key>
           <Property Name="ID_servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="15" />
+          <Property Name="codigoServicio" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Servicios_Por_Sucursal">
           <Key>
@@ -137,13 +120,7 @@
           <Property Name="provincia" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="telefono" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="correo" Type="varchar" MaxLength="45" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TiposReporte">
-          <Key>
-            <PropertyRef Name="ID_tipo" />
-          </Key>
-          <Property Name="ID_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombreTipo" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -209,30 +186,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reportes__ID_suc__46E78A0C">
-          <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
-          <End Role="Reportes" Type="Self.Reportes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sucursales">
-              <PropertyRef Name="ID_sucursal" />
-            </Principal>
-            <Dependent Role="Reportes">
-              <PropertyRef Name="ID_sucursal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Reportes__ID_tip__47DBAE45">
-          <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
-          <End Role="Reportes" Type="Self.Reportes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TiposReporte">
-              <PropertyRef Name="ID_tipo" />
-            </Principal>
-            <Dependent Role="Reportes">
-              <PropertyRef Name="ID_tipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Servicios__ID_se__46E78A0C">
           <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
           <End Role="Servicios_Por_Sucursal" Type="Self.Servicios_Por_Sucursal" Multiplicity="*" />
@@ -276,16 +229,13 @@
           <EntitySet Name="BitacoraRol" EntityType="Self.BitacoraRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BitacoraServicio" EntityType="Self.BitacoraServicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BitacoraSucursal" EntityType="Self.BitacoraSucursal" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BitacoraTipos" EntityType="Self.BitacoraTipos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BitacoraUsuario" EntityType="Self.BitacoraUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fichas" EntityType="Self.Fichas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistorialAtendidos" EntityType="Self.HistorialAtendidos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Reportes" EntityType="Self.Reportes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servicios" EntityType="Self.Servicios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servicios_Por_Sucursal" EntityType="Self.Servicios_Por_Sucursal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursales" EntityType="Self.Sucursales" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TiposReporte" EntityType="Self.TiposReporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Fichas__ID_servi__412EB0B6" Association="Self.FK__Fichas__ID_servi__412EB0B6">
             <End Role="Servicios" EntitySet="Servicios" />
@@ -302,14 +252,6 @@
           <AssociationSet Name="FK__Historial__ID_us__3D5E1FD2" Association="Self.FK__Historial__ID_us__3D5E1FD2">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Reportes__ID_suc__46E78A0C" Association="Self.FK__Reportes__ID_suc__46E78A0C">
-            <End Role="Sucursales" EntitySet="Sucursales" />
-            <End Role="Reportes" EntitySet="Reportes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Reportes__ID_tip__47DBAE45" Association="Self.FK__Reportes__ID_tip__47DBAE45">
-            <End Role="TiposReporte" EntitySet="TiposReporte" />
-            <End Role="Reportes" EntitySet="Reportes" />
           </AssociationSet>
           <AssociationSet Name="FK__Servicios__ID_se__46E78A0C" Association="Self.FK__Servicios__ID_se__46E78A0C">
             <End Role="Servicios" EntitySet="Servicios" />
@@ -354,16 +296,6 @@
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="detalle" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="BitacoraTipos">
-          <Key>
-            <PropertyRef Name="ID_bitacoraTipo" />
-          </Key>
-          <Property Name="ID_bitacoraTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_tipo" Type="Int32" Nullable="false" />
-          <Property Name="nombreTipo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="detalle" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Ficha">
           <Key>
             <PropertyRef Name="ID_ficha" />
@@ -376,6 +308,7 @@
           <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_fi__403A8C7D" FromRole="Fichas" ToRole="HistorialAtendidos" />
           <Property Name="atendido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="llamado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="agendado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HistorialAtendido">
           <Key>
@@ -393,19 +326,6 @@
           <Property Name="ID_usuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="ATECA_BDModel.FK__Historial__ID_us__3D5E1FD21" FromRole="HistorialAtendido" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="Reporte">
-          <Key>
-            <PropertyRef Name="ID_reporte" />
-          </Key>
-          <Property Name="ID_reporte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_sucursal" Type="Int32" Nullable="false" />
-          <Property Name="ID_tipo" Type="Int32" Nullable="false" />
-          <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="periodo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Sucursale" Relationship="Self.FK__Reportes__ID_suc__46E78A0C" FromRole="Reportes" ToRole="Sucursales" />
-          <NavigationProperty Name="TiposReporte" Relationship="Self.FK__Reportes__ID_tip__47DBAE45" FromRole="Reportes" ToRole="TiposReporte" />
-        </EntityType>
         <EntityType Name="Servicio">
           <Key>
             <PropertyRef Name="ID_servicio" />
@@ -415,6 +335,8 @@
           <NavigationProperty Name="Fichas" Relationship="Self.FK__Fichas__ID_servi__412EB0B6" FromRole="Servicios" ToRole="Fichas" />
           <NavigationProperty Name="HistorialAtendidos" Relationship="Self.FK__Historial__ID_se__3F466844" FromRole="Servicios" ToRole="HistorialAtendidos" />
           <NavigationProperty Name="Sucursales" Relationship="Self.Servicios_Por_Sucursal" FromRole="Servicios" ToRole="Sucursales" />
+          <Property Name="estado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="codigoServicio" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Sucursale">
           <Key>
@@ -428,16 +350,8 @@
           <Property Name="provincia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Reportes" Relationship="Self.FK__Reportes__ID_suc__46E78A0C" FromRole="Sucursales" ToRole="Reportes" />
           <NavigationProperty Name="Servicios" Relationship="Self.Servicios_Por_Sucursal" FromRole="Sucursales" ToRole="Servicios" />
-        </EntityType>
-        <EntityType Name="TiposReporte">
-          <Key>
-            <PropertyRef Name="ID_tipo" />
-          </Key>
-          <Property Name="ID_tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreTipo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Reportes" Relationship="Self.FK__Reportes__ID_tip__47DBAE45" FromRole="TiposReporte" ToRole="Reportes" />
+          <Property Name="estado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Fichas__ID_servi__412EB0B6">
           <End Role="Servicios" Type="Self.Servicio" Multiplicity="1" />
@@ -475,30 +389,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reportes__ID_suc__46E78A0C">
-          <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="1" />
-          <End Role="Reportes" Type="Self.Reporte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sucursales">
-              <PropertyRef Name="ID_sucursal" />
-            </Principal>
-            <Dependent Role="Reportes">
-              <PropertyRef Name="ID_sucursal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Reportes__ID_tip__47DBAE45">
-          <End Role="TiposReporte" Type="Self.TiposReporte" Multiplicity="1" />
-          <End Role="Reportes" Type="Self.Reporte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TiposReporte">
-              <PropertyRef Name="ID_tipo" />
-            </Principal>
-            <Dependent Role="Reportes">
-              <PropertyRef Name="ID_tipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Servicios_Por_Sucursal">
           <End Role="Servicios" Type="Self.Servicio" Multiplicity="*" />
           <End Role="Sucursales" Type="Self.Sucursale" Multiplicity="*" />
@@ -506,13 +396,10 @@
         <EntityContainer Name="ATECA_BDEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BitacoraServicios" EntityType="Self.BitacoraServicio" />
           <EntitySet Name="BitacoraSucursals" EntityType="Self.BitacoraSucursal" />
-          <EntitySet Name="BitacoraTipos" EntityType="Self.BitacoraTipos" />
           <EntitySet Name="Fichas" EntityType="Self.Ficha" />
           <EntitySet Name="HistorialAtendidos" EntityType="Self.HistorialAtendido" />
-          <EntitySet Name="Reportes" EntityType="Self.Reporte" />
           <EntitySet Name="Servicios" EntityType="Self.Servicio" />
           <EntitySet Name="Sucursales" EntityType="Self.Sucursale" />
-          <EntitySet Name="TiposReportes" EntityType="Self.TiposReporte" />
           <AssociationSet Name="FK__Fichas__ID_servi__412EB0B6" Association="Self.FK__Fichas__ID_servi__412EB0B6">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="Fichas" EntitySet="Fichas" />
@@ -524,14 +411,6 @@
           <AssociationSet Name="FK__Historial__ID_se__3F466844" Association="Self.FK__Historial__ID_se__3F466844">
             <End Role="Servicios" EntitySet="Servicios" />
             <End Role="HistorialAtendidos" EntitySet="HistorialAtendidos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Reportes__ID_suc__46E78A0C" Association="Self.FK__Reportes__ID_suc__46E78A0C">
-            <End Role="Sucursales" EntitySet="Sucursales" />
-            <End Role="Reportes" EntitySet="Reportes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Reportes__ID_tip__47DBAE45" Association="Self.FK__Reportes__ID_tip__47DBAE45">
-            <End Role="TiposReporte" EntitySet="TiposReportes" />
-            <End Role="Reportes" EntitySet="Reportes" />
           </AssociationSet>
           <AssociationSet Name="Servicios_Por_Sucursal" Association="Self.Servicios_Por_Sucursal">
             <End Role="Servicios" EntitySet="Servicios" />
@@ -587,6 +466,7 @@
           <Property Name="ID_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuarios" Relationship="ATECA_BDModel.FK_Usuarios_Roles" FromRole="Role" ToRole="Usuario" />
+          <Property Name="estado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -664,20 +544,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BitacoraTipos">
-            <EntityTypeMapping TypeName="ATECA_BDModel.BitacoraTipos">
-              <MappingFragment StoreEntitySet="BitacoraTipos">
-                <ScalarProperty Name="nombreTipo" ColumnName="nombreTipo" />
-                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
-                <ScalarProperty Name="detalle" ColumnName="detalle" />
-                <ScalarProperty Name="ID_bitacoraTipo" ColumnName="ID_bitacoraTipo" />
-                <ScalarProperty Name="ID_tipo" ColumnName="ID_tipo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Fichas">
             <EntityTypeMapping TypeName="ATECA_BDModel.Ficha">
               <MappingFragment StoreEntitySet="Fichas">
+                <ScalarProperty Name="agendado" ColumnName="agendado" />
                 <ScalarProperty Name="llamado" ColumnName="llamado" />
                 <ScalarProperty Name="atendido" ColumnName="atendido" />
                 <ScalarProperty Name="ID_ficha" ColumnName="ID_ficha" />
@@ -701,21 +571,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Reportes">
-            <EntityTypeMapping TypeName="ATECA_BDModel.Reporte">
-              <MappingFragment StoreEntitySet="Reportes">
-                <ScalarProperty Name="ID_reporte" ColumnName="ID_reporte" />
-                <ScalarProperty Name="ID_sucursal" ColumnName="ID_sucursal" />
-                <ScalarProperty Name="ID_tipo" ColumnName="ID_tipo" />
-                <ScalarProperty Name="detalle" ColumnName="detalle" />
-                <ScalarProperty Name="periodo" ColumnName="periodo" />
-                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Servicios">
             <EntityTypeMapping TypeName="ATECA_BDModel.Servicio">
               <MappingFragment StoreEntitySet="Servicios">
+                <ScalarProperty Name="codigoServicio" ColumnName="codigoServicio" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="ID_servicio" ColumnName="ID_servicio" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
@@ -724,6 +584,7 @@
           <EntitySetMapping Name="Sucursales">
             <EntityTypeMapping TypeName="ATECA_BDModel.Sucursale">
               <MappingFragment StoreEntitySet="Sucursales">
+                <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="ID_sucursal" ColumnName="ID_sucursal" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
@@ -732,14 +593,6 @@
                 <ScalarProperty Name="provincia" ColumnName="provincia" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TiposReportes">
-            <EntityTypeMapping TypeName="ATECA_BDModel.TiposReporte">
-              <MappingFragment StoreEntitySet="TiposReporte">
-                <ScalarProperty Name="ID_tipo" ColumnName="ID_tipo" />
-                <ScalarProperty Name="nombreTipo" ColumnName="nombreTipo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -783,6 +636,7 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="ATECA_BDModel.Role">
               <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="ID_rol" ColumnName="ID_rol" />
               </MappingFragment>

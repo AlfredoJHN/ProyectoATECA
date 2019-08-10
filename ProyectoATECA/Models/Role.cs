@@ -21,8 +21,9 @@ namespace ProyectoATECA.Models
             this.BitacoraRols = new HashSet<BitacoraRol>();
             this.Usuarios = new HashSet<Usuario>();
         }
+
         private const string Letras =
-        "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
+                "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
 
         [Display(Name = "Identificador")]
         public int ID_rol { get; set; }
@@ -34,7 +35,9 @@ namespace ProyectoATECA.Models
         [DataType(DataType.Text)]
         [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
         public string nombre { get; set; }
-    
+        public string estado { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BitacoraRol> BitacoraRols { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

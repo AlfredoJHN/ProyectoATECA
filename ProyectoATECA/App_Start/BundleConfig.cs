@@ -24,7 +24,7 @@ namespace ProyectoATECA
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/business-frontpage.css"));
+                      "~/Content/Site.css"));
         }
     }
 }

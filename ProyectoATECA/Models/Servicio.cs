@@ -23,8 +23,9 @@ namespace ProyectoATECA.Models
             this.HistorialAtendidos = new HashSet<HistorialAtendido>();
             this.Sucursales = new HashSet<Sucursale>();
         }
+
         private const string Letras =
-        "^[a-zA-Z ÁÉÍÓÚáéíóú'0-9]+$";
+                "^[a-zA-Z ÁÉÍÓÚáéíóú'0-9]+$";
 
         [Display(Name = "Identificador")]
         public int ID_servicio { get; set; }
@@ -36,7 +37,9 @@ namespace ProyectoATECA.Models
         [DataType(DataType.Text)]
         [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras y números")]
         public string nombre { get; set; }
-    
+        public string estado { get; set; }
+        public string codigoServicio { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BitacoraServicio> BitacoraServicios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
