@@ -7,10 +7,14 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Speech.Synthesis;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoATECA.Hubs;
 using ProyectoATECA.Models;
+
+
 
 
 namespace ProyectoATECA.Controllers
@@ -23,7 +27,6 @@ namespace ProyectoATECA.Controllers
         public ActionResult Index()
         {
             var fichas = db.Fichas.Include(f => f.Servicio);
-            FichasHub.BroadcastData();
             return View(
                 db.Fichas.Where(f => f.atendido == "No" && f.fecha.DayOfYear == DateTime.Now.DayOfYear).OrderBy(f=>f.fecha));
         }
@@ -67,7 +70,6 @@ namespace ProyectoATECA.Controllers
             {
                 return HttpNotFound();
             }
-            FichasHub.BroadcastData();
             return View(ficha);
         }
         public ActionResult Escoger()
@@ -76,6 +78,7 @@ namespace ProyectoATECA.Controllers
             return View();
         }
         // GET: Fichas/Create
+ 
         public ActionResult Create()
         {
             ViewData["codigoFicha"] = DateTime.Now.Hour+"-"+DateTime.Now.Minute+"-"+DateTime.Now.Second;
@@ -83,7 +86,6 @@ namespace ProyectoATECA.Controllers
             ViewData["atendido"] = "No";
             ViewData["llamado"] = "No";
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre");
-            FichasHub.BroadcastData();
             return View();
         }
 
@@ -103,7 +105,6 @@ namespace ProyectoATECA.Controllers
             }
 
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
-            FichasHub.BroadcastData();
             return View(ficha);
         }
 
@@ -119,26 +120,71 @@ namespace ProyectoATECA.Controllers
                 return HttpNotFound();
             }
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
-            FichasHub.BroadcastData();
             return View(ficha);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Llamar([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado")] Ficha ficha)
+        public  ActionResult Llamar([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado,tipoFicha")] Ficha ficha)
         {
             if (ModelState.IsValid)
             {
+
                 db.Entry(ficha).State = EntityState.Modified;
                 db.SaveChanges();
+                string nombreServicio = (from s in db.Servicios
+                                        where s.ID_servicio == ficha.ID_servicio
+                                        select s.nombre).FirstOrDefault();
+                TTS("Ficha: "+ficha.codigoFicha+". Caja: "+nombreServicio);
+
                 FichasHub.BroadcastData();
                 FichasHub.BroadcastDataFILA();
+                FichasHub.BroadcastDataSonido();
+                
                 return RedirectToAction("Index");
             };
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
 
             return View(ficha);
         }
+
+
+        [HttpPost]
+        public async Task<ActionResult> TTS(string text)
+        {
+            // you can set output file name as method argument or generated from text
+            string fileName = "fileName";
+            Task<ViewResult> task = Task.Run(() =>
+            {
+                using (SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer())
+                {
+                    speechSynthesizer.SetOutputToWaveFile(Server.MapPath("~/Sonidos/") + fileName + ".mp3");
+                    speechSynthesizer.Speak(text);
+
+                    ViewBag.FileName = fileName + ".mp3";
+                    FichasHub.BroadcastDataSonido();
+                    return View();
+                }
+            });
+            return await task;
+        }
+
+
+        //string fileName = "fileName";
+        //Task<ViewResult> task = Task.Run(() =>
+        //{
+        //    using (SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer())
+        //    {
+        //        speechSynthesizer.SetOutputToWaveFile(Server.MapPath("~/Sonidos/") + fileName + ".wav");
+        //        speechSynthesizer.Speak("Ficha: " + ficha.codigoFicha.ToString());
+
+        //        ViewBag.FileName = fileName + ".wav";
+
+        //        return View();
+        //    }
+
+        //});
+
 
         protected override void Dispose(bool disposing)
         {

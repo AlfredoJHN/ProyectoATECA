@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ProyectoATECA.Models.Ficha>
+@{
+    ViewBag.Title = "Atendiendo";
+
+}
+
+<div class="row">
+        <div id="sonido">
+            @{ ViewBag.FileName = "./Sonidos/fileName.mp3";}
+            <audio key="test" autoplay="autoplay" preload="auto" src="@Url.Content(ViewBag.FileName)" type="audio/mpeg"></audio>
+        </div>
+</div>
+
+
+

@@ -28,6 +28,11 @@ namespace ProyectoATECA.Controllers
             return PartialView("_FichasData", db.Fichas.Where(f => f.llamado == "Si" && f.atendido == "No").ToList());
         }
 
+        public ActionResult GetSonido()
+        {
+            return PartialView("_SonidosData");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

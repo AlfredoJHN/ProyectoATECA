@@ -21,5 +21,10 @@ namespace ProyectoATECA.Hubs
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FichasHub>();
             context.Clients.All.refreshFilaData();
         }
+        public static void BroadcastDataSonido()
+        {
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FichasHub>();
+            context.Clients.All.refreshDataSonido();
+        }
     }
 }
