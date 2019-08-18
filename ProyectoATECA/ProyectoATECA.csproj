@@ -477,7 +477,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Usuarios\indes.cshtml" />
     <Content Include="Views\Fichas\Escoger.cshtml" />
     <Content Include="Views\Home\_SonidosData.cshtml" />
   </ItemGroup>

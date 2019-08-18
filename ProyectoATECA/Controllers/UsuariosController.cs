@@ -166,11 +166,16 @@ namespace ProyectoATECA.Controllers
                 #endregion
 
                 #region  Password Hashing 
-                usuario.contraseña = Crypto.Hash(usuario.contraseña);
-                usuario.confirmarcontrasena = Crypto.Hash(usuario.confirmarcontrasena); //
+                
+                string tempPasswd = Membership.GeneratePassword(12, 4);
+                usuario.contraseña = Crypto.Hash(tempPasswd);
+
+                //usuario.confirmarcontrasena = Crypto.Hash(usuario.confirmarcontrasena); //
                 #endregion
                 usuario.correoVerificado = false;
-
+                usuario.estado = "true";
+                usuario.ID_rol = 1;
+                usuario.contraseña = usuario.contraseña;
                 #region Save to Database
                 using (db)
                 {
@@ -178,7 +183,7 @@ namespace ProyectoATECA.Controllers
                     db.SaveChanges();
 
                     //Send Email to User
-                    SendVerificationLinkEmail(usuario.correo, usuario.codigoActivacion.ToString());
+                    SendVerificationLinkEmail(usuario.correo, usuario.codigoActivacion.ToString(), tempPasswd);
                     message = " Se ha registrado exitosamente. Se le ha enviado un mensaje de correo para verificar la activación de cuenta " +
                         " a: " + usuario.correo;
                     Status = true;
@@ -223,12 +228,6 @@ namespace ProyectoATECA.Controllers
         //Login 
         [HttpGet]
         public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult indes()
         {
             return View();
         }
@@ -331,7 +330,7 @@ namespace ProyectoATECA.Controllers
         }
 
         [NonAction]
-        public void SendVerificationLinkEmail(string emailID, string activationCode)
+        public void SendVerificationLinkEmail(string emailID, string activationCode, string password)
         {
             var verifyUrl = "/Usuarios/VerifyAccount/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
@@ -344,7 +343,7 @@ namespace ProyectoATECA.Controllers
             string body = "<br/><br/>Su cuenta en ATECA ha sido creada satisfactoriamente. Por favor acceda al siguiente enlace para " +
                 "activar su cuenta. Le recordamos que dicha cuenta la puede utilizar para acceder a la app móvil y agendar su " +
                 "próxima cita con anticipación." +
-                " <br/><br/><a href='" + link + "'>" + link + "</a> ";
+                "</br>Su contraseña temporal es: "+password+" <br/><br/><a href='" + link + "'>" + link + "</a> ";
 
             var smtp = new SmtpClient
             {

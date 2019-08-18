@@ -71,19 +71,19 @@ namespace ProyectoATECA.Models
         ErrorMessage = "El debe estar entre 7 y 45 caractéres de longitud")]
         public string correo { get; set; }
 
-        [Required(ErrorMessage = "Campo requerido")]
-        [Display(Name = "Contraseña")]
-        [DataType(DataType.Password)]
-        [Compare("contraseña", ErrorMessage = "Las contraseñas no coinciden")]
+        //[Required(ErrorMessage = "Campo requerido")]
+        //[Display(Name = "Contraseña")]
+        //[DataType(DataType.Password)]
+        //[Compare("contraseña", ErrorMessage = "Las contraseñas no coinciden")]
         public string contraseña { get; set; }
         public Nullable<int> ID_rol { get; set; }
 
         public string estado { get; set; }
 
-        [Display(Name = "Confirmar contraseña")]
-        [DataType(DataType.Password)]
-        [Compare("contraseña", ErrorMessage = "Las contraseñas no coinciden")]
-        public string confirmarcontrasena { get; set; }
+        //[Display(Name = "Confirmar contraseña")]
+        //[DataType(DataType.Password)]
+        //[Compare("contraseña", ErrorMessage = "Las contraseñas no coinciden")]
+        //public string confirmarcontrasena { get; set; }
         public Nullable<System.Guid> codigoActivacion { get; set; }
         public bool correoVerificado { get; set; }
 
