@@ -6,67 +6,70 @@
     ViewBag.Title = "Fichas";
 
 }
-
-<h2>Fichas</h2>
-
-<p>
-
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.codigoFicha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.atendido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.llamado)
-        </th>
-        <th>
-            Servicio
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tipoFicha)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.codigoFicha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.atendido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.llamado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Servicio.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipoFicha)
-        </td>
-
-    </tr>
-    }
-</table>
-<div class="row">
-    <div class="col-md-4">
-        @Html.ActionLink("Llamar", "Llamar", "Fichas", new { id = @Model.FirstOrDefault()?.ID_ficha }, new { @class = "btn btn-default" })
-    </div>
-    <div class="col-md-4">
-        @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = @Model.FirstOrDefault()?.ID_ficha, @ID_servicio = @Model.FirstOrDefault()?.ID_servicio, @codigo = @Model.FirstOrDefault()?.codigoFicha }, new { @class = "btn btn-default" })
-    </div>
+<div class="alert-dark">
+    <h2>Fichas en cola</h2>
 </div>
+    <br>
+    <p>
+
+    </p>
+    <table class="table table-hover">
+        <tr class="table-bordered">
+            <th>
+                @Html.DisplayNameFor(model => model.codigoFicha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.atendido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.llamado)
+            </th>
+            <th>
+                Servicio
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipoFicha)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.codigoFicha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.atendido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.llamado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servicio.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipoFicha)
+                </td>
+
+            </tr>
+        }
+    </table>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Llamar", "Llamar", "Fichas", new { id = @Model.FirstOrDefault()?.ID_ficha }, new { @class = "btn btn-info" })
+
+            @Html.ActionLink("Atender", "Create", "HistorialAtendidos", new { @ID_ficha = @Model.FirstOrDefault()?.ID_ficha, @ID_servicio = @Model.FirstOrDefault()?.ID_servicio, @codigo = @Model.FirstOrDefault()?.codigoFicha }, new { @class = "btn btn-success" })
+
+            @Html.ActionLink("Eliminar", "Eliminar", "Fichas", new { id = @Model.FirstOrDefault()?.ID_ficha }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
 
 

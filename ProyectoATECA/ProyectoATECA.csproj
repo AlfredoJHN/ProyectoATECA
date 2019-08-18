@@ -479,6 +479,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Fichas\Escoger.cshtml" />
     <Content Include="Views\Home\_SonidosData.cshtml" />
+    <Content Include="Views\Fichas\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

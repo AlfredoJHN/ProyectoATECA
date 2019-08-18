@@ -11,83 +11,95 @@
 
 }
 
-
-<h2>Registro de atención</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Atendiendo a: </h4>
-        <h4>Ficha: @ViewBag.CodigoFicha</h4>
-        <h4>Caja: @ViewBag.DefaultServicio</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_servicio, "ID_servicio", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ID_servicio, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.DefaultServicio, disabled = "disabled" } })
-                @Html.ValidationMessageFor(model => model.ID_servicio, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_ficha, "ID_ficha", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ID_ficha, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.DefaultFicha, disabled = "disabled" } })
-                @Html.ValidationMessageFor(model => model.ID_ficha, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="alert alert-success">
+        <h1>Registro de atención</h1>
+    </div>
+    <div class="jumbotron">
 
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(model => model.horaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.horaInicio, new { @Value = ViewData["horaInicio"], htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.horaInicio, "", new { @class = "text-danger" })
-            </div>
+        <div class="d-flex w-100 justify-content-between">
+            <h2 class="mb-1">Ficha @ViewBag.CodigoFicha</h2>
+            <h5 class="text-muted">@DateTime.Now</h5>
         </div>
+        <hr class="my-3">
+        <h2 class="mb-1">Caja</h2>
+        <h3 class="text-muted">@ViewBag.DefaultServicio</h3>
 
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(model => model.horaFin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.horaFin, new { @Value = ViewData["horaFin"], htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.horaFin, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(model => model.duracion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.duracion, new { @Value = ViewData["duracion"], htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.duracion, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    </div>
+    <br>
 
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.fecha, new { @Value = ViewData["fecha"], htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_usuario, "ID_usuario", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ID_usuario", null, htmlAttributes: new { id = "UsuariosList", @class = "selectUsuarios show-tick form-control" })
-                @Html.ValidationMessageFor(model => model.ID_usuario, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
-            </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group" style="display:none">
+        @Html.LabelFor(model => model.ID_servicio, "ID_servicio", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10" >
+            @Html.TextBoxFor(model => model.ID_servicio, new { @Value = ViewBag.DefaultServicio, htmlAttributes = new { @class = "form-control"  } })
+            @Html.ValidationMessageFor(model => model.ID_servicio, "", new { @class = "text-danger" })
         </div>
     </div>
-}
 
+    <div class="form-group" style="display:none">
+        @Html.LabelFor(model => model.ID_ficha, "ID_ficha", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.ID_ficha, new { @Value = ViewBag.DefaultFicha, htmlAttributes = new { @class = "form-control"} })
+            @Html.ValidationMessageFor(model => model.ID_ficha, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none">
+        @Html.LabelFor(model => model.horaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.horaInicio, new { @Value = DateTime.Now, htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.horaInicio, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none">
+        @Html.LabelFor(model => model.horaFin, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.horaFin, new { @Value = DateTime.Now, htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.horaFin, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none">
+        @Html.LabelFor(model => model.duracion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.duracion, new { @Value = 0, htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.duracion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none">
+        @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.fecha, new { @Value = DateTime.Now, htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ID_usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-offset-0 col-md-1">
+            @Html.DropDownList("ID_usuario", null, htmlAttributes: new { id = "UsuariosList", @class = "selectUsuarios show-tick form-control" })
+            @Html.ValidationMessageFor(model => model.ID_usuario, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <div class="col-md-offset-0 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+<br>
 <div>
     @Html.ActionLink("Regresar", "Index", "Fichas")
 </div>

@@ -33,7 +33,7 @@ namespace ProyectoATECA.Controllers
 
         public ActionResult GetFichasData()
         {
-            return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && 
+            return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" &&
             f.fecha.Day == DateTime.Now.Day &&
             f.fecha.Month == DateTime.Now.Month &&
             f.fecha.Year == DateTime.Now.Year
@@ -107,6 +107,44 @@ namespace ProyectoATECA.Controllers
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
             return View(ficha);
         }
+
+        public ActionResult Eliminar(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ficha ficha = db.Fichas.Find(id);
+            if (ficha == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
+            return View(ficha);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado,tipoFicha")] Ficha ficha)
+        {
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(ficha).State = EntityState.Modified;
+                db.SaveChanges();
+
+
+                FichasHub.BroadcastData();
+                FichasHub.BroadcastDataFILA();
+
+                return RedirectToAction("Index");
+            };
+            ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
+
+            return View(ficha);
+        }
+
+
 
         public ActionResult Llamar(int? id)
         {

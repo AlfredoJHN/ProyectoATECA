@@ -11,7 +11,8 @@ namespace ProyectoATECA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class HistorialAtendido
     {
         public int ID_historialAtendido { get; set; }
@@ -21,6 +22,10 @@ namespace ProyectoATECA.Models
         public System.DateTime horaFin { get; set; }
         public int duracion { get; set; }
         public System.DateTime fecha { get; set; }
+
+        [Required(ErrorMessage = "Campo requerido")]
+        [Display(Name = "Cédula de identidad")]
+        
         public int ID_usuario { get; set; }
     
         public virtual Ficha Ficha { get; set; }
