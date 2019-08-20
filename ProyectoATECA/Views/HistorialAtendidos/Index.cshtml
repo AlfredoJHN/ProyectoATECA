@@ -4,11 +4,12 @@
     ViewBag.Title = "Historial de atendidos";
 }
 
-<h2>Historial de atendidos</h2>
+<div class="alert-dark">
+    <h2>Historial de atendidos</h2>
+</div>
 
-
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="table table-bordered">
         <th>
             @Html.DisplayNameFor(model => model.horaInicio)
         </th>
@@ -33,33 +34,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.horaInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.horaFin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ficha.codigoFicha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Servicio.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.cedula)
-        </td>
-        <td>
-            @Html.ActionLink("Detalles", "Details", new { id=item.ID_historialAtendido }) 
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.horaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horaFin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duracion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ficha.codigoFicha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Servicio.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.cedula)
+            </td>
+        </tr>
+    }
 
 </table>

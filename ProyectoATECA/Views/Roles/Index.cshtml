@@ -9,25 +9,26 @@
 <p>
     @Html.ActionLink("Crear nuevo", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="table-dark table-bordered">
         <th>
             @Html.DisplayNameFor(model => model.nombre)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID_rol }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.ID_rol }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.ID_rol })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID_rol }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.ID_rol }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Borrar", "Delete", new { id = item.ID_rol }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>

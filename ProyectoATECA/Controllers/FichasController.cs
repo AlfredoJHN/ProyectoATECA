@@ -173,7 +173,7 @@ namespace ProyectoATECA.Controllers
                 string nombreServicio = (from s in db.Servicios
                                         where s.ID_servicio == ficha.ID_servicio
                                         select s.nombre).FirstOrDefault();
-                TTS("Ficha: "+ficha.codigoFicha+". Caja: "+nombreServicio);
+                TTS("Ficha: "+ficha.codigoFicha+". Pase a caja: "+nombreServicio);
 
                 FichasHub.BroadcastData();
                 FichasHub.BroadcastDataFILA();

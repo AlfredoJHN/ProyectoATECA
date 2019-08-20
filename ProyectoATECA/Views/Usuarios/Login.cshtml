@@ -1,60 +1,76 @@
 ﻿@model ProyectoATECA.Models.LoginUsuario
 
 @{
-    ViewBag.Title = "Login";
+                /**/
+
+                ViewBag.Title = "Login";
 }
-<h2>Login</h2>
+<head>
+    <link rel="stylesheet"
+          type="text/css"
+          href="~/Content/custom.css" />
+</head>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        @if (ViewBag.Message != "")
-        {
-               <div class="text-danger">@ViewBag.Message</div>
-        }
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <br>
+                <img src="~/Img/ccsslogo2.png" id="icon" alt="icon" />
             </div>
-        </div>
+            <!-- Login Form -->
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.contraseña, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.contraseña, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.contraseña, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                @if (ViewBag.Message != "")
+                {
+                    <div class="text-danger" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">@ViewBag.Message</div>
+                }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.RememberMe)
-                    @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class=" col-md-12">
+                        @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Correo" } })
+                        @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.contraseña, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contraseña" } })
+                        @Html.ValidationMessageFor(model => model.contraseña, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RememberMe, "Recordar", htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-3">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.RememberMe)
+                            @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        <input type="submit" value="Iniciar sesion" class="btn btn-default" />
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Iniciar sesion" class="btn btn-default" />
+            <div>
+                @Html.ActionLink("¿No tiene cuenta? Registrese aquí.", "Registration", "Usuarios")
             </div>
+            <br>
         </div>
     </div>
+
 }
-
-<div>
-    @Html.ActionLink("¿No tiene cuenta? Registrese aquí.", "Registration", "Usuarios")
-</div>
-
 
 @section Scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>

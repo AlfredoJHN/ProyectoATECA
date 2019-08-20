@@ -69,6 +69,7 @@ namespace ProyectoATECA.Models
         [DataType(DataType.EmailAddress, ErrorMessage = "Debe ser una dirección de correo válida")]
         [StringLength(45, MinimumLength = 7,
         ErrorMessage = "El debe estar entre 7 y 45 caractéres de longitud")]
+  
         public string correo { get; set; }
 
         //[Required(ErrorMessage = "Campo requerido")]

@@ -47,7 +47,15 @@
 
 
     </div>
-
+    <div class="col-md-4" id="containers">
+        @foreach (var item in Model)
+        {
+            <h2>Ficha: @Html.DisplayFor(modelItem => item.codigoFicha)</h2>
+            <p>
+                Caja: @Html.DisplayFor(modelItem => item.Servicio.nombre)
+            </p>
+        }
+    </div>
 </div>
 
 

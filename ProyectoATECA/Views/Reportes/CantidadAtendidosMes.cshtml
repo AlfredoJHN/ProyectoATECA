@@ -9,10 +9,19 @@
     <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 </div>
 
+
+
 <div class="form-horizontal">
+
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <label class="control-label col-md-2">Mes</label>
+        <div class="col-md-offset-0 col-md-10">
+            <label class="control-label col-md-1">Año</label>
+            <input class="form-control" type="number" id="year" name="year">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-0 col-md-10">
+            <label class="control-label col-md-1">Mes</label>
             <select class="form-control" id="mes" name="mes">
                 <option value="1" name="Enero">Enero</option>
                 <option value="2" name="Febrero">Febrero</option>
@@ -29,66 +38,59 @@
             </select>
         </div>
     </div>
-
+    <br>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <label class="control-label col-md-2">Año</label>
-            <input class="form-control" type="number" id="year" name="year">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button class="btn btn-default">Refrescar</button>
+        <div class="col-md-offset-0 col-md-10">
+            <button class="btn btn-info">Refrescar</button>
         </div>
     </div>
 </div>
 
-    <script>
+<script>
 
 
-        $("button").click(function () {
-            var mes = document.getElementById("mes").value;
-            var year = document.getElementById("year").value;
-            $.getJSON("/Reportes/GetAtendidosMes?mes=" + mes + "&year=" + year + "", function (data) {
-                var Names = []
-                var Qts = []
-                for (var i = 0; i < data.length; i++) {
-                    Names.push(data[i].name);
-                    Qts.push(data[i].count);
-                }
-                Highcharts.chart('container', {
-                    chart: {
-                        type: 'column'
-                    },
+    $("button").click(function () {
+        var mes = document.getElementById("mes").value;
+        var year = document.getElementById("year").value;
+        $.getJSON("/Reportes/GetAtendidosMes?mes=" + mes + "&year=" + year + "", function (data) {
+            var Names = []
+            var Qts = []
+            for (var i = 0; i < data.length; i++) {
+                Names.push(data[i].name);
+                Qts.push(data[i].count);
+            }
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Cantidad de atendidos en el mes ' + mes + ' del ' + year + '.'
+                },
+                subtitle: {
+                    text: 'CCSS'
+                },
+                xAxis: {
+                    categories: Names
+                },
+                yAxis: {
                     title: {
-                        text: 'Cantidad de atendidos en el mes ' + mes + ' del ' + year + '.'
-                    },
-                    subtitle: {
-                        text: 'CCSS'
-                    },
-                    xAxis: {
-                        categories: Names
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Cantidad'
-                        }
-                    },
-                    plotOptions: {
-                        line: {
-                            dataLabels: {
-                                enabled: true
-                            },
-                            enableMouseTracking: false
-                        }
-                    },
-                    series: [{
-                        name: 'Atendidos',
-                        data: Qts
-                    }]
-                });
+                        text: 'Cantidad'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Atendidos',
+                    data: Qts
+                }]
             });
         });
+    });
 
-    </script>
+</script>
