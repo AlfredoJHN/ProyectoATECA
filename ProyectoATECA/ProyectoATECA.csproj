@@ -450,7 +450,6 @@
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
     <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
@@ -483,6 +482,7 @@
     <Content Include="Views\Fichas\Escoger.cshtml" />
     <Content Include="Views\Home\_SonidosData.cshtml" />
     <Content Include="Views\Fichas\Eliminar.cshtml" />
+    <Content Include="Views\Usuarios\AsignarRol.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,13 +13,14 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 </head>
+@{ ViewBag.Rol = Convert.ToInt32(Session["ROL"]);}
 <body>
-    @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated && ViewBag.Rol == 4)
     {
         <div class="navbar navbar-inverse navbar-fixed-top bg-dark">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -32,6 +33,44 @@
                         <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
                         <li>@Html.ActionLink("Servicios", "Index", "Servicios")</li>
                         <li>@Html.ActionLink("Registrar usuario", "Registration", "Usuarios")</li>
+                        <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+                        <li>@Html.ActionLink("Atender cola", "Index", "Fichas")</li>
+                        @*<li>@Html.ActionLink("Solicitar ficha", "Escoger", "Fichas")</li>*@
+                        <li>@Html.ActionLink("Historial de atendidos", "Index", "HistorialAtendidos")</li>
+                        <li>@Html.ActionLink("Reportes", "Index", "Reportes")</li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Hola @HttpContext.Current.User.Identity.Name</a></li>
+                        <li>
+                            <br>
+                            @using (Html.BeginForm("Logout", "Usuarios", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-in"></span>Cerrar sesión</a>
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    }
+    else if (Request.IsAuthenticated && (ViewBag.Rol == 2 || ViewBag.Rol == 3))
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top bg-dark">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse" id="navbarColor02">
+                    <ul class="nav navbar-nav">
+                        @*<li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>*@
+                        <li>@Html.ActionLink("Registrar usuario", "Registration", "Usuarios")</li>
                         <li>@Html.ActionLink("Atender cola", "Index", "Fichas")</li>
                         <li>@Html.ActionLink("Solicitar ficha", "Escoger", "Fichas")</li>
                         <li>@Html.ActionLink("Historial de atendidos", "Index", "HistorialAtendidos")</li>
@@ -42,10 +81,10 @@
                         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Hola @HttpContext.Current.User.Identity.Name</a></li>
                         <li>
                             <br>
-                        @using (Html.BeginForm("Logout", "Usuarios", FormMethod.Post, new { id = "logoutForm" }))
-                        {
-                         <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-in"></span>Cerrar sesión</a>
-                        }
+                            @using (Html.BeginForm("Logout", "Usuarios", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-in"></span>Cerrar sesión</a>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -54,7 +93,7 @@
         </div>
     }
     else
-    { 
+    {
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">

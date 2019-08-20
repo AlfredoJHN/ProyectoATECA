@@ -33,14 +33,24 @@ namespace ProyectoATECA.Controllers
 
         public ActionResult GetFichasData()
         {
-            return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" &&
-            f.fecha.Day == DateTime.Now.Day &&
-            f.fecha.Month == DateTime.Now.Month &&
-            f.fecha.Year == DateTime.Now.Year
-            ).ToList().OrderBy(f => f.fecha));
-        }
+            int id_rol = Convert.ToInt32(System.Web.HttpContext.Current.Session["ROL"]);
+            if(id_rol == 3) { 
+                return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha =="Ley 7600" &&
+                f.fecha.Day == DateTime.Now.Day &&
+                f.fecha.Month == DateTime.Now.Month &&
+                f.fecha.Year == DateTime.Now.Year
+                ).ToList().OrderBy(f => f.fecha));
+            }
+            else
+            {
+                return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" &&
+                f.fecha.Day == DateTime.Now.Day &&
+                f.fecha.Month == DateTime.Now.Month &&
+                f.fecha.Year == DateTime.Now.Year
+                ).ToList().OrderBy(f => f.fecha));
+            }
 
-      
+        }
 
         //public ViewResult Index()
         //{

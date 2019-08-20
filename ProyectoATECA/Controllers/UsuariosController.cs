@@ -122,8 +122,10 @@ namespace ProyectoATECA.Controllers
         //    return RedirectToAction("Index");
         //}
 
-       [HttpGet]
-       public ActionResult Registration()
+
+
+        [HttpGet]
+        public ActionResult Registration()
         {
             ATECA_BDEntities db = new ATECA_BDEntities();
 
@@ -148,7 +150,7 @@ namespace ProyectoATECA.Controllers
                 #region //Email already Exist 
                 var correoExist = IsEmailExist(usuario.correo);
                 var cedulaExist = CedulaExist(usuario.cedula);
-                if (correoExist )
+                if (correoExist)
                 {
                     ModelState.AddModelError("EmailExist", "El correo ya esta registrado");
                     return View(usuario);
@@ -166,7 +168,7 @@ namespace ProyectoATECA.Controllers
                 #endregion
 
                 #region  Password Hashing 
-                
+
                 string tempPasswd = Membership.GeneratePassword(12, 4);
                 usuario.contraseña = Crypto.Hash(tempPasswd);
 
@@ -269,10 +271,10 @@ namespace ProyectoATECA.Controllers
                         }
                         else
                         {
-                            var vnombreUsuario = (from s in db.Usuarios
-                                                    where s.correo == login.correo
-                                                    select s.correo).FirstOrDefault();
-                            Session["UserName"] = vnombreUsuario;
+                            var vrol = (from s in db.Usuarios
+                                        where s.correo == login.correo
+                                        select s.ID_rol).FirstOrDefault();
+                            Session["ROL"] = vrol;
                             return RedirectToAction("Index", "Home");
 
 
@@ -363,13 +365,56 @@ namespace ProyectoATECA.Controllers
             })
                 smtp.Send(message);
         }
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-    }
+
+        // GET: Usuarios/Edit/5
+        public ActionResult AsignarRol(int? id)
+        {
+            ATECA_BDEntities db = new ATECA_BDEntities();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = db.Usuarios.Find(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre", usuario.ID_rol);
+            return View(usuario);
+        }
+
+        // POST: Usuarios/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AsignarRol([Bind(Include = "ID_usuario,apellidos,nombre,fechaNacimiento,codigoActivacion,correo,cedula,estado,correoVerificado,contraseña,ID_rol")] Usuario usuario)
+        {
+            ATECA_BDEntities db = new ATECA_BDEntities();
+            if (ModelState.IsValid)
+            {
+                db.Entry(usuario).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ID_rol = new SelectList(db.Roles, "ID_rol", "nombre", usuario.ID_rol);
+            return View(usuario);
+        }
+
+        public ActionResult Index()
+        {
+            ATECA_BDEntities db = new ATECA_BDEntities();
+            var usuarios = db.Usuarios.Include(u => u.Role);
+            return View(usuarios.ToList());
+         }
+
+    //protected override void Dispose(bool disposing)
+    //{
+    //    if (disposing)
+    //    {
+    //        db.Dispose();
+    //    }
+    //    base.Dispose(disposing);
+    //}
+}
 }

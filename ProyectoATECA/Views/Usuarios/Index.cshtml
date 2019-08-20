@@ -4,31 +4,23 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Usuarios</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="table-dark table-bordered">
         <th>
             @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cedula)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.apellidos)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fechaNacimiento)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.correo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.contraseña)
+            @Html.DisplayNameFor(model => model.cedula)
         </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Role.nombre)
         </th>
@@ -41,27 +33,19 @@
             @Html.DisplayFor(modelItem => item.nombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.cedula)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.apellidos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaNacimiento)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.correo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.contraseña)
+            @Html.DisplayFor(modelItem => item.cedula)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Role.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_usuario }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_usuario }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_usuario })
+            @Html.ActionLink("Asignar rol", "AsignarRol", new { id = item.ID_usuario })
         </td>
     </tr>
 }

@@ -9,19 +9,17 @@
 </div>
 
 <table class="table table-hover">
-    <tr class="table table-bordered">
+    <tr class="table-dark table-bordered">
         <th>
-            @Html.DisplayNameFor(model => model.horaInicio)
+            Inicio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.horaFin)
+            Fin
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.duracion)
+            Duración en segundos
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Ficha.codigoFicha)
         </th>
@@ -46,9 +44,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.duracion)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fecha)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Ficha.codigoFicha)
             </td>

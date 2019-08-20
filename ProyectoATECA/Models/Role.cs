@@ -23,7 +23,7 @@ namespace ProyectoATECA.Models
         }
 
         private const string Letras =
-                "^[a-zA-Z ÁÉÍÓÚáéíóú']+$";
+                "^[a-zA-Z0-9 ÁÉÍÓÚáéíóú']+$";
 
         [Display(Name = "Identificador")]
         public int ID_rol { get; set; }
@@ -33,7 +33,7 @@ namespace ProyectoATECA.Models
         [StringLength(30, MinimumLength = 5,
         ErrorMessage = "El nombre del rol debe contener entre 5 y 30 caractéres de longitud")]
         [DataType(DataType.Text)]
-        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras")]
+        [RegularExpression(Letras, ErrorMessage = "Solo se admiten letras y números")]
         public string nombre { get; set; }
         public string estado { get; set; }
 
