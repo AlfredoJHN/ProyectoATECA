@@ -339,7 +339,7 @@ namespace ProyectoATECA.Controllers
 
             var fromEmail = new MailAddress("pruebaatecadb@gmail.com", "TEST");
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "ATECADB123"; // Replace with actual password
+            var fromEmailPassword = "ATECADB123"; 
             string subject = "Su cuenta ha sido creada exitosamente";
 
             string body = "<br/><br/>Su cuenta en ATECA ha sido creada satisfactoriamente. Por favor acceda al siguiente enlace para " +
