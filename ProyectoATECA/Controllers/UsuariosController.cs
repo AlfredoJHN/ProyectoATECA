@@ -146,6 +146,61 @@ namespace ProyectoATECA.Controllers
             // Model Validation 
             if (ModelState.IsValid)
             {
+                DateTime fecha_usuario = usuario.fechaNacimiento;
+
+                String ano;
+                String mes = "";
+                String dia = "";
+
+                if (fecha_usuario.Day < 10)
+                {
+                    dia = "0" + fecha_usuario.Day;
+                }
+                else
+                {
+                    dia = "" + fecha_usuario.Day;
+                }
+                if (fecha_usuario.Month < 10)
+                {
+                    mes = "0" + fecha_usuario.Month;
+                }
+                else
+                {
+                    mes = "" + fecha_usuario.Month;
+                }
+
+                ano = fecha_usuario.Year + mes + dia;
+
+                String anoA;
+                String mesA = "";
+                String diaA = "";
+
+                if (DateTime.Now.Day < 10)
+                {
+                    diaA = "0" + DateTime.Now.Day;
+                }
+                else
+                {
+                    diaA = "" + DateTime.Now.Day;
+                }
+                if (DateTime.Now.Month < 10)
+                {
+                    mesA = "0" + DateTime.Now.Month;
+                }
+                else
+                {
+                    mesA = "" + DateTime.Now.Month;
+                }
+
+                anoA = DateTime.Now.Year + mesA + diaA;
+
+
+
+                if ((Int32.Parse(anoA) - Int32.Parse(ano)) < 180000)
+                {
+                    ModelState.AddModelError("FechaExist", "No puede ser menor de edad");
+                    return View(usuario);
+                }
 
                 #region //Email already Exist 
                 var correoExist = IsEmailExist(usuario.correo);
@@ -231,6 +286,8 @@ namespace ProyectoATECA.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+
+
             return View();
         }
 
@@ -239,6 +296,8 @@ namespace ProyectoATECA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginUsuario login, string ReturnUrl = "")
         {
+
+
             string message = "";
             using (ATECA_BDEntities db = new ATECA_BDEntities())
             {
@@ -248,52 +307,52 @@ namespace ProyectoATECA.Controllers
                     if (login.correo.IndexOf("@ccss.sa.cr") >= 1)
                     {
 
-                        if (!v.correoVerificado)
-                    {
-                        ViewBag.Message = "Verifique su email";
-                        return View();
-                    }
+                        /* if(!v.correoVerificado){
+                         ViewBag.Message = "Verifique su email";
+                         return View();
+                     }*/
 
-                    if (string.Compare(Crypto.Hash(login.contraseña), v.contraseña) == 0)
-                    {
-                        int timeout = login.RememberMe ? 525600 : 20; // 525600 min = 1 year
-                        var ticket = new FormsAuthenticationTicket(login.correo, login.RememberMe, timeout);
-                        string encrypted = FormsAuthentication.Encrypt(ticket);
-                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
-                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
-                        cookie.HttpOnly = true;
-                        Response.Cookies.Add(cookie);
-
-
-                        if (Url.IsLocalUrl(ReturnUrl))
+                        if (string.Compare(Crypto.Hash(login.contraseña), v.contraseña) == 0)
                         {
-                            return Redirect(ReturnUrl);
+                            int timeout = login.RememberMe ? 525600 : 20; // 525600 min = 1 year
+                            var ticket = new FormsAuthenticationTicket(login.correo, login.RememberMe, timeout);
+                            string encrypted = FormsAuthentication.Encrypt(ticket);
+                            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                            cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                            cookie.HttpOnly = true;
+                            Response.Cookies.Add(cookie);
+
+
+                            if (Url.IsLocalUrl(ReturnUrl))
+                            {
+                                return Redirect(ReturnUrl);
+                            }
+                            else
+                            {
+
+                                int combo = Int32.Parse(login.servicio);
+                                Console.Write(combo);
+                                var vrol = (from s in db.Usuarios
+                                            where s.correo == login.correo
+                                            select s.ID_rol).FirstOrDefault();
+                                Session["SERV"] = combo;
+                                Session["ROL"] = vrol;
+                                return RedirectToAction("Index", "Home");
+
+
+                            }
                         }
                         else
                         {
-                            var vrol = (from s in db.Usuarios
-                                        where s.correo == login.correo
-                                        select s.ID_rol).FirstOrDefault();
-                            Session["ROL"] = vrol;
-                            return RedirectToAction("Index", "Home");
-
-
+                            message = "Acceso denegado";
                         }
                     }
                     else
                     {
-                        message = "Acceso denegado";
+                        message = "Acceso denegado, su correo no pertenece a la CCSS";
                     }
                 }
-                else
-                {
-                    message = "Acceso denegado, su correo no pertenece a la CCSS";
-                }
-            }
-                else
-                {
-                    message = "Acceso denegado";
-                }
+
             }
             ViewBag.Message = message;
             return View();
@@ -339,13 +398,13 @@ namespace ProyectoATECA.Controllers
 
             var fromEmail = new MailAddress("pruebaatecadb@gmail.com", "TEST");
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "ATECADB123"; 
+            var fromEmailPassword = "ATECADB123"; // Replace with actual password
             string subject = "Su cuenta ha sido creada exitosamente";
 
             string body = "<br/><br/>Su cuenta en ATECA ha sido creada satisfactoriamente. Por favor acceda al siguiente enlace para " +
                 "activar su cuenta. Le recordamos que dicha cuenta la puede utilizar para acceder a la app móvil y agendar su " +
                 "próxima cita con anticipación." +
-                "</br>Su contraseña temporal es: "+password+" <br/><br/><a href='" + link + "'>" + link + "</a> ";
+                "</br>Su contraseña temporal es: " + password + " <br/><br/><a href='" + link + "'>" + link + "</a> ";
 
             var smtp = new SmtpClient
             {
@@ -406,15 +465,15 @@ namespace ProyectoATECA.Controllers
             ATECA_BDEntities db = new ATECA_BDEntities();
             var usuarios = db.Usuarios.Include(u => u.Role);
             return View(usuarios.ToList());
-         }
+        }
 
-    //protected override void Dispose(bool disposing)
-    //{
-    //    if (disposing)
-    //    {
-    //        db.Dispose();
-    //    }
-    //    base.Dispose(disposing);
-    //}
-}
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
+    }
 }

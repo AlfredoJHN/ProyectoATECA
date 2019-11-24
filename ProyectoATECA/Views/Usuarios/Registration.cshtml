@@ -82,6 +82,7 @@ else
                             @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
                             <br>
                             @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-danger" })
+                            @Html.ValidationMessage("FechaExist", new { @class = "text-danger" })
                         </div>
                     </div>
                     <br>

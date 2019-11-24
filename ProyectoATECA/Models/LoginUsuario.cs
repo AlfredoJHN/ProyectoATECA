@@ -22,6 +22,8 @@ namespace ProyectoATECA.Models
 
         [Display(Name = "Recordar usuario")]
         public bool RememberMe { get; set; }
-        
+
+        public string servicio { get; set; }
+
     }
 }

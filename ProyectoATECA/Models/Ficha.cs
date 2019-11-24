@@ -40,6 +40,8 @@ namespace ProyectoATECA.Models
         [Display(Name = "Tipo de ficha")]
         public string tipoFicha { get; set; }
 
+        public int ID_usuario { get; set; }
+
         public virtual Servicio Servicio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistorialAtendido> HistorialAtendidos { get; set; }

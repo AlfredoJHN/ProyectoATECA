@@ -36,7 +36,8 @@ namespace ProyectoATECA.Controllers
             return View();
         }
 
-        public ActionResult GetCantidadAtendidos() {
+        public ActionResult GetCantidadAtendidos()
+        {
 
             var query = db.HistorialAtendidos.Include("Servicios")
                     .GroupBy(s => new { s.Servicio.ID_servicio, s.Servicio.nombre })
@@ -58,9 +59,29 @@ namespace ProyectoATECA.Controllers
         public ActionResult GetAtendidosMes(int? mes, int? year)
         {
             var query = db.HistorialAtendidos
-                .GroupBy(s=>new { mes})
-                   .Select(g => new { name = mes, count = db.HistorialAtendidos.Where(x=> x.fecha.Month == mes 
-                   && x.fecha.Year == year).Count()}).ToList();
+                .GroupBy(s => new { mes })
+                   .Select(g => new {
+                       name = mes,
+                       count = db.HistorialAtendidos.Where(x => x.fecha.Month == mes
+&& x.fecha.Year == year).Count()
+                   }).ToList();
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CantidadNoAtendidosMes()
+        {
+            return View();
+        }
+
+        public ActionResult GetNoAtendidosMes(int? mes, int? year)
+        {
+            var query = db.HistorialAtendidos
+                .GroupBy(s => new { mes })
+                   .Select(g => new {
+                       name = mes,
+                       count = db.HistorialAtendidos.Where(x => x.fecha.Month == mes
+                        && x.fecha.Year == year).Count()
+                   }).ToList();
             return Json(query, JsonRequestBehavior.AllowGet);
         }
 

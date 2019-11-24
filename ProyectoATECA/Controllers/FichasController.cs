@@ -28,18 +28,42 @@ namespace ProyectoATECA.Controllers
         {
             var fichas = db.Fichas.Include(f => f.Servicio);
             return View(
-                db.Fichas.Where(f => f.atendido == "No" && f.fecha.DayOfYear == DateTime.Now.DayOfYear).OrderBy(f=>f.fecha));
+                db.Fichas.Where(f => f.atendido == "No" && f.fecha.DayOfYear == DateTime.Now.DayOfYear).OrderBy(f => f.fecha));
         }
 
         public ActionResult GetFichasData()
         {
             int id_rol = Convert.ToInt32(System.Web.HttpContext.Current.Session["ROL"]);
-            if(id_rol == 3) { 
-                return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha =="Ley 7600" &&
+            int id_servicio = Convert.ToInt32(System.Web.HttpContext.Current.Session["SERV"]);
+            if (id_rol == 3)
+            {
+                return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha == "Ley 7600" &&
                 f.fecha.Day == DateTime.Now.Day &&
                 f.fecha.Month == DateTime.Now.Month &&
                 f.fecha.Year == DateTime.Now.Year
                 ).ToList().OrderBy(f => f.fecha));
+            }
+            if (id_rol == 2)
+            {
+                if (id_servicio == 0)
+                {
+                    return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha == "Regular" &&
+                     f.fecha.Day == DateTime.Now.Day &&
+                     f.fecha.Month == DateTime.Now.Month &&
+                     f.fecha.Year == DateTime.Now.Year
+                     ).ToList().OrderBy(f => f.fecha));
+                }
+                else
+                {
+                    return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha == "Regular" &&
+                    f.fecha.Day == DateTime.Now.Day &&
+                    f.fecha.Month == DateTime.Now.Month &&
+                    f.fecha.Year == DateTime.Now.Year &&
+                    f.ID_servicio == id_servicio
+                    ).ToList().OrderBy(f => f.fecha));
+                }
+
+
             }
             else
             {
@@ -88,10 +112,10 @@ namespace ProyectoATECA.Controllers
             return View();
         }
         // GET: Fichas/Create
- 
+
         public ActionResult Create()
         {
-            ViewData["codigoFicha"] = DateTime.Now.Hour+"-"+DateTime.Now.Minute+"-"+DateTime.Now.Second;
+            ViewData["codigoFicha"] = DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second;
             ViewData["fecha"] = DateTime.Now;
             ViewData["atendido"] = "No";
             ViewData["llamado"] = "No";
@@ -173,7 +197,7 @@ namespace ProyectoATECA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  ActionResult Llamar([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado,tipoFicha")] Ficha ficha)
+        public ActionResult Llamar([Bind(Include = "ID_ficha,ID_servicio,codigoFicha,fecha,atendido,llamado,tipoFicha")] Ficha ficha)
         {
             if (ModelState.IsValid)
             {
@@ -181,14 +205,14 @@ namespace ProyectoATECA.Controllers
                 db.Entry(ficha).State = EntityState.Modified;
                 db.SaveChanges();
                 string nombreServicio = (from s in db.Servicios
-                                        where s.ID_servicio == ficha.ID_servicio
-                                        select s.nombre).FirstOrDefault();
-                TTS("Ficha: "+ficha.codigoFicha+". Pase a caja: "+nombreServicio);
+                                         where s.ID_servicio == ficha.ID_servicio
+                                         select s.nombre).FirstOrDefault();
+                TTS("Ficha: " + ficha.codigoFicha + ". Pase a caja: " + nombreServicio);
 
                 FichasHub.BroadcastData();
                 FichasHub.BroadcastDataFILA();
                 FichasHub.BroadcastDataSonido();
-                
+
                 return RedirectToAction("Index");
             };
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre", ficha.ID_servicio);
@@ -200,13 +224,12 @@ namespace ProyectoATECA.Controllers
         [HttpPost]
         public async Task<ActionResult> TTS(string text)
         {
-            // you can set output file name as method argument or generated from text
             string fileName = "fileName";
             Task<ViewResult> task = Task.Run(() =>
             {
                 using (SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer())
                 {
-                    speechSynthesizer.SetOutputToWaveFile(Server.MapPath("~/Sonidos/") + fileName + ".mp3");
+                    speechSynthesizer.SetOutputToWaveFile(Server.MapPath("~/Sonidos/")+ fileName + ".mp3");
                     speechSynthesizer.Speak(text);
 
                     ViewBag.FileName = fileName + ".mp3";

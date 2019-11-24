@@ -402,6 +402,8 @@
     <Content Include="Scripts\bootstrap-select.min.js.map" />
     <Content Include="Scripts\bootstrap-select.js.map" />
     <Content Include="Content\bootstrap-select.css.map" />
+    <None Include="Properties\PublishProfiles\ATECAWEB - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ATECAWEB - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ATECAWEB - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\i18n\defaults-zh_TW.min.js" />
@@ -421,10 +423,12 @@
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\select.js" />
+    <Content Include="Scripts\traerRol.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Sonidos\fileName.mp3" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -490,7 +494,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Sonidos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
