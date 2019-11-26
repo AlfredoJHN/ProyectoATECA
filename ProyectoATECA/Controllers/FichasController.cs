@@ -7,10 +7,16 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Speech.Synthesis;
+using System.Net.Http;
+using System.Speech.AudioFormat;
+using System.Text;
+//using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using Microsoft.CognitiveServices.Speech;
+using Microsoft.CognitiveServices.Speech.Audio;
 using ProyectoATECA.Hubs;
 using ProyectoATECA.Models;
 
@@ -22,7 +28,7 @@ namespace ProyectoATECA.Controllers
     public class FichasController : Controller
     {
         private ATECA_BDEntities db = new ATECA_BDEntities();
-
+        public FichasController() { }
         // GET: Fichas
         public ActionResult Index()
         {
@@ -207,7 +213,7 @@ namespace ProyectoATECA.Controllers
                 string nombreServicio = (from s in db.Servicios
                                          where s.ID_servicio == ficha.ID_servicio
                                          select s.nombre).FirstOrDefault();
-                TTS("Ficha: " + ficha.codigoFicha + ". Pase a caja: " + nombreServicio);
+                TTS("Ficha: " + ficha.codigoFicha + ". Caja: " + nombreServicio);
 
                 FichasHub.BroadcastData();
                 FichasHub.BroadcastDataFILA();
@@ -221,41 +227,116 @@ namespace ProyectoATECA.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult> TTS(string text)
-        {
-            string fileName = "fileName";
-            Task<ViewResult> task = Task.Run(() =>
-            {
-                using (SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer())
-                {
-                    speechSynthesizer.SetOutputToWaveFile(Server.MapPath("~/Sonidos/")+ fileName + ".mp3");
-                    speechSynthesizer.Speak(text);
 
-                    ViewBag.FileName = fileName + ".mp3";
-                    FichasHub.BroadcastDataSonido();
-                    return View();
-                }
-            });
-            return await task;
+        private string subscriptionKey;
+        private string tokenFetchUri;
+        public FichasController(string tokenFetchUri, string subscriptionKey)
+        {
+            if (string.IsNullOrWhiteSpace(tokenFetchUri))
+            {
+                throw new ArgumentNullException(nameof(tokenFetchUri));
+            }
+            if (string.IsNullOrWhiteSpace(subscriptionKey))
+            {
+                throw new ArgumentNullException(nameof(subscriptionKey));
+            }
+            this.tokenFetchUri = tokenFetchUri;
+            this.subscriptionKey = subscriptionKey;
+        }
+
+        public async Task<string> FetchTokenAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", this.subscriptionKey);
+                UriBuilder uriBuilder = new UriBuilder(this.tokenFetchUri);
+                HttpResponseMessage result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null).ConfigureAwait(false);
+                return await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
         }
 
 
-        //string fileName = "fileName";
-        //Task<ViewResult> task = Task.Run(() =>
-        //{
-        //    using (SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer())
-        //    {
-        //        speechSynthesizer.SetOutputToWaveFile(Server.MapPath("~/Sonidos/") + fileName + ".wav");
-        //        speechSynthesizer.Speak("Ficha: " + ficha.codigoFicha.ToString());
+        public async Task TTS(string text)
+        {
+            // Prompts the user to input text for TTS conversion
+            Console.Write("What would you like to convert to speech? ");
+            //string text = "hello trump";
 
-        //        ViewBag.FileName = fileName + ".wav";
+            // Gets an access token
+            string accessToken;
+            Console.WriteLine("Attempting token exchange. Please wait...\n");
 
-        //        return View();
-        //    }
+            // Add your subscription key here
+            // If your resource isn't in WEST US, change the endpoint
+            FichasController auth = new FichasController("https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken", "dcce377c0a8a440f807423636ed9f506");
+            try
+            {
 
-        //});
+                accessToken = await auth.FetchTokenAsync().ConfigureAwait(false);
+                Console.WriteLine("Successfully obtained an access token. \n");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to obtain an access token.");
+                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
+                return;
+            }
 
+            string host = "https://westus.tts.speech.microsoft.com/cognitiveservices/v1";
+
+            // Create SSML document.
+            XDocument body = new XDocument(
+                    new XElement("speak",
+                        new XAttribute("version", "1.0"),
+                        new XAttribute(XNamespace.Xml + "lang", "es-MX"),
+                        new XElement("voice",
+                            new XAttribute(XNamespace.Xml + "lang", "es-MX"),
+                            new XAttribute(XNamespace.Xml + "gender", "Female"),
+                            new XAttribute("name", "es-MX-HildaRUS"), // Short name for "Microsoft Server Speech Text to Speech Voice (en-US, Jessa24KRUS)"
+                            text)));
+
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpRequestMessage request = new HttpRequestMessage())
+                {
+                    // Set the HTTP method
+                    request.Method = HttpMethod.Post;
+                    // Construct the URI
+                    request.RequestUri = new Uri(host);
+                    // Set the content type header
+                    request.Content = new StringContent(body.ToString(), Encoding.UTF8, "application/ssml+xml");
+                    // Set additional header, such as Authorization and User-Agent
+                    request.Headers.Add("Authorization", "Bearer " + accessToken);
+                    request.Headers.Add("Connection", "Keep-Alive");
+                    // Update your resource name
+                    request.Headers.Add("User-Agent", "ateca");
+                    // Audio output format. See API reference for full list.
+                    request.Headers.Add("X-Microsoft-OutputFormat", "riff-24khz-16bit-mono-pcm");
+                    // Create a request
+                    Console.WriteLine("Calling the TTS service. Please wait... \n");
+                    using (HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        // Asynchronously read the response
+                        using (Stream dataStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                        {
+                            Console.WriteLine("Your speech file is being written to file...");
+                            using (FileStream fileStream = new FileStream(Server.MapPath("~/Sonidos/fileName.wav"), FileMode.Create, FileAccess.Write, FileShare.Write))
+                            {
+                                await dataStream.CopyToAsync(fileStream).ConfigureAwait(false);
+                                fileStream.Close();
+                            }
+                            Console.WriteLine("\nYour file is ready. Press any key to exit.");
+                            Console.ReadLine();
+                        }
+                    }
+                }
+            }
+        }
+
+
+  
 
         protected override void Dispose(bool disposing)
         {

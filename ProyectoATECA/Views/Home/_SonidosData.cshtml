@@ -6,7 +6,7 @@
 
 <div class="row">
         <div id="sonido">
-            @{ ViewBag.FileName = "./Sonidos/fileName.mp3";}
+            @{ ViewBag.FileName = "~/Sonidos/fileName.wav";}
             <audio key="test" autoplay="autoplay" preload="auto" src="@Url.Content(ViewBag.FileName)" type="audio/mpeg"></audio>
         </div>
 </div>
