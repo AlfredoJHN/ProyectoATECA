@@ -27,14 +27,18 @@ namespace ProyectoATECA.Controllers
 {
     public class FichasController : Controller
     {
+        DateTime central = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "Central Standard Time");
+
         private ATECA_BDEntities db = new ATECA_BDEntities();
         public FichasController() { }
         // GET: Fichas
         public ActionResult Index()
         {
+
+
             var fichas = db.Fichas.Include(f => f.Servicio);
-            return View(
-                db.Fichas.Where(f => f.atendido == "No" && f.fecha.DayOfYear == DateTime.Now.DayOfYear).OrderBy(f => f.fecha));
+            return View( 
+                db.Fichas.Where(f => f.atendido == "No" && f.fecha.DayOfYear == central.DayOfYear).OrderBy(f => f.fecha));
         }
 
         public ActionResult GetFichasData()
@@ -44,9 +48,9 @@ namespace ProyectoATECA.Controllers
             if (id_rol == 3)
             {
                 return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha == "Ley 7600" &&
-                f.fecha.Day == DateTime.Now.Day &&
-                f.fecha.Month == DateTime.Now.Month &&
-                f.fecha.Year == DateTime.Now.Year
+                f.fecha.Day == central.Day &&
+                f.fecha.Month == central.Month &&
+                f.fecha.Year == central.Year
                 ).ToList().OrderBy(f => f.fecha));
             }
             if (id_rol == 2)
@@ -54,17 +58,17 @@ namespace ProyectoATECA.Controllers
                 if (id_servicio == 0)
                 {
                     return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha == "Regular" &&
-                     f.fecha.Day == DateTime.Now.Day &&
-                     f.fecha.Month == DateTime.Now.Month &&
-                     f.fecha.Year == DateTime.Now.Year
+                     f.fecha.Day == central.Day &&
+                     f.fecha.Month == central.Month &&
+                     f.fecha.Year == central.Year
                      ).ToList().OrderBy(f => f.fecha));
                 }
                 else
                 {
                     return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" && f.tipoFicha == "Regular" &&
-                    f.fecha.Day == DateTime.Now.Day &&
-                    f.fecha.Month == DateTime.Now.Month &&
-                    f.fecha.Year == DateTime.Now.Year &&
+                    f.fecha.Day == central.Day &&
+                    f.fecha.Month == central.Month &&
+                    f.fecha.Year == central.Year &&
                     f.ID_servicio == id_servicio
                     ).ToList().OrderBy(f => f.fecha));
                 }
@@ -74,9 +78,9 @@ namespace ProyectoATECA.Controllers
             else
             {
                 return PartialView("_FichasData", db.Fichas.Where(f => f.atendido == "No" &&
-                f.fecha.Day == DateTime.Now.Day &&
-                f.fecha.Month == DateTime.Now.Month &&
-                f.fecha.Year == DateTime.Now.Year
+                f.fecha.Day == central.Day &&
+                f.fecha.Month == central.Month &&
+                f.fecha.Year == central.Year
                 ).ToList().OrderBy(f => f.fecha));
             }
 

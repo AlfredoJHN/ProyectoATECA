@@ -13,6 +13,8 @@ namespace ProyectoATECA.Controllers
 {
     public class HistorialAtendidosController : Controller
     {
+        DateTime central = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "Central Standard Time");
+
         private ATECA_BDEntities db = new ATECA_BDEntities();
 
         // GET: HistorialAtendidos
@@ -41,9 +43,9 @@ namespace ProyectoATECA.Controllers
         // GET: HistorialAtendidos/Create
         public ActionResult Create()
         {
-            ViewData["horaInicio"] = DateTime.Now;
-            ViewData["horaFin"] = DateTime.Now;
-            ViewData["fecha"] = DateTime.Now;
+            ViewData["horaInicio"] = central;
+            ViewData["horaFin"] = central;
+            ViewData["fecha"] = central;
             ViewData["duracion"] = 0;
             ViewBag.ID_ficha = new SelectList(db.Fichas, "ID_ficha", "codigoFicha");
             ViewBag.ID_servicio = new SelectList(db.Servicios, "ID_servicio", "nombre");
@@ -61,6 +63,9 @@ namespace ProyectoATECA.Controllers
 
             if (ModelState.IsValid)
             {
+
+                historialAtendido.horaInicio = central;
+                historialAtendido.fecha = central;
                 db.HistorialAtendidos.Add(historialAtendido);
                 db.SaveChanges();
                 FichasHub.BroadcastDataFILA();
